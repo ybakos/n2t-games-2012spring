@@ -1,0 +1,147 @@
+/**	This class represents a single Plane in the game. It contains:
+  *		Plane Location
+  * 	Plane direction
+  *		Plane speed
+  *		Plane ID (shape or something)
+  */
+class Plane {
+	field int x, y;
+	field int speed;
+	field int angle;
+	/** these two arrays contain codes which will determine the multiplier for the
+	  * x and y components of velocity and drawing the stick. They go -165, -150, ...
+	  * , 150, 165, 180 
+	  */
+	static Array sin;
+	
+	constructor Plane new(int initX, int initY) {
+		let x = initX;
+		let y = initY;
+		let speed = 0;
+		let angle = 0;
+		let sin = Array.new(24);
+		let sin[0] = -1; 
+		let sin[1] = -1; 
+		let sin[2] = -2; 
+		let sin[3] = -2; 
+		let sin[4] = -4; 
+		let sin[5] = 0; 
+		let sin[6] = 4; 
+		let sin[7] = 2; 
+		let sin[8] = 2;
+		let sin[9] = 1;
+		let sin[0] = 1;
+		let sin[11] = 1;
+		let sin[12] = 1;
+		let sin[13] = 1;
+		let sin[14] = 2;
+		let sin[15] = 2;
+		let sin[16] = 4;
+		let sin[17] = 0;
+		let sin[18] = -4;
+		let sin[19] = -2;
+		let sin[20] = -2;
+		let sin[21] = -1; 
+		let sin[22] = -1; 
+		let sin[23] = -1;
+		do draw();
+	
+		return this;
+	} //new
+	
+	 method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	/** adjust position based on speed and angle */
+	method void move(int moveType) {
+		do erase();
+		
+		if(moveType = 1) { //up
+			do accel(1);
+		} if(moveType = 2) { //down
+			do accel(-1);
+		} if(moveType = 3) { //left
+			do turn(-15);
+		} if(moveType = 4) { //right
+			do turn(15);
+		}
+		
+		let x = x + trig(true, speed);
+		if ( x > 495 ) {
+			let x = 16 + (x-495);
+		} if (x < 17) {
+			let x = 496 - (17 - x);
+		}
+		
+		let y = y + trig(false, speed);
+		if ( y > 239 ) {
+			let y = 16 + (y - 239);
+		} if ( y < 17 ) {
+			let y = 240 - (17 - y);
+		}
+		do draw();
+		
+		return;
+	}
+	
+	/**adjusts speed desired amount */
+	method void accel(int change) {
+		let speed = speed + change;
+		if (speed<-16) {
+			let speed = -16;
+		} 
+		if (speed>16) {
+			let speed = 16;
+		}
+		return;
+	}
+	
+	method void turn(int change) {
+		let angle = angle + change;
+		if(angle = 195) {
+			let angle = -165;
+		} if (angle = -180) {
+			let angle = 180;
+		}
+		do Output.printInt(angle);
+		do Output.printString(", ");
+		return;
+	}
+
+		
+	method int trig(boolean isX, int hyp) {
+		var int index;
+		let index = Math.divide((angle+165), 15);
+		
+		if(~(isX)) {
+			let index = index - 6;
+			if(index < 6) {
+				let index = 24 + index;
+			}
+		}
+		
+		if (sin[index] = 0) {
+			return 0;
+		} else {
+			return Math.divide(hyp, sin[index]); 
+		}
+	}
+
+	/** Draws the square on the screen. */
+	method void draw() {
+		do Screen.setColor(true);
+		do Screen.drawCircle(x, y, 4);
+		do Screen.drawLine(x, y, x+trig(true, 16), y+trig(false, 16));
+		return;
+	}
+
+	/** Erases the square from the screen. */
+	method void erase() {
+		do Screen.setColor(false);
+		do Screen.drawCircle(x, y, 4);
+		do Screen.drawLine(x, y, x+trig(true, 16), y+trig(false, 16));
+		return;
+	}
+} //Plane

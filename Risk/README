@@ -1,0 +1,23 @@
+Project 9
+CSCI410 - Spring 2012
+Lauren Aberle
+This directory contains all necessary files for RISK.
+
+To play the game, open the entire folder in the VM Emulator.
+
+Gameplay directions are displayed on the screen. Note that Player 1 is white and Player 2 is black.
+
+Notes:
+
+Version 1.0 Does Not Support:
+1) Checking to see if the player is adding armies to their own territory
+2) Input error checking (e.g. if a user enters A for number of armies to add, it breaks)
+3) Checking to see if player is attacking a neighboring territory
+4) Algorithm for determining number of armies received (based on territories owned and continents held) - currently defaults to 3
+5) Full board (more territories to be added in Version 2.0
+
+Twists
+1) You lose your turn if you try to attack from your opponent's territory
+2) You lose your ability to place armies for that turn if you try to place more than you have (cheaters never win)
+
+Enjoy!

@@ -1,0 +1,279 @@
+class Dragon {
+
+	// member variables
+	field int pos;
+	field int moveCooldown;
+	field int moveCooldownDuration;
+	field int flap;
+	field int flapDuration;
+	field boolean flaming;
+	field int flame;
+	field int flameDuration;
+	field boolean dead;
+
+	// initialize
+	constructor Dragon new(int move) {
+		let pos = 0;
+		let moveCooldown = 0;
+		let moveCooldownDuration = move;
+		let flap = 0;
+		let flapDuration = 50;
+		let flaming = false;
+		let flame = 0;
+		let flameDuration = 20;
+		let dead = false;
+		return this;
+	}
+	
+	// getters
+	method int getPos() {
+		return pos;
+	}
+	
+	method boolean dead() {
+		return dead;
+	}
+	
+	method void die() {
+		let dead = true;
+		return;
+	}
+
+	// trash management
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	// draw the dragon
+	method void draw() {
+		var int offset;
+		let offset = pos * 512 + 4;
+		let flap = flap + 1;
+		if (flap = flapDuration) {
+			let flap = 1;
+		}
+		if (flaming) {
+			let flame = flame + 1;
+			do Memory.poke(16545 + offset, 3648);
+			do Memory.poke(16577 + offset, 3456);
+			do Memory.poke(16608 + offset, 16384);
+			do Memory.poke(16609 + offset, 1884);
+			do Memory.poke(16640 + offset, -16128);
+			do Memory.poke(16641 + offset, -32309);
+			do Memory.poke(16672 + offset, 15360);
+			do Memory.poke(16673 + offset, 6);
+			do Memory.poke(16704 + offset, 768);
+			do Memory.poke(16705 + offset, -255);
+			do Memory.poke(16736 + offset, -32544);
+			do Memory.poke(16737 + offset, 24831);
+			do Memory.poke(16768 + offset, 24);
+			do Memory.poke(16769 + offset, 4096);
+			do Memory.poke(16800 + offset, -2041);
+			do Memory.poke(16801 + offset, -29695);
+			do Memory.poke(16832 + offset, 1);
+			do Memory.poke(16833 + offset, 7680);
+			do Memory.poke(16864 + offset, 481);
+			do Memory.poke(16865 + offset, -2048);
+			do Memory.poke(16896 + offset, 1985);
+			do Memory.poke(16897 + offset, 2016);
+			do Memory.poke(16928 + offset, 1030);
+			do Memory.poke(16929 + offset, 192);
+			do Memory.poke(16960 + offset, -8168);
+			do Memory.poke(16961 + offset, 8448);
+			do Memory.poke(16992 + offset, 96);
+			do Memory.poke(16993 + offset, 1543);
+			do Memory.poke(17024 + offset, 12672);
+			do Memory.poke(17025 + offset, 6144);
+			do Memory.poke(17056 + offset, -10752);
+			do Memory.poke(17057 + offset, 8419);
+			do Memory.poke(17088 + offset, 6160);
+			do Memory.poke(17089 + offset, -36);
+			do Memory.poke(17120 + offset, 4096);
+			do Memory.poke(17121 + offset, -15392);
+			do Memory.poke(17152 + offset, -31744);
+			do Memory.poke(17153 + offset, 1537);
+			do Memory.poke(17184 + offset, -32767 - 1);
+			do Memory.poke(17185 + offset, 6);
+			do Memory.poke(17216 + offset, -32767 - 1);
+			do Memory.poke(17217 + offset, 7693);
+			do Memory.poke(17249 + offset, 7706);
+			do Memory.poke(17281 + offset, 28);
+			if (flame = flameDuration) {
+				let flame = 1;
+				let flaming = false;
+				do Screen.setColor(false);
+				do Screen.drawRectangle(64, pos * 16, 96, pos * 16 + 32);
+			}
+		}
+		let offset = offset - 2;
+		if (flap = 1) {
+			do Screen.setColor(false);
+			do Screen.drawRectangle(32, pos * 16, 64, pos * 16 + 32);
+			do Screen.setColor(true);
+			do Memory.poke(16384 + offset, -8192);
+			do Memory.poke(16385 + offset, 14336);
+			do Memory.poke(16416 + offset, -18418);
+			do Memory.poke(16417 + offset, 8135);
+			do Memory.poke(16448 + offset, -28673);
+			do Memory.poke(16449 + offset, 1917);
+			do Memory.poke(16480 + offset, 30519);
+			do Memory.poke(16481 + offset, 911);
+			do Memory.poke(16512 + offset, 8102);
+			do Memory.poke(16513 + offset, 198);
+			do Memory.poke(16544 + offset, 8422);
+			do Memory.poke(16545 + offset, 112);
+			do Memory.poke(16576 + offset, 700);
+			do Memory.poke(16577 + offset, 24);
+			do Memory.poke(16608 + offset, 268);
+			do Memory.poke(16609 + offset, 524);
+			do Memory.poke(16640 + offset, 310);
+			do Memory.poke(16641 + offset, 646);
+			do Memory.poke(16672 + offset, -29694);
+			do Memory.poke(16673 + offset, 2691);
+			do Memory.poke(16704 + offset, -16369);
+			do Memory.poke(16705 + offset, 10880);
+			do Memory.poke(16736 + offset, 24606);
+			do Memory.poke(16737 + offset, 11232);
+			do Memory.poke(16768 + offset, 12536);
+			do Memory.poke(16769 + offset, 7704);
+			do Memory.poke(16800 + offset, 24768);
+			do Memory.poke(16801 + offset, 9200);
+			do Memory.poke(16832 + offset, -16000);
+			do Memory.poke(16833 + offset, 22652);
+			do Memory.poke(16864 + offset, -32384);
+			do Memory.poke(16865 + offset, -27649);
+			do Memory.poke(16896 + offset, -15616);
+			do Memory.poke(16897 + offset, -32257);
+			do Memory.poke(16928 + offset, 992);
+			do Memory.poke(16929 + offset, -62);
+			do Memory.poke(16960 + offset, 1016);
+			do Memory.poke(16961 + offset, 17184);
+			do Memory.poke(16992 + offset, -1124);
+			do Memory.poke(16993 + offset, 256);
+			do Memory.poke(17024 + offset, -1042);
+			do Memory.poke(17025 + offset, 392);
+			do Memory.poke(17056 + offset, 16230);
+			do Memory.poke(17057 + offset, 204);
+			do Memory.poke(17088 + offset, 7794);
+			do Memory.poke(17089 + offset, 78);
+			do Memory.poke(17120 + offset, 7290);
+			do Memory.poke(17121 + offset, 143);
+			do Memory.poke(17152 + offset, 1890);
+			do Memory.poke(17153 + offset, 137);
+			do Memory.poke(17184 + offset, -15518);
+			do Memory.poke(17185 + offset, 273);
+			do Memory.poke(17216 + offset, 32706);
+			do Memory.poke(17217 + offset, 352);
+			do Memory.poke(17248 + offset, 964);
+			do Memory.poke(17249 + offset, 448);
+			do Memory.poke(17280 + offset, 1924);
+			do Memory.poke(17281 + offset, 320);
+			do Memory.poke(17312 + offset, 3864);
+			do Memory.poke(17313 + offset, 256);
+			do Memory.poke(17344 + offset, 16112);
+			do Memory.poke(17376 + offset, 16256);
+		} else {
+			if (flap = (flapDuration / 2)) {
+				do Screen.setColor(false);
+				do Screen.drawRectangle(32, pos * 16, 64, pos * 16 + 32);
+				do Screen.setColor(true);
+				do Memory.poke(16577 + offset, 2048);
+				do Memory.poke(16609 + offset, 1280);
+				do Memory.poke(16641 + offset, 9344);
+				do Memory.poke(16672 + offset, -16384);
+				do Memory.poke(16673 + offset, 4863);
+				do Memory.poke(16704 + offset, 15872);
+				do Memory.poke(16705 + offset, 27646);
+				do Memory.poke(16736 + offset, 256);
+				do Memory.poke(16737 + offset, 7704);
+				do Memory.poke(16768 + offset, -32576);
+				do Memory.poke(16769 + offset, 9200);
+				do Memory.poke(16800 + offset, 32288);
+				do Memory.poke(16801 + offset, 22640);
+				do Memory.poke(16832 + offset, 8112);
+				do Memory.poke(16833 + offset, -27664);
+				do Memory.poke(16864 + offset, 908);
+				do Memory.poke(16865 + offset, -32264);
+				do Memory.poke(16896 + offset, 998);
+				do Memory.poke(16897 + offset, -488);
+				do Memory.poke(16928 + offset, 483);
+				do Memory.poke(16929 + offset, 16444);
+				do Memory.poke(16960 + offset, 491);
+				do Memory.poke(16961 + offset, 223);
+				do Memory.poke(16992 + offset, 497);
+				do Memory.poke(16993 + offset, 271);
+				do Memory.poke(17024 + offset, 253);
+				do Memory.poke(17025 + offset, 497);
+				do Memory.poke(17056 + offset, 2137);
+				do Memory.poke(17057 + offset, 327);
+				do Memory.poke(17088 + offset, 26713);
+				do Memory.poke(17089 + offset, 28);
+				do Memory.poke(17120 + offset, -27015);
+				do Memory.poke(17121 + offset, 49);
+				do Memory.poke(17152 + offset, -12231);
+				do Memory.poke(17153 + offset, 96);
+				do Memory.poke(17184 + offset, 32697);
+				do Memory.poke(17185 + offset, 209);
+				do Memory.poke(17216 + offset, -17958);
+				do Memory.poke(17217 + offset, 150);
+				do Memory.poke(17248 + offset, -24450);
+				do Memory.poke(17249 + offset, 425);
+				do Memory.poke(17280 + offset, 24636);
+				do Memory.poke(17281 + offset, 831);
+				do Memory.poke(17312 + offset, -8068);
+				do Memory.poke(17313 + offset, 1791);
+				do Memory.poke(17344 + offset, -16264);
+				do Memory.poke(17345 + offset, 1985);
+				do Memory.poke(17376 + offset, -32544);
+				do Memory.poke(17377 + offset, 3585);
+			}
+		}
+		return;
+	}
+
+	// move the dragon
+	method void move(int direction) {
+		if (moveCooldown = 0) {
+			if (direction = 1) {
+				if (~(pos = 0)) {
+					let moveCooldown = moveCooldownDuration;
+					do Screen.setColor(false);
+					do Screen.drawRectangle(32, pos * 16, 64, pos * 16 + 32);
+					if (flaming) {
+						do Screen.drawRectangle(64, pos * 16, 96, pos * 16 + 32);
+					}
+					let pos = pos - 1;
+					let flap = 0;
+					do draw();
+				}
+			}
+			if (direction = 2) {
+				if (~(pos = 12)) {
+					let moveCooldown = moveCooldownDuration;
+					do Screen.setColor(false);
+					do Screen.drawRectangle(32, pos * 16, 64, pos * 16 + 32);
+					if (flaming) {
+						do Screen.drawRectangle(64, pos * 16, 96, pos * 16 + 32);
+					}
+					let pos = pos + 1;
+					let flap = 0;
+					do draw();
+				}
+			}
+		} else {
+			let moveCooldown = moveCooldown - 1;
+		}
+		return;
+	}
+	
+	// burn eet
+	method void fire() {
+		let flaming = true;
+		return;
+	}
+	
+	method boolean flaming() {
+		return flaming;
+	}
+}

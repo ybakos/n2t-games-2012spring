@@ -1,0 +1,134 @@
+class Main {
+
+  /*
+  Returns a mod b. b must be positive.
+  Function by Taylor Wacker, modified by Connor McKay.
+  */
+  function int mod(int a, int b) {
+    if (a < 0) {
+      let a = -a;
+    }
+
+    while ((a + 1) > b) {
+      let a = a - b;
+    }
+
+    return a;
+  }
+
+  /** Initializes a new game and starts it. */
+  function void main() {
+    var Ship s;
+    var Bullet b;
+    var int flag, i, j, k, gameplay, bCounter, bulletCount, asteroidCount;
+    var char y, key;
+    var boolean moveLeft, moveRight, gameOver;
+		var AsteroidArray asteroids;
+		var BulletArray bullets;
+
+    let gameplay = 1;
+
+    do Output.moveCursor(9,10);
+    do Output.printString("Blow up Rocks!");
+    do Output.moveCursor(11,10);
+    do Output.printString("Press left and right arrows to move ship.");
+    do Output.moveCursor(12,10);
+    do Output.printString("Press spacebar to shoot.");
+    do Output.moveCursor(14,10);
+    do Output.printString("Ready to go? Press spacebar to play!");
+
+    let key = Keyboard.readChar();
+    
+    // if spacebar, then replay
+    if (key = 32) {
+      let gameplay = 1;
+      do Screen.clearScreen();
+    } 
+
+    while (gameplay = 1) {
+			let asteroids = AsteroidArray.new();
+			do asteroids.addAsteroid(140,20);
+			do asteroids.addAsteroid(200,40);
+			do asteroids.addAsteroid(260,30);
+			do asteroids.addAsteroid(320,60);
+			
+			let bullets = BulletArray.new();
+
+      let s = Ship.new();
+      let flag = 0;
+      let i = 1;
+
+      // run an infinite loop until an asteroid hits the ground
+      while (flag = 0) {
+
+        if (Main.mod(i,10000) = 0) {
+          
+					do asteroids.updateAll();
+					do bullets.updateAll();
+          let bulletCount = bullets.getBulletCount();
+          let bCounter = 0;
+          while (bCounter < bulletCount) {
+            let b = bullets.getBullet(bCounter);
+
+            if(asteroids.destroyHitAsteroids(b)){
+							do bullets.destroyBullet(bCounter);
+						}
+            
+
+            let bCounter = bCounter + 1;
+          }
+					do bullets.arrangeBulletArray();
+        }
+
+        let key = Keyboard.keyPressed();
+        // left
+        if (key = 130) {
+          do s.moveLeft();
+        }
+        // right
+        if (key = 132) {
+          do s.moveRight();
+        }
+
+        // space
+        if (key = 32) {
+					/*
+          let shipX = s.getX1() + 10;
+          let shipY = s.getY1() - 15;
+          let bulletArray[bulletCount] = Bullet.new(shipX, shipY);
+          let bulletCount = bulletCount + 1;
+					*/
+					do bullets.addBullet(s.getX1() + 10, s.getY1() - 15);
+        }
+
+        // increment our counter
+        let i = i + 1;
+
+				if(asteroids.passedBoundary()){
+					let flag = 1;
+
+				  do Screen.clearScreen();
+				  do s.destroy();
+					do asteroids.destroy();
+					do bullets.destroy();
+				  do Output.moveCursor(10,10);
+				  do Output.printString("Game over.");
+				  do Output.moveCursor(11,10);
+				  do Output.printString("Press spacebar to play again.");
+
+				  let key = Keyboard.readChar();
+
+				  // if spacebar, then replay
+				  if (key = 32) {
+				    let gameplay = 1;
+				    do Screen.clearScreen();
+				  } else {
+				    let gameplay = 0;
+				  }
+				}
+      }
+    }
+    // return from main
+    return;
+  }
+}

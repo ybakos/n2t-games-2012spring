@@ -1,0 +1,34 @@
+// ha ha, time for chess
+// Author: Steven Ruppert
+
+class Main {
+	function void main() {
+		var int test;
+		do Main.print( "CHESS, A TRAGICOMEDY IN THREE ACTS" );
+		do Output.println();
+		do Main.print( "YOU PLAY WHITE, THE CULTURED, YET LOVABLY ROGUISH PROTAGONIST." );
+		do Main.print( "THE COMPUTER PLAYS BLACK, THE NEFARIOUS, FLAMBOYANT, CAPE-FLOURISHING ANTAGONIST." );
+		do Main.print( "ENTER YOUR MOVES IN THE FORM OF " );
+		do Main.print( "<STARTING COORDINATES><SPACE><ENDING COORDINATES><ENTER>");
+    do Main.print( "E.G. e7 e6. " );
+		// do Keyboard.readChar(); // wait for input
+
+		
+		do Chess.init();
+		return;
+	}
+	
+	// instantaneous string printing isn't dramatic enough
+	function void print ( String s ) {
+		var int i;
+		let i = 0;
+		while ( i < s.length() ) {
+			do Output.printChar( s.charAt( i ) );
+			// do Sys.wait( 20 );
+			let i = i + 1;
+		}
+		do Output.println();
+    // do Sys.wait( 100 );
+		return;
+	}
+}

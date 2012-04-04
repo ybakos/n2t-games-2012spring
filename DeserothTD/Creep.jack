@@ -1,0 +1,117 @@
+//This is a class for the bad guys that are trying to get into the castle
+
+class Creep {
+	field int x;
+	field int y;
+	field int max_x;
+	field int max_y;
+	
+	field boolean alive;
+	
+	field int health;
+	
+	field int x_velocity;
+	field int y_velocity;
+	
+	field int width;
+	field int height;
+	
+	field int DELAY;
+	field int delayCounter;
+	
+	constructor Creep new(int h)
+	{
+		let x = 1;
+		let y = 102;
+		let x_velocity = 1;
+		let y_velocity = 0;
+		
+		let alive = true;
+		let health = h;
+		
+		let width = 20;
+		let height = 20;
+		
+		let max_x = 480;
+		let max_y = 208;
+		
+		let DELAY = 50;
+		let delayCounter = 0;
+		return this;
+	}
+	
+	method void dispose()
+	{
+		do Memeory.deAlloc(this);
+		return;
+	}
+	
+	method void draw()
+	{
+	
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x,y, x+width, y+height);
+
+		return;
+	}
+	method void erase()
+	{
+	
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x,y, x+width, y+height);
+
+		return;
+	}
+	method int getX()
+	{
+		return x;
+	}
+	method int getY()
+	{
+		return y;
+	}
+	method boolean getAlive()
+	{
+		return alive;
+	}
+	method void setAlive(boolean t)
+	{
+		let alive = t;
+		return;
+	}
+	method void takeDamage(int damage)
+	{
+		let health = health - damage;
+		if (~(health > 0))
+		{
+			do erase();
+			let alive = false;
+		}
+		return;
+	}
+	//boolean to show that something hit the end of the map.
+	method boolean move()
+	{
+		if(DELAY = delayCounter)
+		{	
+			do erase();
+			if(~(x = (319 - width)) & ~(x = 0) )
+			{
+				let x = x+x_velocity;
+			}
+			else
+			{
+				let alive = false;
+				return true;
+			}
+			//if (~(y = (max_y - height)) & ~(y = 0))
+			//{
+			//	let y = y+y_velocity;
+			//}
+			let delayCounter = 0;
+		}
+		let delayCounter = delayCounter + 1;
+		
+		return false;
+	}
+}

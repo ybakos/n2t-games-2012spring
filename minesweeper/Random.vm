@@ -1,0 +1,48 @@
+function Random.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push pointer 0
+return
+function Random.nextRange 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Random.next 1
+push argument 2
+push argument 1
+sub
+call Random.mod 2
+push argument 1
+add
+return
+function Random.next 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 16807
+call Math.multiply 2
+pop this 0
+push this 0
+return
+function Random.mod 0
+push argument 0
+call Math.abs 1
+pop argument 0
+label WHILE_EXP0
+push argument 0
+push argument 1
+lt
+not
+not
+if-goto WHILE_END0
+push argument 0
+push argument 1
+sub
+pop argument 0
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
+return

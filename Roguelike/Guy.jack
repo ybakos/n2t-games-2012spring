@@ -1,0 +1,71 @@
+class Guy {
+	field int x;
+	field int y;
+	field int previous_x;
+	field int previous_y;
+
+	field int mcguffins;
+
+	constructor Guy new() {
+		let x = 32;
+		let y = 12;
+		let previous_x = x;
+		let previous_y = y;
+		let mcguffins = 0;
+
+		return this;
+	}
+
+	method void move_right() {
+		let previous_x = x;
+		let previous_y = y;
+		let x = x + 1;
+		return;
+	}
+
+	method void move_left() {
+		let previous_x = x;
+		let previous_y = y;
+		let x = x - 1;
+		return;
+	}
+
+	method void move_up() {
+		let previous_x = x;
+		let previous_y = y;
+		let y = y - 1;
+		return;
+	}
+
+	method void move_down() {
+		let previous_x = x;
+		let previous_y = y;
+		let y = y + 1;
+		return;
+	}
+
+	method int get_player_x() {
+		return x;
+	}
+
+	method int get_player_y() {
+		return y;
+	}
+
+	method int get_previous_x() {
+		return previous_x;
+	}
+
+	method int get_previous_y() {
+		return previous_y;
+	}
+
+	method void add_mcguffin() {
+		let mcguffins = mcguffins + 1;
+		return;
+	}
+
+	method int get_mcguffins() {
+		return mcguffins;
+	}
+}

@@ -1,0 +1,260 @@
+class Bird {
+
+	// member variables
+	field int posX;
+	field int posY;
+	field int moveCooldown;
+	field int moveCooldownDuration;
+	field int flap;
+	field int flapDuration;
+	field boolean alive;
+	static Display display;
+	static Dragon player;
+	static Rand rand;
+
+	// initialize
+	constructor Bird new(Rand r, Display d, Dragon p) {
+		let alive = false;
+		let rand = r;
+		let posX = 0;
+		let posY = 0;
+		let flap = 0;
+		let flapDuration = 20;
+		let display = d;
+		let player = p;
+		let moveCooldown = 0;
+		let moveCooldownDuration = 0;
+		return this;
+	}
+	
+	// getters
+	method int getPosX() {
+		return posX;
+	}
+	method int getPosY() {
+		return posY;
+	}
+
+	// trash management
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method boolean alive() {
+		return alive;
+	}
+	
+	method void spawn() {
+		var int cap;
+		if (display.remaining() - display.active() > 0) {
+			if ((display.active() - 1) < display.round()) {
+				do display.spawn();
+				let alive = true;
+				let posX = 29;
+				let posY = rand.intBetween(0, 12);
+				let moveCooldown = 0;
+				let cap = 50 - (5 * display.round());
+				if (cap < 20) {
+					let cap = 20;
+				}
+				let moveCooldownDuration = rand.intBetween(10, cap);
+				let flapDuration = moveCooldownDuration;
+				do display.drawScore();
+			}
+		}
+		return;
+	}
+
+	// draw the bird
+	method void draw() {
+		var int offset;
+		let offset = posY * 512 + posX;
+		let flap = flap + 1;
+		if (flap = flapDuration) {
+			let flap = 1;
+		}
+		if (flap = 1) {
+			do Screen.setColor(false);
+			do Screen.drawRectangle(posX * 16, posY * 16, posX * 16 + 32, posY * 16 + 32);
+			do Screen.setColor(true);
+			do Memory.poke(16385 + offset, 15808);
+			do Memory.poke(16417 + offset, 10064);
+			do Memory.poke(16449 + offset, 9790);
+			do Memory.poke(16480 + offset, 15360);
+			do Memory.poke(16481 + offset, 8766);
+			do Memory.poke(16512 + offset, 26112);
+			do Memory.poke(16513 + offset, 8994);
+			do Memory.poke(16544 + offset, 23416);
+			do Memory.poke(16545 + offset, 8482);
+			do Memory.poke(16576 + offset, 22860);
+			do Memory.poke(16577 + offset, 8499);
+			do Memory.poke(16608 + offset, 16852);
+			do Memory.poke(16609 + offset, 8499);
+			do Memory.poke(16640 + offset, 16964);
+			do Memory.poke(16641 + offset, 8499);
+			do Memory.poke(16672 + offset, -952);
+			do Memory.poke(16673 + offset, 14355);
+			do Memory.poke(16704 + offset, -32528);
+			do Memory.poke(16705 + offset, 6147);
+			do Memory.poke(16736 + offset, -31680);
+			do Memory.poke(16737 + offset, 7171);
+			do Memory.poke(16768 + offset, -31168);
+			do Memory.poke(16769 + offset, 3073);
+			do Memory.poke(16800 + offset, 1600);
+			do Memory.poke(16801 + offset, 1024);
+			do Memory.poke(16832 + offset, 3648);
+			do Memory.poke(16833 + offset, 1536);
+			do Memory.poke(16864 + offset, 3968);
+			do Memory.poke(16865 + offset, 768);
+			do Memory.poke(16896 + offset, 3072);
+			do Memory.poke(16897 + offset, 960);
+			do Memory.poke(16928 + offset, 3072);
+			do Memory.poke(16929 + offset, 480);
+			do Memory.poke(16960 + offset, 6144);
+			do Memory.poke(16961 + offset, 384);
+			do Memory.poke(16992 + offset, 28672);
+			do Memory.poke(16993 + offset, 192);
+			do Memory.poke(17024 + offset, -16384);
+			do Memory.poke(17025 + offset, 51);
+			do Memory.poke(17056 + offset, 24576);
+			do Memory.poke(17057 + offset, 30);
+			do Memory.poke(17088 + offset, 4096);
+			do Memory.poke(17089 + offset, 16);
+			do Memory.poke(17120 + offset, 8064);
+			do Memory.poke(17121 + offset, 16);
+			do Memory.poke(17152 + offset, 3072);
+			do Memory.poke(17153 + offset, 24);
+			do Memory.poke(17184 + offset, 1536);
+			do Memory.poke(17185 + offset, 56);
+			do Memory.poke(17216 + offset, 1792);
+			do Memory.poke(17217 + offset, 84);
+			do Memory.poke(17248 + offset, 3200);
+			do Memory.poke(17249 + offset, 90);
+			do Memory.poke(17281 + offset, 8);
+		} else {
+			if (flap = (flapDuration / 2)) {
+				do Screen.setColor(false);
+				do Screen.drawRectangle(posX * 16, posY * 16, posX * 16 + 32, posY * 16 + 32);
+				do Screen.setColor(true);
+				do Memory.poke(16416 + offset, 15360);
+				do Memory.poke(16448 + offset, 26112);
+				do Memory.poke(16480 + offset, 23416);
+				do Memory.poke(16512 + offset, 22860);
+				do Memory.poke(16513 + offset, 3072);
+				do Memory.poke(16544 + offset, 16852);
+				do Memory.poke(16545 + offset, 3808);
+				do Memory.poke(16576 + offset, 16964);
+				do Memory.poke(16577 + offset, 2748);
+				do Memory.poke(16608 + offset, -952);
+				do Memory.poke(16609 + offset, 2439);
+				do Memory.poke(16640 + offset, 240);
+				do Memory.poke(16641 + offset, 3200);
+				do Memory.poke(16672 + offset, 1088);
+				do Memory.poke(16673 + offset, 1024);
+				do Memory.poke(16704 + offset, 1600);
+				do Memory.poke(16705 + offset, 1024);
+				do Memory.poke(16736 + offset, 1600);
+				do Memory.poke(16737 + offset, 1792);
+				do Memory.poke(16768 + offset, 3648);
+				do Memory.poke(16769 + offset, 768);
+				do Memory.poke(16800 + offset, 3968);
+				do Memory.poke(16801 + offset, 1536);
+				do Memory.poke(16832 + offset, 3072);
+				do Memory.poke(16833 + offset, 1536);
+				do Memory.poke(16864 + offset, -29696);
+				do Memory.poke(16865 + offset, 3072);
+				do Memory.poke(16896 + offset, -26624);
+				do Memory.poke(16897 + offset, 6145);
+				do Memory.poke(16928 + offset, -4096);
+				do Memory.poke(16929 + offset, 4099);
+				do Memory.poke(16960 + offset, -16384);
+				do Memory.poke(16961 + offset, 12291);
+				do Memory.poke(16992 + offset, 24576);
+				do Memory.poke(16993 + offset, 8483);
+				do Memory.poke(17024 + offset, 4096);
+				do Memory.poke(17025 + offset, 8483);
+				do Memory.poke(17056 + offset, 8064);
+				do Memory.poke(17057 + offset, 8499);
+				do Memory.poke(17088 + offset, 3072);
+				do Memory.poke(17089 + offset, 8498);
+				do Memory.poke(17120 + offset, 1536);
+				do Memory.poke(17121 + offset, 9010);
+				do Memory.poke(17152 + offset, 1792);
+				do Memory.poke(17153 + offset, 8830);
+				do Memory.poke(17184 + offset, 3200);
+				do Memory.poke(17185 + offset, 9854);
+				do Memory.poke(17217 + offset, 10072);
+				do Memory.poke(17249 + offset, 15808);
+			}
+		}
+		return;
+	}
+	
+	method void die() {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(posX * 16, posY * 16, posX * 16 + 32, posY * 16 + 32);
+		let alive = false;
+		do display.score(1);
+		do display.drawScore();
+		return;
+	}
+	
+	method void hit() {
+		do player.die();
+		return;
+	}
+
+	// move the bird
+	method void move() {
+		if (posX < 6) {
+			if (player.flaming()) {
+				if (posY = player.getPos()) {
+					do die();
+					return;
+				}
+				if (posY + 1 = player.getPos()) {
+					do die();
+					return;
+				}
+				if (posY - 1 = player.getPos()) {
+					do die();
+					return;
+				}
+			}
+		}
+		if (posX < 4) {
+			if (posY = player.getPos()) {
+				do hit();
+				return;
+			}
+			if (posY + 1 = player.getPos()) {
+				do hit();
+				return;
+			}
+			if (posY - 1 = player.getPos()) {
+				do hit();
+				return;
+			}
+		}
+		if (moveCooldown = 0) {
+			if (~(posX = 0)) {
+				let moveCooldown = moveCooldownDuration;
+				do Screen.setColor(false);
+				do Screen.drawRectangle(posX * 16, posY * 16, posX * 16 + 32, posY * 16 + 32);
+				let posX = posX - 1;
+				let flap = 0;
+			}
+		} else {
+			let moveCooldown = moveCooldown - 1;
+		}
+		do draw();
+		if (posX = 0) {
+			do Screen.setColor(false);
+			do Screen.drawRectangle(posX * 16, posY * 16, posX * 16 + 32, posY * 16 + 32);
+			do display.score(-1);
+			let alive = false;
+		}
+		return;
+	}
+}

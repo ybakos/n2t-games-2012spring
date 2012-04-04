@@ -1,0 +1,212 @@
+
+class Guy {
+	
+	field int x, y;
+	
+    /** Constructs a new guy with a given location and size. */
+    constructor Guy new(int Ax, int Ay) {
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return this;
+    }
+
+    method void set(int Ax, int Ay){
+        let x = Ax*16;
+        let y = Ay*16;
+        return;
+    }
+
+    /** Draws the guy on the screen */
+    method void drawDown() {
+        var int sstart, sX, sY, i, j;
+        let sstart =  16384;
+        let sY = y;
+        let sX = x/16;
+        let i = sstart + sX + (sY*32);
+        do Memory.poke(i,960);
+        do Memory.poke(i + 32,31792);
+        do Memory.poke(i + 64,16392);
+        do Memory.poke(i + 96,8772);
+
+        do Memory.poke(i + 128,13508);
+        do Memory.poke(i + 160,23866);
+        do Memory.poke(i + 192,20490);
+        do Memory.poke(i + 224,16962);
+
+        do Memory.poke(i + 256,12876);
+        do Memory.poke(i + 288,14364);
+        do Memory.poke(i + 320,20082);
+        do Memory.poke(i + 352,19410);
+
+        do Memory.poke(i + 384,14748);
+        do Memory.poke(i + 416,4104);
+        do Memory.poke(i + 448,4488);
+        do Memory.poke(i + 480,3696);
+        return;
+    }
+    method void drawUp() {
+        var int sstart, sX, sY, i, j;
+        let sstart =  16384;
+        let sY = y;
+        let sX = x/16;
+        let i = sstart + sX + (sY*32);
+        do Memory.poke(i,960);
+        do Memory.poke(i + 32,3134);
+        do Memory.poke(i + 64,4098);
+        do Memory.poke(i + 96,8196);
+
+        do Memory.poke(i + 128,8204);
+        do Memory.poke(i + 160,21514);
+        do Memory.poke(i + 192,22538);
+        do Memory.poke(i + 224,20466);
+
+        do Memory.poke(i + 256,13356);
+        do Memory.poke(i + 288,15324);
+        do Memory.poke(i + 320,18450);
+        do Memory.poke(i + 352,19506);
+
+        do Memory.poke(i + 384,15324);
+        do Memory.poke(i + 416,4104);
+        do Memory.poke(i + 448,4488);
+        do Memory.poke(i + 480,3696);
+        return;
+    }
+    method void drawLeft() {
+        var int sstart, sX, sY, i, j;
+        let sstart =  16384;
+        let sY = y;
+        let sX = x/16;
+        let i = sstart + sX + (sY*32);
+        do Memory.poke(i,1008);
+        do Memory.poke(i + 32,3086);
+        do Memory.poke(i + 64,4098);
+        do Memory.poke(i + 96,8324);
+
+        do Memory.poke(i + 128,16456);
+        do Memory.poke(i + 160,16880);
+        do Memory.poke(i + 192,15440);
+        do Memory.poke(i + 224,8784);
+
+        do Memory.poke(i + 256,4112);
+        do Memory.poke(i + 288,11296);
+        do Memory.poke(i + 320,10176);
+        do Memory.poke(i + 352,10624);
+
+        do Memory.poke(i + 384,10624);
+        do Memory.poke(i + 416,7744);
+        do Memory.poke(i + 448,2112);
+        do Memory.poke(i + 480,1920);
+        return;
+    }
+    method void drawRight() {
+        var int sstart, sX, sY, i, j;
+        let sstart =  16384;
+        let sY = y;
+        let sX = x/16;
+        let i = sstart + sX + (sY*32);
+        do Memory.poke(i,4032);
+        do Memory.poke(i + 32,28720);
+        do Memory.poke(i + 64,16392);
+        do Memory.poke(i + 96,8452);
+
+        do Memory.poke(i + 128,4610);
+        do Memory.poke(i + 160,3970);
+        do Memory.poke(i + 192,2620);
+        do Memory.poke(i + 224,2628);
+
+        do Memory.poke(i + 256,2056);
+        do Memory.poke(i + 288,1220);
+        do Memory.poke(i + 320,884);
+        do Memory.poke(i + 352,404);
+
+        do Memory.poke(i + 384,404);
+        do Memory.poke(i + 416,632);
+        do Memory.poke(i + 448,528);
+        do Memory.poke(i + 480,480);
+        return;
+    }
+}
+/* Guy Front bit map
+0000 0011 1100 0000     960
+0111 1100 0011 0000     31792
+0100 0000 0000 1000     16392
+0010 0010 0100 0100     8772
+
+0011 0100 1100 0100     13508
+0101 1101 0011 1010     23866
+0101 0000 0000 1010     20490
+0100 0010 0100 0010     16962
+
+0011 0010 0100 1100     12876
+0011 1000 0001 1100     14364
+0100 1110 0111 0010     20082
+0100 1011 1101 0010     19410
+
+0011 1001 1001 1100     14748
+0001 0000 0000 1000     4104
+0001 0001 1000 1000     4488
+0000 1110 0111 0000     3696
+*/
+/* Guy Back bit map
+0000 0011 1100 0000     960
+0000 1100 0011 1110     3134
+0001 0000 0000 0010     4098
+0010 0000 0000 0100     8196
+
+0010 0000 0000 1100     8204
+0101 0100 0000 1010     21514
+0101 1000 0000 1010     22538
+0100 1111 1111 0010     20466
+
+0011 0100 0010 1100     13356
+0011 1011 1101 1100     15324
+0100 1000 0001 0010     18450
+0100 1100 0011 0010     19506
+
+0011 1011 1101 1100     15324
+0001 0000 0000 1000     4104
+0001 0001 1000 1000     4488
+0000 1110 0111 0000     3696
+*/
+/* Guy Left bit map
+0000 0011 1111 0000     1008
+0000 1100 0000 1110     3086
+0001 0000 0000 0010     4098
+0010 0000 1000 0100     8324
+
+0100 0000 0100 1000     16456
+0100 0001 1111 0000     16880
+0011 1100 0101 0000     15440
+0010 0010 0101 0000     8784
+
+0001 0000 0001 0000     4112
+0010 1100 0010 0000     11296
+0010 0111 1100 0000     10176
+0010 1001 1000 0000     10624
+
+0010 1001 1000 0000     10624
+0001 1110 0100 0000     7744
+0000 1000 0100 0000     2112
+0000 0111 1000 0000     1920
+*/
+/* Guy Right bit map
+0000 1111 1100 0000     4032
+0111 0000 0011 0000     28720
+0100 0000 0000 1000     16392
+0010 0001 0000 0100     8452
+
+0001 0010 0000 0010     4610
+0000 1111 1000 0010     3970
+0000 1010 0011 1100     2620
+0000 1010 0100 0100     2628
+
+0000 1000 0000 1000     2056
+0000 0100 1100 0100     1220
+0000 0011 0111 0100     884
+0000 0001 1001 0100     404
+
+0000 0001 1001 0100     404
+0000 0010 0111 1000     632
+0000 0010 0001 0000     528
+0000 0001 1110 0000     480
+*/

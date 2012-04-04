@@ -1,0 +1,12 @@
+/* 	My Game
+	Taylor Wacker
+ */
+
+class Main {
+	function void main(){
+		var HomeScreen hs;
+		let hs = HomeScreen.new();
+		do hs.run();
+		return;
+	}
+}

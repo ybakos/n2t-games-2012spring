@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>LightCycle Specification</title>
+  <meta http-equiv="content-type" 
+    content="text/html;charset=utf-8" />
+
+  <style>
+    body { max-width: 1024px; }
+
+    h1>span { position: relative; bottom: 1em; }
+    h1>img { height: 3em; }
+    h2 { margin-top: 2em; }
+    h4 { margin: 1.5em 0em 0em; }
+    
+    div.screen_capture { font-size: 0.8em; display: inline-block; text-align: center; }
+    div.screen_capture>img { display: block; }
+    
+    ul.mapping { display: table; border-collapse: collapse; }
+    ul.mapping>li { display: table-row; }
+    ul.mapping>li>* { display: table-cell; padding: 3px 6px; }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <span>LightCycle</span>
+    <img src="lightcycle.jpg" />
+  </h1>
+  <hr/>
+  
+
+  <h2>Overview</h2>
+  <p>LightCycle Duel was a 1992 game by Cary Torkelson, which was inspired by the 1982 movie Tron. This project is an effort to port the essential features of this classic Macintosh game to Hack.</p>
+
+  <p>Unlike the original two player game, this one will involve a single human player and a computer opponent, and the feature set will be relatively limited (see <a href="#non_goals">Non Goals</a>).
+
+
+  <h2>Scenarios</h2>
+  <p>To get an idea of the magnificent importance of LightCycle, we must consider a typical user. Meet John H. Blubber.</p>
+
+  <p>John has a boring 9 to 5 office job in a core service industry. He resents it very much, despite the fact that it pays his bills. To compensate for his discontent, he makes time between responding to emails to covertly play arcade games on the HackBoy that his shut-in roommate sold him a month ago.</p>
+
+  <p>John starts a new game of LightCycle by hitting a special sequence of keys on his HackBoy, which resembles an old Casio graphing calculator. This brings him to the start screen, where he selects the game speed and difficulty. Once the game has started, John uses the numeric keypad to direct the movements of his lightcycle until it crashes into a wall at the edge of the screen.</p>
+
+
+  <h2 id="non_goals">Non Goals</h2>
+  <p>The following features of the original LightCycle Duel will not be implemented:
+    <ul>
+      <li>backward movement</li>
+      <li>diagonal movement</li>
+      <li>obstacles/mazes</li>
+      <li>shields</li>
+      <li>random starting points</li>
+      <li>edge-wrapped movement, in which hitting one side of the screen causes the light cycle to re-appear at the opposite end of the screen</li>
+    </ul>
+  </p>
+
+
+  <h2>Screen by Screen Specification</h2>
+
+  <h3>Initialization</h3>
+  <p>When the user starts the program, they are asked to configure the game they're about to play. Input is validated.
+
+    <div class="screen_capture">
+      <img src="start_screen.png"/>
+      Game configuration.
+    </div>
+  </p>
+
+  <h3>Gameplay</h3>
+
+  <p>Gameplay takes place in a grand arena of 250x506 pixels. Each player owns all the pixels that they have previously visited. Pixel ownership is indicated by black coloration. The game concludes when one of the players attempts to occupy a pixel which is already owned, either by themselves or the other player.</p>
+
+  <h4>Initial State</h4>
+  <p>Once the user has correctly configured the game, it begins immediately. The human player starts at the bottom of the screen, and his computer counterpart starts at the top. The players are initially set on a collision course, which results in a tie unless one of them chooses to alter course using the keyboard controls (see <a href="#in_progress_state">In-progress State</a>).
+
+    <div class="screen_capture">
+      <img src="initial_state.png"/>
+      Initial game state.
+    </div>
+  </p>
+
+  <h4 id="in_progress_state">In-progress State</h4>
+  <p>After the players have selected a series of moves based on the changing game state, the game takes on a strategic nature. The human player will alter the course of their lightcycle using the following set of commands, which are also available to the computer player:
+
+    <ul class="mapping">
+      <li><em>turnNorth</em><strong>keypad 8</strong></li>
+      <li><em>turnEast</em><strong>keypad 6</strong></li>
+      <li><em>turnSouth</em><strong>keypad 5</strong></li>
+      <li><em>turnWest</em><strong>keypad 4</strong></li>
+    </ul>
+
+    <div class="screen_capture">
+      <img src="in_progress_state.png"/>
+      A strategic game in progress.
+    </div>
+  </p>
+
+  <h4>Terminal State</h4>
+  <p>At some point during gameplay, one of the players will collide with a wall, causing them to lose the game.
+
+    <div class="screen_capture">
+      <img src="terminal_state.png"/>
+      A concluded game.
+    </div>
+  </p>
+
+</body>
+</html>

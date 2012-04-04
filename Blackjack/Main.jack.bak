@@ -1,0 +1,25 @@
+class Main {
+	function void main()
+	{
+		var int seedIn;
+		//var BlackJackGame game;
+		let seedIn = Keyboard.readInt();
+		//let game = BlackJackGame.new();
+		//do game.run();
+
+		/*
+		do Output.printString("The human brain is truly amazing.");
+		do Output.println();
+		do Output.printString("It functions 24 Hours a day, 365 days a year, for years on end.");
+		do Output.println();
+		do Output.printString("It functions right from the time we were born");
+		do Output.println();
+		do Output.printString("And only stops when we...");
+		do Output.println();
+		do Output.println();
+		do Output.println();
+		do Output.printString("Take exams.");
+		*/
+		return;
+	}
+}

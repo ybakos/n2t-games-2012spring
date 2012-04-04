@@ -1,0 +1,191 @@
+class MArray{
+	field Array mArrayOuter;
+	field int grid_size, max_length, length, origin;
+	
+	constructor MArray new(int size, int init_length)
+	{
+		var int i, index;
+		
+		let origin = 14;
+		let grid_size = size;
+		let length = init_length;
+		let max_length = (grid_size * length) + origin;
+		let i = -1;
+		let index = 0;
+		
+		let mArrayOuter = Array.new(grid_size);
+		
+		while (i < grid_size)
+		{
+			let mArrayOuter[index] = Array.new(grid_size);
+			let index = index + 1;
+			let i = i + 1;
+		}
+		
+		return this;
+	}
+	
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method void Set(int index_outer, int index_inner, int value)
+	{
+		var Array mArrayInner;
+		var int xpos, ypos;
+		
+		let mArrayInner = mArrayOuter[index_outer];  // copy existing array
+		let mArrayInner[index_inner] = value;
+		let mArrayOuter[index_outer] = mArrayInner;		
+		
+		if (value = 1)
+		{
+			let xpos = (index_outer*length) + origin;
+			let ypos = (index_inner*length) + origin;
+			do Screen.drawRectangle(xpos, ypos, xpos+length, ypos+length);
+		}
+		else
+		{
+			if (value = 2)
+			{
+				let xpos = (index_outer*length) + origin;
+				let ypos = (index_inner*length) + origin;
+				do Screen.drawCircle((xpos+(length/2)), (ypos+(length/2)), length/4);
+			}
+			else
+			{
+				if (value = 3)
+				{
+					let xpos = (index_outer*length) + origin;
+					let ypos = (index_inner*length) + origin;
+					do Screen.drawRectangle(xpos, ypos, xpos+length, ypos+length);
+					do Screen.setColor(false);
+					do Screen.drawCircle((xpos+(length/2)), (ypos+(length/2)), length/4);
+					do Screen.setColor(true);
+				}
+			}
+		}
+				
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method int Get(int index_outer, int index_inner)
+	{
+		var Array coord;
+		
+		let coord = mArrayOuter[index_outer];
+		
+		do Memory.deAlloc(this);
+		
+		return coord[index_inner];
+	}
+	
+	method void DrawGrid()
+	{
+		var int x_pos, y_pos, loop;
+		let x_pos = origin;
+		let y_pos = origin;
+		let loop = 0;
+		
+		do DrawXAxisLabel(0, 2);
+		do DrawYAxisLabel(2, 0);
+		
+		while ((grid_size+1) > loop)
+		{
+			do Screen.drawLine(x_pos, origin, x_pos, max_length);
+			do Screen.drawLine(origin, y_pos, max_length, y_pos);
+			let x_pos = x_pos + length;
+			let y_pos = y_pos + length;
+			let loop = loop + 1;
+		}
+		
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method void DrawXAxisLabel(int row, int column)
+	{
+		var int i;
+		do Output.moveCursor(row, column);
+		
+		while (i < grid_size)
+		{
+			do Output.printInt(i);
+			do Output.printString("  ");
+			let i = i+1;
+		}
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method void DrawYAxisLabel(int row, int column)
+	{
+		var int i;
+		do Output.moveCursor(row, column);
+		
+		while (i < grid_size)
+		{
+			do Output.printInt(i);
+			do Output.println();
+			do Output.println();
+			let i = i+1;
+		}
+		
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void Show()
+	{
+		var int i,j;
+		
+		let i = 0;
+		let j = 0;
+		
+		while (i < grid_size)
+		{
+			while (j < grid_size)
+			{				
+				do Output.printInt(Get(i, j));
+				do Output.println();
+				let j = j+1;
+			}
+			let i = i+1;
+			let j=0;
+		}
+		
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method void Status(int value)
+	{
+		var string result;
+		
+		if (value = -1)
+		{
+			let result = "Sunk";
+		}
+		else{
+			if (value = 0)
+			{
+				let result = "Miss";
+			}
+			else
+			{
+				if(value = 1)
+				{
+					let result = "Hit";
+				}
+			}
+		}
+		
+		do Output.printString(result);
+		
+		do Memory.deAlloc(this);
+		return;
+	}
+}

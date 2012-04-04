@@ -1,0 +1,399 @@
+// This is an ugly amalgamation of data disguised as a class.
+// It's not pretty.
+
+class Symbol {
+	static Array spaceSymbol;
+	static Array rotateSymbol;
+	static Array moveSymbol;
+	static Array downSymbol;
+	static Array dropSymbol;
+	static Array linesSymbol;
+
+	function void init() {
+		let spaceSymbol = Array.new(28);
+		let spaceSymbol[0] = -2304;
+		let spaceSymbol[1] = -2057;
+		let spaceSymbol[2] = -2057;
+		let spaceSymbol[3] = 119;
+		let spaceSymbol[4] = -2304;
+		let spaceSymbol[5] = -2057;
+		let spaceSymbol[6] = -2057;
+		let spaceSymbol[7] = 119;
+		let spaceSymbol[8] = 4352;
+		let spaceSymbol[9] = 5648;
+		let spaceSymbol[10] = 4118;
+		let spaceSymbol[11] = 96;
+		let spaceSymbol[12] = -3840;
+		let spaceSymbol[13] = -2057;
+		let spaceSymbol[14] = -4073;
+		let spaceSymbol[15] = 103;
+		let spaceSymbol[16] = 256;
+		let spaceSymbol[17] = 4118;
+		let spaceSymbol[18] = 4118;
+		let spaceSymbol[19] = 96;
+		let spaceSymbol[20] = 256;
+		let spaceSymbol[21] = 4118;
+		let spaceSymbol[22] = 4118;
+		let spaceSymbol[23] = 96;
+		let spaceSymbol[24] = -2304;
+		let spaceSymbol[25] = 4119;
+		let spaceSymbol[26] = -2058;
+		let spaceSymbol[27] = 119;
+
+		let rotateSymbol = Array.new(84);
+		let rotateSymbol[0] = 0;
+		let rotateSymbol[1] = 0;
+		let rotateSymbol[2] = 0;
+		let rotateSymbol[3] = 0;
+		let rotateSymbol[4] = 0;
+		let rotateSymbol[5] = 0;
+		let rotateSymbol[6] = 0;
+		let rotateSymbol[7] = 0;
+		let rotateSymbol[8] = 0;
+		let rotateSymbol[9] = 0;
+		let rotateSymbol[10] = 0;
+		let rotateSymbol[11] = 0;
+		let rotateSymbol[12] = -256;
+		let rotateSymbol[13] = -49;
+		let rotateSymbol[14] = -13;
+		let rotateSymbol[15] = 16380;
+		let rotateSymbol[16] = -12289;
+		let rotateSymbol[17] = 1023;
+		let rotateSymbol[18] = -256;
+		let rotateSymbol[19] = -49;
+		let rotateSymbol[20] = -13;
+		let rotateSymbol[21] = 16380;
+		let rotateSymbol[22] = -12289;
+		let rotateSymbol[23] = 1023;
+		let rotateSymbol[24] = -256;
+		let rotateSymbol[25] = -49;
+		let rotateSymbol[26] = -13;
+		let rotateSymbol[27] = 16380;
+		let rotateSymbol[28] = -12289;
+		let rotateSymbol[29] = 1023;
+		let rotateSymbol[30] = 768;
+		let rotateSymbol[31] = -32562;
+		let rotateSymbol[32] = 1539;
+		let rotateSymbol[33] = 14348;
+		let rotateSymbol[34] = -16288;
+		let rotateSymbol[35] = 0;
+		let rotateSymbol[36] = 768;
+		let rotateSymbol[37] = -32562;
+		let rotateSymbol[38] = 1539;
+		let rotateSymbol[39] = 14348;
+		let rotateSymbol[40] = -16288;
+		let rotateSymbol[41] = 0;
+		let rotateSymbol[42] = -256;
+		let rotateSymbol[43] = -32561;
+		let rotateSymbol[44] = 1539;
+		let rotateSymbol[45] = 16380;
+		let rotateSymbol[46] = -16288;
+		let rotateSymbol[47] = 1023;
+		let rotateSymbol[48] = -256;
+		let rotateSymbol[49] = -32561;
+		let rotateSymbol[50] = 1539;
+		let rotateSymbol[51] = 16380;
+		let rotateSymbol[52] = -16288;
+		let rotateSymbol[53] = 1023;
+		let rotateSymbol[54] = -32000;
+		let rotateSymbol[55] = -32575;
+		let rotateSymbol[56] = 1539;
+		let rotateSymbol[57] = 14348;
+		let rotateSymbol[58] = -16288;
+		let rotateSymbol[59] = 0;
+		let rotateSymbol[60] = -32000;
+		let rotateSymbol[61] = -32575;
+		let rotateSymbol[62] = 1539;
+		let rotateSymbol[63] = 14348;
+		let rotateSymbol[64] = -16288;
+		let rotateSymbol[65] = 0;
+		let rotateSymbol[66] = -32000;
+		let rotateSymbol[67] = -32575;
+		let rotateSymbol[68] = 1539;
+		let rotateSymbol[69] = 14348;
+		let rotateSymbol[70] = -16288;
+		let rotateSymbol[71] = 0;
+		let rotateSymbol[72] = -32000;
+		let rotateSymbol[73] = -49;
+		let rotateSymbol[74] = 1539;
+		let rotateSymbol[75] = 14348;
+		let rotateSymbol[76] = -16288;
+		let rotateSymbol[77] = 1023;
+		let rotateSymbol[78] = -32000;
+		let rotateSymbol[79] = -49;
+		let rotateSymbol[80] = 1539;
+		let rotateSymbol[81] = 14348;
+		let rotateSymbol[82] = -16288;
+		let rotateSymbol[83] = 1023;
+
+		let moveSymbol = Array.new(69);
+		let moveSymbol[0] = 0;
+		let moveSymbol[1] = 0;
+		let moveSymbol[2] = 0;
+		let moveSymbol[3] = 0;
+		let moveSymbol[4] = 0;
+		let moveSymbol[5] = 0;
+		let moveSymbol[6] = 0;
+		let moveSymbol[7] = 0;
+		let moveSymbol[8] = 0;
+		let moveSymbol[9] = 0;
+		let moveSymbol[10] = 12288;
+		let moveSymbol[11] = -800;
+		let moveSymbol[12] = 831;
+		let moveSymbol[13] = -50;
+		let moveSymbol[14] = 3;
+		let moveSymbol[15] = 12288;
+		let moveSymbol[16] = -800;
+		let moveSymbol[17] = 831;
+		let moveSymbol[18] = -50;
+		let moveSymbol[19] = 3;
+		let moveSymbol[20] = 12288;
+		let moveSymbol[21] = -800;
+		let moveSymbol[22] = 831;
+		let moveSymbol[23] = -50;
+		let moveSymbol[24] = 3;
+		let moveSymbol[25] = -4096;
+		let moveSymbol[26] = 3321;
+		let moveSymbol[27] = 824;
+		let moveSymbol[28] = 206;
+		let moveSymbol[29] = 0;
+		let moveSymbol[30] = -4096;
+		let moveSymbol[31] = 3321;
+		let moveSymbol[32] = 824;
+		let moveSymbol[33] = 206;
+		let moveSymbol[34] = 0;
+		let moveSymbol[35] = 12288;
+		let moveSymbol[36] = 3302;
+		let moveSymbol[37] = 824;
+		let moveSymbol[38] = -50;
+		let moveSymbol[39] = 3;
+		let moveSymbol[40] = 12288;
+		let moveSymbol[41] = 3302;
+		let moveSymbol[42] = 824;
+		let moveSymbol[43] = -50;
+		let moveSymbol[44] = 3;
+		let moveSymbol[45] = 12288;
+		let moveSymbol[46] = 3296;
+		let moveSymbol[47] = -25544;
+		let moveSymbol[48] = 193;
+		let moveSymbol[49] = 0;
+		let moveSymbol[50] = 12288;
+		let moveSymbol[51] = 3296;
+		let moveSymbol[52] = -25544;
+		let moveSymbol[53] = 193;
+		let moveSymbol[54] = 0;
+		let moveSymbol[55] = 12288;
+		let moveSymbol[56] = 3296;
+		let moveSymbol[57] = -25544;
+		let moveSymbol[58] = 193;
+		let moveSymbol[59] = 0;
+		let moveSymbol[60] = 12288;
+		let moveSymbol[61] = -800;
+		let moveSymbol[62] = 24639;
+		let moveSymbol[63] = -64;
+		let moveSymbol[64] = 3;
+		let moveSymbol[65] = 12288;
+		let moveSymbol[66] = -800;
+		let moveSymbol[67] = 24639;
+		let moveSymbol[68] = -64;
+
+		let downSymbol = Array.new(70);
+		let downSymbol[0] = 0;
+		let downSymbol[1] = 0;
+		let downSymbol[2] = 0;
+		let downSymbol[3] = 0;
+		let downSymbol[4] = 0;
+		let downSymbol[5] = 0;
+		let downSymbol[6] = 0;
+		let downSymbol[7] = 0;
+		let downSymbol[8] = 0;
+		let downSymbol[9] = 0;
+		let downSymbol[10] = -16384;
+		let downSymbol[11] = -3969;
+		let downSymbol[12] = -29441;
+		let downSymbol[13] = 825;
+		let downSymbol[14] = 14;
+		let downSymbol[15] = -16384;
+		let downSymbol[16] = -3969;
+		let downSymbol[17] = -29441;
+		let downSymbol[18] = 825;
+		let downSymbol[19] = 14;
+		let downSymbol[20] = -16384;
+		let downSymbol[21] = -3969;
+		let downSymbol[22] = -29441;
+		let downSymbol[23] = 825;
+		let downSymbol[24] = 14;
+		let downSymbol[25] = -16384;
+		let downSymbol[26] = 13184;
+		let downSymbol[27] = -29472;
+		let downSymbol[28] = 7993;
+		let downSymbol[29] = 14;
+		let downSymbol[30] = -16384;
+		let downSymbol[31] = 13184;
+		let downSymbol[32] = -29472;
+		let downSymbol[33] = 7993;
+		let downSymbol[34] = 14;
+		let downSymbol[35] = -16384;
+		let downSymbol[36] = 13184;
+		let downSymbol[37] = -29472;
+		let downSymbol[38] = 25401;
+		let downSymbol[39] = 14;
+		let downSymbol[40] = -16384;
+		let downSymbol[41] = 13184;
+		let downSymbol[42] = -29472;
+		let downSymbol[43] = 25401;
+		let downSymbol[44] = 14;
+		let downSymbol[45] = -16384;
+		let downSymbol[46] = 13184;
+		let downSymbol[47] = -29472;
+		let downSymbol[48] = -31943;
+		let downSymbol[49] = 15;
+		let downSymbol[50] = -16384;
+		let downSymbol[51] = 13184;
+		let downSymbol[52] = -29472;
+		let downSymbol[53] = -31943;
+		let downSymbol[54] = 15;
+		let downSymbol[55] = -16384;
+		let downSymbol[56] = 13184;
+		let downSymbol[57] = -29472;
+		let downSymbol[58] = -31943;
+		let downSymbol[59] = 15;
+		let downSymbol[60] = -16384;
+		let downSymbol[61] = -3969;
+		let downSymbol[62] = -769;
+		let downSymbol[63] = 831;
+		let downSymbol[64] = 14;
+		let downSymbol[65] = -16384;
+		let downSymbol[66] = -3969;
+		let downSymbol[67] = -769;
+		let downSymbol[68] = 831;
+		let downSymbol[69] = 14;
+
+		let dropSymbol = Array.new(56);
+		let dropSymbol[0] = 0;
+		let dropSymbol[1] = 0;
+		let dropSymbol[2] = 0;
+		let dropSymbol[3] = 0;
+		let dropSymbol[4] = 0;
+		let dropSymbol[5] = 0;
+		let dropSymbol[6] = 0;
+		let dropSymbol[7] = 0;
+		let dropSymbol[8] = -512;
+		let dropSymbol[9] = -125;
+		let dropSymbol[10] = -25;
+		let dropSymbol[11] = 32761;
+		let dropSymbol[12] = -512;
+		let dropSymbol[13] = -125;
+		let dropSymbol[14] = -25;
+		let dropSymbol[15] = 32761;
+		let dropSymbol[16] = -512;
+		let dropSymbol[17] = -125;
+		let dropSymbol[18] = -25;
+		let dropSymbol[19] = 32761;
+		let dropSymbol[20] = 1536;
+		let dropSymbol[21] = 412;
+		let dropSymbol[22] = -16281;
+		let dropSymbol[23] = 28697;
+		let dropSymbol[24] = 1536;
+		let dropSymbol[25] = 412;
+		let dropSymbol[26] = -16281;
+		let dropSymbol[27] = 28697;
+		let dropSymbol[28] = 1536;
+		let dropSymbol[29] = -100;
+		let dropSymbol[30] = -16281;
+		let dropSymbol[31] = 32761;
+		let dropSymbol[32] = 1536;
+		let dropSymbol[33] = -100;
+		let dropSymbol[34] = -16281;
+		let dropSymbol[35] = 32761;
+		let dropSymbol[36] = 1536;
+		let dropSymbol[37] = -15972;
+		let dropSymbol[38] = -16288;
+		let dropSymbol[39] = 25;
+		let dropSymbol[40] = 1536;
+		let dropSymbol[41] = -15972;
+		let dropSymbol[42] = -16288;
+		let dropSymbol[43] = 25;
+		let dropSymbol[44] = 1536;
+		let dropSymbol[45] = -15972;
+		let dropSymbol[46] = -16288;
+		let dropSymbol[47] = 25;
+		let dropSymbol[48] = -512;
+		let dropSymbol[49] = -15997;
+		let dropSymbol[50] = -25;
+		let dropSymbol[51] = 25;
+		let dropSymbol[52] = -512;
+		let dropSymbol[53] = -15997;
+		let dropSymbol[54] = -25;
+		let dropSymbol[55] = 25;
+
+		let linesSymbol = Array.new(18);
+		let linesSymbol[0] = 7683;
+		let linesSymbol[1] = 16177;
+		let linesSymbol[2] = 30;
+		let linesSymbol[3] = 3075;
+		let linesSymbol[4] = 819;
+		let linesSymbol[5] = 3;
+		let linesSymbol[6] = 3075;
+		let linesSymbol[7] = 7991;
+		let linesSymbol[8] = 30;
+		let linesSymbol[9] = 3075;
+		let linesSymbol[10] = 829;
+		let linesSymbol[11] = 56;
+		let linesSymbol[12] = 3075;
+		let linesSymbol[13] = 825;
+		let linesSymbol[14] = 57;
+		let linesSymbol[15] = 7743;
+		let linesSymbol[16] = 16177;
+		let linesSymbol[17] = 30;
+
+		return;
+	}
+
+	function void release() {
+		do Memory.deAlloc(spaceSymbol);
+		do Memory.deAlloc(rotateSymbol);
+		do Memory.deAlloc(moveSymbol);
+		do Memory.deAlloc(downSymbol);
+		do Memory.deAlloc(dropSymbol);
+		do Memory.deAlloc(linesSymbol);
+
+		return;
+	}
+
+	// Given a row (values 0-6) and a word number (values 0-3)
+	// return the data for the given word
+	function int getSpaceSymbolData(int row, int word) {
+		return spaceSymbol[(row * 4) + word];
+	}
+
+	// Given a row (values 0-14) and a word number (values 0-5)
+	// return the data for the given word
+	function int getRotateSymbolData(int row, int word) {
+		return rotateSymbol[(row * 6) + word];
+	}
+
+	// Given a row (values 0-13) and a word number (values 0-4)
+	// return the data for the given word
+	function int getMoveSymbolData(int row, int word) {
+		return moveSymbol[(row * 5) + word];
+	}
+
+	// Given a row (values 0-13) and a word number (values 0-4)
+	// return the data for the given word
+	function int getDownSymbolData(int row, int word) {
+		return downSymbol[(row * 5) + word];
+	}
+
+	// Given a row (values 0-13) and a word number (values 0-3)
+	// return the data for the given word
+	function int getDropSymbolData(int row, int word) {
+		return dropSymbol[(row * 4) + word];
+	}
+
+	// Given a row (values 0-5) and a word number (values 0-2)
+	// return the data for the given word
+	function int getLinesSymbolData(int row, int word) {
+		return linesSymbol[(row * 3) + word];
+	}
+}

@@ -1,0 +1,150 @@
+class MiniGame{
+
+	method void runMiniGame(int count){
+		var boolean keyPressed;
+		var int c1,c2,c3;
+		var int correct1,correct2,correct3;
+		var Array hard, medium, easy, hardInt, mediumInt, easyInt;
+		let correct1 = 0;
+		let correct2 = 0;
+		let correct3 = 0;
+		let c1 = 0;
+		let c2 = 0;
+		let c3 = 0;
+		let hard = Array.new(8);
+		let medium = Array.new(6);
+		let easy = Array.new(4);
+		let hardInt = Array.new(8);
+		let mediumInt = Array.new(6);
+		let easyInt = Array.new(4);
+		let hard[0] = "Left"; let hard[1] = "Right"; let hard[2] = "Down"; let hard[3] = "Down"; let hard[4] = "Left"; let hard[5] = "Up";
+		let hard[6] = "Right"; let hard[7] = "Left";
+		let medium[0] = "Up"; let medium[1] = "Right"; let medium[2] = "Down"; let medium[3] = "Up"; let medium[4] = "Left"; let medium[5] = "Right";
+		let easy[0] = "Right"; let easy[1] = "Left"; let easy[2] = "Down"; let easy[3] = "Up";
+		let hardInt[0] = 130; let hardInt[1] = 132; let hardInt[2] = 133; let hardInt[3] = 133; let hardInt[4] = 130; let hardInt[5] = 131;
+		let hardInt[6] = 132; let hardInt[7] = 130;
+		let mediumInt[0] = 131; let mediumInt[1] = 132; let mediumInt[2] = 133; let mediumInt[3] = 131; let mediumInt[4] = 130; let mediumInt[5] = 132;
+		let easyInt[0] = 132; let easyInt[1] = 130; let easyInt[2] = 133; let easyInt[3] = 131;
+		do Screen.clearScreen();
+		do Output.moveCursor(0,0);
+		do Output.printString("Welcome to the mini game. Your guess was not close enough so you have to beat this to continue. This is a memory game where you have to repeat the combination given exactly. Use the arrow keys.");
+		do Output.println();
+		do Output.printString("Hit enter when you are ready to start");
+		let keyPressed = false;
+		while(~(keyPressed)){
+			if(Keyboard.keyPressed() = 128){
+				let keyPressed = true;
+			}
+		}
+		do Screen.clearScreen();
+		do Output.moveCursor(5,5);
+		if(count = 0){
+			while(c1 < 8){
+				do Output.printString(hard[c1]);
+				do Sys.wait(1500);
+				do Screen.clearScreen();
+				let c1 = c1 + 1;
+			}
+			let c1 = 0;
+			do Output.moveCursor(0,0);	
+			do Output.printString("Now its your turn. Enter the combination that was given with the arrow keys");
+			while(c1 < 8){
+				if(~(Keyboard.keyPressed() = 0)){
+					if(Keyboard.keyPressed() = hardInt[c1]){
+						let correct1 = correct1 + 1;
+					}
+					do Sys.wait(1000);
+					let c1 = c1 + 1;
+				}
+			}
+	
+			if(correct1 = 8){
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+				do Output.printString("You beat the mini game!");
+				do Sys.wait(2000);
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+			}
+			else{
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+				do Output.printString("You lost the mini game and failed the hot cold game");
+				do Sys.halt();
+			}
+					
+		}
+		if(count = 1){
+			while(c2 < 6){
+				do Output.printString(medium[c2]);
+				do Sys.wait(1500);
+				do Screen.clearScreen();
+				let c2 = c2 +1;
+			}
+			let c2 = 0;
+			do Output.moveCursor(0,0);	
+			do Output.printString("Now its your turn. Enter the combination that was given with the arrow keys");
+			while(c2 < 6){
+				if(~(Keyboard.keyPressed() = 0)){
+					if(Keyboard.keyPressed() = mediumInt[c2]){
+						let correct2 = correct2 + 1;
+					}
+					do Sys.wait(1000);
+					let c2 = c2 + 1;
+				}
+			}
+			if(correct2 = 6){
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+				do Output.printString("You beat the mini game!");
+				do Sys.wait(2000);
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+			}
+			else{
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+				do Output.printString("You lost the mini game and failed the hot cold game");
+				do Sys.halt();
+			}
+					
+		}
+		if(count = 2){
+			while(c3 < 4){
+				do Output.printString(easy[c3]);
+				do Sys.wait(1500);
+				do Screen.clearScreen();
+				let c3 = c3 + 1;
+			}
+			let c3 = 0;
+			do Output.moveCursor(0,0);	
+			do Output.printString("Now its your turn. Enter the combination that was given with the arrow keys");
+			while(c3 < 4){
+				if(~(Keyboard.keyPressed() = 0)){
+					if(Keyboard.keyPressed() = easyInt[c3]){
+						let correct3 = correct3 + 1;
+					}
+					do Sys.wait(1000);
+					let c3 = c3 + 1;
+				}
+			}
+			if(correct3 = 4){
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+				do Output.printString("You beat the mini game!");
+				do Sys.wait(2000);
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+			}
+			else{
+				do Screen.clearScreen();
+				do Output.moveCursor(0,0);
+				do Output.printString("You lost the mini game and failed the hot cold game");
+				do Sys.halt();
+			}
+					
+		}
+		return;
+	}
+}
+		

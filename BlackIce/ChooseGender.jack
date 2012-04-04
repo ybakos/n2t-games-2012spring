@@ -1,0 +1,82 @@
+class ChooseGender {
+
+	field Guy myGuy;
+    field Girl myGirl;
+	field int key;
+
+    constructor ChooseGender new() {
+    	let myGuy = Guy.new(0,0);
+        let myGirl = Girl.new(0,0);
+    	let key = 0;
+        return this;
+    }
+
+    method int run(int iG){
+        var int is_guy;
+        let is_guy = iG;
+        while(true){
+            if(iG = 1){
+                //box Guy
+                do Screen.setColor(true);
+                do Screen.drawLine(176,96,224,96);
+                do Screen.drawLine(176,96,176,144);
+                do Screen.drawLine(176,144,224,144);
+                do Screen.drawLine(224,144,224,96);
+            }else{
+                //box Girl
+                do Screen.setColor(true);
+                do Screen.drawLine(304,96,352,96);
+                do Screen.drawLine(304,96,304,144);
+                do Screen.drawLine(304,144,352,144);
+                do Screen.drawLine(352,144,352,96);
+            }
+            let key = 0;
+            while( key = 0 ){
+                let key = 0;
+                while (key = 0) {
+                    let key = Keyboard.keyPressed();
+                }
+                if (key = 130 & (iG = 0) ) {
+                    do Screen.setColor(false);
+                    do Screen.drawLine(304,96,352,96);
+                    do Screen.drawLine(304,96,304,144);
+                    do Screen.drawLine(304,144,352,144);
+                    do Screen.drawLine(352,144,352,96);
+                    let iG = 1;
+                }
+                if (key = 132 & (iG = 1) ) {
+                    do Screen.setColor(false);
+                    do Screen.drawLine(176,96,224,96);
+                    do Screen.drawLine(176,96,176,144);
+                    do Screen.drawLine(176,144,224,144);
+                    do Screen.drawLine(224,144,224,96);
+                    let iG = 0;
+                }
+                if (key = 69){
+                    return iG;
+                }
+                if (key = 81){
+                    return is_guy;
+                }
+            }
+        }
+        return 0;
+    }
+
+    method void initalize(){
+        do Screen.clearScreen();
+
+        do myGuy.set(12,7);
+        do myGirl.set(20,7);
+        do myGuy.drawDown();
+        do myGirl.drawDown();
+
+    	do Output.moveCursor(1,4);
+    	do Output.printString("Choose Your Avitar");
+    	do Output.moveCursor(2,4);
+    	do Output.printString("Press e to Select");
+    	do Output.moveCursor(21,4);
+    	do Output.printString("Press q to return to main screen");
+ 		return;
+    }
+}

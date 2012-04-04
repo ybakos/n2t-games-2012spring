@@ -1,0 +1,173 @@
+
+class InGameDisplayPanel {
+	field int gold;
+	field Tower currentTower;
+	field int score;
+	field int level;
+	field int lives;
+	
+	constructor InGameDisplayPanel new()
+	{
+		let gold = 100;
+		let score = 0;
+		let level = 0;
+		let lives = 20;
+		return this;
+	}
+	
+	method void loseLife()
+	{
+		let lives = lives - 1;
+		return;
+	}
+	
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+	method int getLevel()
+	{
+		return level;
+	}
+	
+	method int getGold()
+	{
+		return gold;
+	}
+	
+	method int getLives()
+	{
+		return lives;
+	}
+	
+	method void increaseGold()
+	{
+		let gold = gold + level;
+		return;
+	}
+	
+	method void increaseScore()
+	{
+		let score = score + level;
+		return;
+	}
+	
+	method void increaseLevel()
+	{
+		let level = level + 1;
+		return;
+	}
+	
+	method void draw(int towerLevel, int towerUpgradeCost, int towerKills, int towerAttack)
+	{
+		var String strScore;
+		var String strGold;
+		var String strLevel;
+		var String strLives;
+		var String strBIns1;
+		var String strBIns2;
+		var String strArrows1;
+		var String strArrows2;
+		var String strUIns1;
+		var String strUIns2;
+		var String strSIns1;
+		var String strSIns2;
+		var String strtower1;
+		var String strtower2;
+		var String strtower3;
+		var String strtower4;
+		
+		let strScore = "Score: ";
+		let strGold = "Gold: ";
+		let strLevel = "Level: ";
+		let strLives = "Lives: ";
+		let strBIns1 = "Press B to build a";
+		let strBIns2 = "tower.";
+		let strArrows1 = "Use the arrow keys";
+		let strArrows2 = "to move around";
+		let strUIns1 = "Press U to upgrade a";
+		let strUIns2 = "tower.";
+		let strSIns1 = "Hold S to start next";
+		let strSIns2 = "wave.";
+		let strtower1 = "Tower Level: ";
+		let strtower2 = "Upgrade Cost: ";
+		let strtower3 = "Tower Kills: ";
+		let strtower4 = "Tower Attack: ";
+		
+		do Screen.setColor(true);
+		do Screen.drawRectangle(320,0,511,255);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(322,2,509,253);
+		do Output.moveCursor(1,41);
+		do Output.printString(strScore);
+		do Output.printInt(score);
+		do Output.moveCursor(2,41);
+		do Output.printString(strGold);
+		do Output.printInt(gold);
+		do Output.moveCursor(3,41);
+		do Output.printString(strLevel);
+		do Output.printInt(level);
+		do Output.printString(" --");
+		do Output.moveCursor(4,41);
+		do Output.printString(strLives);
+		do Output.printInt(lives);
+		do Output.moveCursor(6,41);
+		do Output.printString(strBIns1);
+		do Output.moveCursor(7,44);
+		do Output.printString(strBIns2);
+		do Output.moveCursor(9,41);
+		do Output.printString(strArrows1);
+		do Output.moveCursor(10,44);
+		do Output.printString(strArrows2);
+		do Output.moveCursor(12,41);
+		do Output.printString(strUIns1);
+		do Output.moveCursor(13,44);
+		do Output.printString(strUIns2);
+		do Output.moveCursor(15,41);
+		do Output.printString(strSIns1);
+		do Output.moveCursor(16,44);
+		do Output.printString(strSIns2);
+		
+		do Output.moveCursor(18,41);
+		do Output.printString(strtower1);
+		do Output.printInt(towerLevel);
+		do Output.moveCursor(19,41);
+		do Output.printString(strtower2);
+		do Output.printInt(towerUpgradeCost);
+		do Output.moveCursor(20,41);
+		do Output.printString(strtower3);
+		do Output.printInt(towerKills);
+		do Output.moveCursor(21,41);
+		do Output.printString(strtower4);
+		do Output.printInt(towerAttack);
+		
+		do strScore.dispose();
+		do strGold.dispose();
+		do strLevel.dispose();
+		do strLives.dispose();
+		do strBIns1.dispose();
+		do strBIns2.dispose();
+		do strArrows1.dispose();
+		do strArrows2.dispose();
+		do strUIns1.dispose();
+		do strUIns2.dispose();
+		do strSIns1.dispose();
+		do strSIns2.dispose();
+		do strtower1.dispose();
+		do strtower2.dispose();
+		do strtower3.dispose();
+		do strtower4.dispose();
+		
+		
+		return;
+	}
+	
+	method void buyTower(int cost)
+	{
+		let gold = gold - cost;
+		return;
+	}
+	
+}

@@ -1,0 +1,5 @@
+Tic tac toe!
+
+To move the cursor use the arrow keys, once you have decided on a move and
+have put the cursor there press space to confirm. The turns will alternate
+between X's and O's until the end of the game is reached.

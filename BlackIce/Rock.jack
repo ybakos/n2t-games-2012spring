@@ -1,0 +1,97 @@
+class Rock {
+	
+    field int x, y;
+    
+    constructor Rock new(int Ax, int Ay) {
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return this;
+    }
+
+    method void set(int Ay, int Ax){
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return;
+    }
+
+    /** Draws the guy on the screen */
+    method void draw() {
+        /* OLD Way
+        do Screen.setColor(true);
+        do Screen.drawLine(x +5, y +1, x +12, y +1);
+        do Screen.drawLine(x +15, y +4, x +15, y +13);
+        do Screen.drawLine(x +14, y +3, x +14, y+14);
+        do Screen.drawLine(x +13, y +4, x +13, y +15);
+        do Screen.drawLine(x +12, y +6, x +12, y +15);
+        do Screen.drawLine(x +1, y +5, x +1, y +14);
+        do Screen.drawLine(x +2, y +12, x +2, y +15);
+        do Screen.drawLine(x +3, y +12, x +3, y +15);
+        do Screen.drawLine(x +4, y +13, x +4, y +15);        
+        do Screen.drawLine(x +5, y +11, x +5, y +15);
+        do Screen.drawLine(x +6, y +10, x +6, y +15);
+        do Screen.drawLine(x +7, y +15, x +11, y +15);
+        do Screen.drawLine(x +11, y +7, x +11, y +10);
+        do Screen.drawLine(x +10, y +7, x +10, y +9);
+        do Screen.drawLine(x +8, y +6, x +8, y +8);
+        do Screen.drawPixel(x +14, y +3);
+        do Screen.drawPixel(x +13, y +2);
+        do Screen.drawPixel(x +5, y +9);
+        do Screen.drawPixel(x +6, y +8);
+        do Screen.drawPixel(x +7, y +9);
+        do Screen.drawPixel(x +7, y +7);
+        do Screen.drawPixel(x +7, y +14);
+        do Screen.drawPixel(x +2, y +4);
+        do Screen.drawPixel(x +2, y +3);
+        do Screen.drawPixel(x +3, y +3);
+        do Screen.drawPixel(x +3, y +2);
+        do Screen.drawPixel(x +4, y +2);
+        New Way*/
+        var int sstart, sX, sY, i, j;
+        let sstart =  16384;
+        let sY = y;
+        let sX = x/16;
+        let i = sstart + sX + (sY*32);
+        do Memory.poke(i,0);
+        do Memory.poke(i + 32,2040);
+        do Memory.poke(i + 64,6148);
+        do Memory.poke(i + 96,12290);
+
+        do Memory.poke(i + 128,8199);
+        do Memory.poke(i + 160,16391);
+        do Memory.poke(i + 192,16399);
+        do Memory.poke(i + 224,16447);
+
+        do Memory.poke(i + 256,16575);
+        do Memory.poke(i + 288,16831);
+        do Memory.poke(i + 320,17055);
+        do Memory.poke(i + 352,16655);
+
+        do Memory.poke(i + 384,25359);
+        do Memory.poke(i + 416,29455);
+        do Memory.poke(i + 448,32670);
+        do Memory.poke(i + 480,16380);
+        return;
+    }
+}
+
+/* Rock bit map
+0000 0000 0000 0000     0
+0000 0111 1111 1000     2040
+0001 1000 0000 0100     6148
+0011 0000 0000 0010     12290
+
+0010 0000 0000 0111     8199
+0100 0000 0000 0111     16391
+0100 0000 0000 1111     16399
+0100 0000 0011 1111     16447
+
+0100 0000 1011 1111     16575
+0100 0001 1011 1111     16831
+0100 0010 1001 1111     17055
+0100 0001 0000 1111     16655
+
+0110 0011 0000 1111     25359
+0111 0011 0000 1111     29455
+0111 1111 1001 1110     32670
+0011 1111 1111 1100     16380
+*/

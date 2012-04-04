@@ -1,0 +1,96 @@
+function InputHandler.handleInput 2
+push argument 0
+call Game.getBoard 1
+pop local 1
+label WHILE_EXP0
+push argument 0
+call Game.gameState 1
+push constant 0
+eq
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 130
+eq
+push local 0
+push constant 65
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+call Board.moveCursorLeft 1
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 131
+eq
+push local 0
+push constant 87
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 1
+call Board.moveCursorUp 1
+pop temp 0
+label IF_FALSE1
+push local 0
+push constant 132
+eq
+push local 0
+push constant 68
+eq
+or
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 1
+call Board.moveCursorRight 1
+pop temp 0
+label IF_FALSE2
+push local 0
+push constant 133
+eq
+push local 0
+push constant 83
+eq
+or
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 1
+call Board.moveCursorDown 1
+pop temp 0
+label IF_FALSE3
+push local 0
+push constant 70
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 1
+call Board.toggleFlagAtCursor 1
+pop temp 0
+label IF_FALSE4
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push local 1
+call Board.revealTileAtCursor 1
+pop temp 0
+label IF_FALSE5
+push constant 250
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

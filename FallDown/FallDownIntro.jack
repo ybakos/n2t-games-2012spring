@@ -1,0 +1,61 @@
+// the introduction screen to FallDown
+class FallDownIntro {
+   field String line1;
+   field String line2;
+   field String line3;
+   field String line4;
+   field int key;
+   field int seed;
+
+   // constructs the introduction screen
+   constructor FallDownIntro new() {
+      let line1 = "                      Welcome to FallDown!                      ";
+      let line2 = "                    Press any key to start.                     ";
+      let line3 = " To play, press the left and right arrow keys. Fall as fast as  ";
+      let line4 = "     you can in order to avoid the ceiling. Press Q to quit.    ";
+      return this;
+   }
+
+   // deconstructs the intro screen
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   // the intro screen's main loop
+   // returns a random seed for the game
+   method int run() {
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.printString(line1);
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.printString(line2);
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.println();
+      do Output.printString(line3);
+      do Output.printString(line4);
+
+      let key = 0;
+      let seed = 1;
+      while(key = 0) {
+         let key = Keyboard.keyPressed();
+         let seed = seed + 1;
+      }
+
+      // return to start the game
+
+      return seed;
+   }
+}
+

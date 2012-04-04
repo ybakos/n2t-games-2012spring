@@ -1,0 +1,15 @@
+class Tuple
+{
+	field int TL, BR;
+
+	constructor Tuple new(int tl,int br)
+	{
+		let TL = tl;
+		let BR = br;
+
+		return this;
+	}
+
+	method int getTL() {return TL;}
+	method int getBR() {return BR;}
+}

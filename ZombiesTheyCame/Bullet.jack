@@ -1,0 +1,76 @@
+class Bullet {
+
+	field int y;
+	field int x;
+	field boolean onscreen;
+
+	constructor Bullet new() 
+	{
+    	let y = 110;
+    	let x = 35;
+    	let onscreen = false;
+		return this;
+    }
+
+    method void setActive(int height)
+    {
+        let onscreen = true;
+        let y = height;
+        let x = 35;
+        return;
+    }
+    method boolean getActive()
+    {
+        return onscreen;
+        
+    }
+    method int getY()
+    {
+        return y + 1;
+    }
+    method int getX()
+    {
+        return x + 5;
+    }
+
+    method void redraw()
+    {
+    	if(onscreen)
+    	{
+    		do Screen.drawRectangle(x, y, x+5, y+2);
+    	}
+    	return;
+    }
+
+    method void undraw()
+    {
+        if(onscreen)
+        {
+        	do Screen.setColor(false);
+    		do Screen.drawRectangle(x, y, x+5, y+2);
+    		do Screen.setColor(true);
+        }
+    	
+    	return;
+    }
+
+    method void move()
+    {
+        do undraw();
+    	let x = x + 1;
+        do redraw();
+    	if(x > 460)
+    	{
+            do undraw();
+            let onscreen = false;
+    		let x = 35;
+    	}
+
+    	return;
+    }
+
+    method void dispose() 
+    {
+    	return;
+    }
+}

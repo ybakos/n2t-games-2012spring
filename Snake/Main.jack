@@ -1,0 +1,121 @@
+class Main{
+
+	function void main(){
+		var Dot dot;
+		var int key;
+		var bool ate;
+		var int tmpKey;
+		var Snake snake;
+		var Random rand;
+		var bool gameOver;
+
+		// draws the splash screen before a game begins
+		do Output.moveCursor(5,20);
+		do Output.printString(" __                  ___ ");
+		do Output.moveCursor(6,20);
+		do Output.printString("/__` |\\ |  /\\  |__/ |__");
+		do Output.moveCursor(7,20);
+		do Output.printString(".__/ | \\| /~~\\ |  \\ |___");
+
+		do Output.moveCursor(8,18);
+		do Output.printString("    ___  __   ___        ___ ");
+		do Output.moveCursor(9,18);
+		do Output.printString("\\_/  |  |__) |__   |\\/| |__  ");
+		do Output.moveCursor(10,18);
+		do Output.printString("/ \\  |  |  \\ |___  |  | |___ ");
+			                             
+		do Output.moveCursor(16,20);
+		do Output.printString("Press Any Key to Play...");
+
+		// stays on the splash screen until the user pushes a key
+		while(Keyboard.keyPressed() = 0) {
+			do Sys.wait(1);
+		}
+
+		// removes the start text from the screen
+		do Screen.setColor(false);
+		do Screen.drawRectangle(0,0,511,255);
+		do Screen.setColor(true);
+
+		let rand = Random.new();
+		let gameOver = false;
+
+		let snake = Snake.new(Dot.new(9,10),null);
+		let snake = Snake.new(Dot.new(11,10),Snake.new(Dot.new(10,10),snake));	
+
+		do snake.drawAll();
+
+		let dot =  Dot.new(rand.next_int(63),rand.next_int(31));
+		do dot.draw();
+		let key = 132;
+		while(true){
+
+			// if the game was lost on the last iteration then remove the
+			// previous snake and make a new one
+			if(gameOver = true) {
+				do snake.dispose_all();
+				let snake = Snake.new(Dot.new(9,10),null);
+				let snake = Snake.new(Dot.new(11,10),Snake.new(Dot.new(10,10),snake));	
+
+				do snake.drawAll();
+				let gameOver = false;
+			}
+			//Draw on every loop incase snake was covering it up.
+			do dot.draw();
+			let tmpKey = Keyboard.keyPressed();			
+			if((tmpKey = 130) & ~(key = 132)) {
+			  let key = tmpKey;
+			}
+			if((tmpKey = 132) & ~(key = 130)) {
+			  let key = tmpKey;
+			}
+			if((tmpKey = 131) & ~(key = 133)) {
+			  let key = tmpKey;
+			}
+			if((tmpKey = 133) & ~(key = 131)) {
+			  let key = tmpKey;
+			}
+
+			let ate = snake.move(key, dot);
+
+			if(ate){
+				let dot =  Dot.new(rand.next_int(63),rand.next_int(31));
+				do dot.draw();
+			}
+
+			if(snake.collision()){
+				// draws the end game graphics
+				do Output.moveCursor(5,20);
+				do Output.printString(" __              ___ ");
+				do Output.moveCursor(6,20);
+				do Output.printString("/ _`  /\\   |\\/| |__  ");
+				do Output.moveCursor(7,20);
+				do Output.printString("\\__> /~~\\  |  | |___ ");
+
+				do Output.moveCursor(8,20);
+				do Output.printString(" __        ___  __  ");
+				do Output.moveCursor(9,20);
+				do Output.printString("/  \\ \\  / |__  |__) ");
+				do Output.moveCursor(10,20);
+				do Output.printString("\\__/  \\/  |___ |  \\ ");
+
+				do Output.moveCursor(16,16);
+				do Output.printString("Press any key to start over....");
+				// waits until the user presses a key
+				while(Keyboard.keyPressed() = 0) {
+					do Sys.wait(1);
+				}
+
+				// removes the start text from the screen
+				do Screen.setColor(false);
+				do Screen.drawRectangle(0,0,511,255);
+				do Screen.setColor(true);
+				let gameOver = true;
+			}
+			do Sys.wait(100);
+
+		}
+
+		return;
+	}
+}

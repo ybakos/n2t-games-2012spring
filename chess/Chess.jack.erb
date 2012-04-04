@@ -1,0 +1,689 @@
+// like a cowboy on the range
+// no time for planning, only coding
+// Author: Steven Ruppert
+
+// basic structure based on tscp, by Tom Kerrigan
+// http://www.tckerrigan.com/Chess/TSCP
+
+<% # let's DEFINE stuff
+	WHITE = 0
+	BLACK = 1
+
+	# indexes of a lot of arrays
+	PAWN = P = 0
+	KNIGHT = N =1
+	BISHOP = B = 2
+	ROOK = R = 3
+	QUEEN = Q = 4
+	KING = K = 5
+
+	EMPTY = E = 6
+
+	# create and allocate an array
+	# all in one line for debugging convenience
+	def allocate name, array, init = true
+		vals = array.each_with_index.map do |val,idx|
+			if val.is_a? Array
+				# extra temp variable because jack doesnt handle var[i][j] ;_;
+				"let temp = Array.new(#{val.length}); let #{name}[#{idx}] = temp; #{allocate "temp", val, false}" # recursively allocate array
+			else
+				"let #{name}[#{idx}] = #{val};"
+			end
+		end
+		# don't init on recursive calls
+		"#{ init ? "let #{name} = Array.new(#{array.length});" : ''} #{vals.join ' '}"
+	end
+
+	# use ord to convert chars to ints
+	def allocate_char name, array
+		allocate( name, (array.map &:ord) )
+	end
+
+%>
+// not using class methods to avoid having to pass
+// an extra this variable around
+class Chess {
+	static Array piece; // array of pieces
+	static Array color; // array of piece colors
+
+	static Array mailbox; // testing for offboard pieces, map to regular coords
+	static Array mailbox64; //lookup from board coords to mailbox coords
+
+	static Array slide; //whether piece type can slide (bishop/rook/queen)
+	static Array offsets; // the number of places the piece can move, pawns handled separately
+	static Array offset; // a two dimensional array of the offsets for piece moves
+
+	static Array king; //king position shortcut for player
+
+	static Array captures; //list of captured pieces, for display
+	static Array names; // names of pieces for display
+
+	static int turn; // 0 for white, 1 for black;
+	static int notturn; //opposite of turn
+
+	static int best_from, best_to, max_eval; //states for AI
+
+	static Array opposite_side; // way to switch sides
+
+	static Array piece_score; //for eval
+
+	function void init() {
+		// screw jack
+		var int temp; //holds addr for nested arrays
+
+		<%= allocate 'opposite_side', [1, 0] %>
+
+		// white, black
+		<%= allocate 'king', [59, 4] %>
+
+		<%= allocate( 'piece', [
+			3, 1, 2, 4, 5, 2, 1, 3,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			3, 1, 2, 5, 4, 2, 1, 3]) %>
+
+		<%= allocate( 'color', [
+			1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6,
+			0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0]) %>
+
+		<%= allocate( 'mailbox', [
+			-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+			-1,  0,  1,  2,  3,  4,  5,  6,  7, -1,
+			-1,  8,  9, 10, 11, 12, 13, 14, 15, -1,
+			-1, 16, 17, 18, 19, 20, 21, 22, 23, -1,
+			-1, 24, 25, 26, 27, 28, 29, 30, 31, -1,
+			-1, 32, 33, 34, 35, 36, 37, 38, 39, -1,
+			-1, 40, 41, 42, 43, 44, 45, 46, 47, -1,
+			-1, 48, 49, 50, 51, 52, 53, 54, 55, -1,
+			-1, 56, 57, 58, 59, 60, 61, 62, 63, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+			-1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]) %>
+
+		<%= allocate( 'mailbox64', [
+			21, 22, 23, 24, 25, 26, 27, 28,
+			31, 32, 33, 34, 35, 36, 37, 38,
+			41, 42, 43, 44, 45, 46, 47, 48,
+			51, 52, 53, 54, 55, 56, 57, 58,
+			61, 62, 63, 64, 65, 66, 67, 68,
+			71, 72, 73, 74, 75, 76, 77, 78,
+			81, 82, 83, 84, 85, 86, 87, 88,
+			91, 92, 93, 94, 95, 96, 97, 98]) %>
+
+		// pawn, knight, bishop, rook. queen, king
+		<%= allocate 'slide', [false, false, true, true, true, false] %>
+
+		<%= allocate 'offsets', [0, 8, 4, 4, 8, 8] %>
+
+		<%= allocate 'offset', [
+			0, # pawn
+			[ -21, -19, -12, -8, 8, 12, 19, 21 ], # knight
+			[ -11, -9, -9, 11 ], # bishop
+			[ -10, -1, 1, 10 ], # rook
+			[ -11, -10, -9, -1, 1, 9, 10, 11 ], # queen
+			[ -11, -10, -9, -1, 1, 9, 10, 11 ] ] %> //king
+
+		let captures = Array.new(2);
+		let captures[<%=WHITE%>] = String.new(15);
+		let captures[<%=BLACK%>] = String.new(15);
+
+		<%= allocate_char 'names', %w[P N B R Q K] %>
+
+		<%= allocate 'piece_score', [1, 3, 3, 5, 9, 200] %>
+
+		// game loop
+		while ( true ) {
+			let turn = <%=WHITE%>;
+			let notturn = <%=BLACK%>;
+			do Chess.draw();
+			while ( ~Chess.white_move() ) { // loop until player gets it right
+				do Chess.draw();
+			} 
+
+			let turn = <%=BLACK%>;
+			let notturn = <%=WHITE%>;
+			do Chess.draw();
+			do Output.printString( "Computer is thinking..." );
+			do Output.println();
+			do Chess.black_move();
+			do Chess.mate_check();
+		}
+
+		return; //never really happens
+	}
+
+	function void draw() {
+		var int i, j, k, current;
+		var char piecechar;
+		do Screen.clearScreen();
+		do Output.moveCursor( 0, 0 );
+		do Output.printString( "  A B C D E F G H   " );
+		do Output.printString( captures[<%=BLACK%>] );
+		do Output.moveCursor( 1, 0 );
+		let i = 8;
+		let j = 0;
+		while ( i > 0 ) {
+			let k = 0;
+			do Output.printInt( i );
+			do Output.printChar( ' ' ); 
+			while ( k < 8 ) {
+				let current = piece[k + j];
+				if ( current = <%=EMPTY%> ) { //checkerboard pattern
+					if( ( j + k + i ) & 1 ) {
+						do Output.printChar( '.' );
+					} else {
+						do Output.printChar( ' ' );
+					}
+				} else {
+					let piecechar = names[current];
+					if( color[k+j] = <%=BLACK%> ) { //convert to lowercase
+						let piecechar = piecechar + 32; 
+					}
+					do Output.printChar( piecechar );
+				}
+				do Output.printChar( ' ' );
+				let k = k + 1;
+			}
+			do Output.printInt( i );
+			let i = i - 1;
+			let j = j + 8;
+			do Output.moveCursor( 9 - i, 0 );
+		}
+		do Output.println();
+		do Output.printString( "  A B C D E F G H   " );
+		do Output.printString( captures[<%=WHITE%>] );
+		do Output.println();
+		return;
+	}
+
+	// human player
+	// returns true if player actually moved
+	// so game can loop until they do
+	function boolean white_move() {
+		var String input;
+		var int to, from, a,b,x,y;
+		let input = Keyboard.readLine( "White to Play: " );
+		// format: <from: <rank><file>> <to: <rank><file>>
+		if ( input.length() = 5 ) {
+			let a = input.charAt( 0 );
+			let b = input.charAt( 1 );
+			let x = input.charAt( 3 );
+			let y = input.charAt( 4 );
+			// rank is capital letter a - h and rank is 1 - 8
+			// '@' is right before 'A'
+			// this prevents weird characters from mapping to valid squares
+			if ( ( a > '@' ) & ( a < 'I' ) & ( x > '@' ) & ( x < 'I' ) & ( b > '0' ) & ( b < '9' ) & ( y > '0' ) & ( y < '9' ) ) {
+				// rank is an uppercase letter (ASCII - 65)
+				// file is a number (ASCII - 48)
+				// file is 1-indexed, so subtract 1
+				// file is upside down, so subtract it from 7
+				let from = a - 65 + Math.multiply( 56 - b, 8 );
+				let to = x - 65 + Math.multiply( 56 - y, 8 );
+				if ( Chess.move( from, to, true ) ) {
+					do Output.printString( "Moved " );
+					do Output.printChar( a );
+					do Output.printChar( b );
+					do Output.printString( " to " );
+					do Output.printChar( x );
+					do Output.printChar( y );
+					do Output.println();
+					return true; 
+				}
+			}
+		}
+		do Output.printString( "That is an invalid move!" );
+		do Keyboard.readChar(); // wait
+		return false;
+	}
+
+	// evals current chess position of side
+	function int eval( int side ) {
+		var int score, i, j, n, cur_piece, offset_count, forward, forward_two, home_start, home_end, diag_one, diag_two, notside;
+		var boolean sliding, checking;
+		var Array offs;
+
+		let notside = opposite_side[side];
+		// pawn info
+		if ( side = <%=BLACK%> ) {
+			let forward = 8;
+			let forward_two = 16;
+			let home_start = 15;
+			let home_end = 24;
+			let diag_one = 11;
+			let diag_two = 9;
+		} else {
+			let forward = -8;
+			let forward_two = -16;
+			let home_start = 47;
+			let home_end = 56;
+			let diag_one = -11;
+			let diag_two = -9;
+		} 
+
+		// 1 for each possible move
+		// for attackable pieces:
+		// 200 for king
+		// 9 for queen
+		// 5 for rook
+		// 3 for bishop and knight
+		// 1 for pawn
+		let score = 0;
+
+		while( i < 64 ) {
+			if( color[i] = side ) {
+				// for each possible move
+				if( piece[i] = <%=PAWN%> ) {
+					if( piece[ i + forward] = <%=EMPTY%> ) {
+						let score = score + 1;
+						if( ( i < home_end ) & ( i > home_start ) & ( piece[ i + forward_two] = <%=EMPTY%> ) ) {
+							let score = score + 1;
+						}
+					}
+					// if diag move is possible, and there's a white piece there
+					if( ~(mailbox[ mailbox64[n] + diag_one ] = (-1) ) ) {
+						if( color[i+diag_one - 2] = notside ) {
+							let score = score + 1 + piece_score[ piece[i + diag_one - 2] ];
+						}
+					}
+					if( ~(mailbox[ mailbox64[n] + diag_two ] = (-1) ) ) {
+						if( color[i+ diag_two - 2] = notside ) {
+							let score = score + 1 + piece_score[ piece[i + diag_two - 2] ];
+						}
+					}
+				} else {
+					let j = 0;
+					let cur_piece = piece[i];
+
+					let offset_count = offsets[cur_piece];
+					let offs = offset[cur_piece];
+					let sliding = slide[cur_piece];
+					while( j < offset_count ) { //for each possible offset
+						let checking = true; // so we can break out of while loop
+						let n = i;
+						while( checking ) { // keep sliding by this offset
+							let n = mailbox[ mailbox64[n] + offs[j] ]; // grab offset through mailbox
+							if( ~(n = (-1) ) ) { // if on board
+								let score = score + 1;
+								if( color[n] = notside ) { //add attackable piece
+									let score = score + piece_score[ piece[n] ];
+								}
+							}
+							// if not on board, not empty, or not sliding, stop sliding
+							if( ~(n = (-1) ) | ~( color[n] = <%=EMPTY%> ) | ~sliding ) { let checking = false; }
+						}
+						let j = j + 1;
+					}
+				}
+			}
+			let i = i + 1;
+		}
+		return score;
+	}
+
+	// tries move for black, updates max eval and best from/to
+	// then undoes move
+	function void try_move( int from, int to ) {
+		var int cur_piece, cur_color, to_piece, to_color, current_eval;
+		//store current position
+		let cur_piece = piece[from];
+		let cur_color = color[from];
+		let to_piece = piece[to];
+		let to_color = color[to];
+		if( Chess.move( from, to, false ) ) {
+			let current_eval = Chess.eval( <%=BLACK%> ) - Chess.eval( <%=WHITE%> );
+			//undo move
+			let piece[from] = cur_piece;
+			let color[from] = cur_color;
+			let piece[to] = to_piece;
+			let color[to] = to_color;
+			if( cur_piece = <%=KING%> ) {
+				let king[<%=BLACK%>] = from;
+			}
+			if( current_eval > max_eval ) { 
+				let max_eval = current_eval;
+				let best_from = from;
+				let best_to = to;
+			}
+		}
+		return;
+	}
+
+	// computer player
+	// one ply evaluation check
+	// will beat nobody ;_;
+	function void black_move() {
+		var int i, j, n, cur_piece, offset_count;
+		var boolean sliding, checking;
+		var Array offs;
+
+		//reset tracker
+		let max_eval = -10000;
+		// for each square
+		while( i < 64 ) {
+			if( color[i] = <%=BLACK%> ) {
+				// for each possible move
+				if( piece[i] = <%=PAWN%> ) {
+					if( piece[i+8] = <%=EMPTY%> ) {
+						do Chess.try_move( i, i+8 );
+						if( ( i < 24 ) & ( i > 15 ) & ( piece[i+16] = <%=EMPTY%> ) ) {
+							do Chess.try_move( i, i + 16 );
+						}
+					}
+					// if diag move is possible, and there's a white piece there
+					if( ~(mailbox[ mailbox64[n] + 11 ] = (-1) ) ) {
+						if( color[i+9] = <%=WHITE%> ) {
+							do Chess.try_move( i, i + 9 );
+						}
+					}
+					if( ~(mailbox[ mailbox64[n] + 9 ] = (-1) ) ) {
+						if( color[i+7] = <%=WHITE%> ) {
+							do Chess.try_move( i, i + 7 );
+						}
+					}
+				} else {
+					let j = 0;
+					let cur_piece = piece[i];
+					let offset_count = offsets[cur_piece];
+					let offs = offset[cur_piece];
+					let sliding = slide[cur_piece];
+					while( j < offset_count ) { //for each possible offset
+						let checking = true; // so we can break out of while loop
+						let n = i;
+						while( checking ) { // keep sliding by this offset
+							let n = mailbox[ mailbox64[n] + offs[j] ]; // grab offset through mailbox
+							if( ~(n = (-1) ) ) { // if on board
+								do Chess.try_move( i, n );
+							} 
+							// if not empty, or not sliding, stop sliding
+							if( ~( color[n] = <%=EMPTY%> ) | ~sliding ) { let checking = false; }
+						}
+						let j = j + 1;
+					}
+				}
+			}
+			let i = i + 1;
+		}
+
+		// if we found a possible move ( that changed max_eval )
+		if( ~(max_eval = -10000) ) { 
+			// do best move
+			do Chess.move( best_from, best_to, true );
+		} else {
+			if( Chess.attacked( king[<%=BLACK%>], <%=WHITE%> ) ) {
+				do Output.printString( "Checkmate!" );
+				do Output.println();
+				do Output.printString( "Computer angrily flips the board over, scattering the pieces.");	
+				do Output.println();
+				do Output.printString( "You win, but Computer insists the game was rigged.");	
+			} else {
+				do Output.printString( "Stalemate!" );
+				do Output.println();
+				do Output.printString( "Computer starts spouting nonsense about mutually assured destruction.");	
+			}
+			do Sys.halt();
+		}
+
+		return;
+	}
+
+	// check if given offsets contain to, starting from position n (from)
+	// returns FALSE if found, so I don't have to negate it later
+	function boolean check_offsets( Array offs, boolean sliding, int offset_count, int to, int from ) {
+		var int n, i;
+		var boolean checking;
+		let i = 0;
+		while( i < offset_count ) { //for each possible offset
+			let checking = true; // so we can break out of while loop
+			let n = from;
+			while( checking ) { // keep sliding by this offset
+				let n = mailbox[ mailbox64[n] + offs[i] ]; // grab offset through mailbox
+				if( to = n ) { return false; } //found
+				// if offsides, not empty, or not sliding, stop sliding
+				if( ( n = (-1) ) | ~( color[n] = <%=EMPTY%> ) | ~sliding ) { let checking = false; }
+			}
+			let i = i + 1;
+		}
+		return true;
+	}
+
+	// update board state with move
+	// if move is illegal, does nothing and returns false
+	// else true
+	// real flag controls whether captured piece lists are updated
+	function boolean move( int from, int to, boolean real ) {
+		var int from_piece, to_piece, forward, diff, to_color, forward, home_start, home_end, promo, old_king;
+		var String cur_captures;
+
+		let to_color = color[to];
+
+		// check that piece exists and is ours
+		if ( ~(color[from] = turn) ) { return false; }
+		// can't capture own pieces
+		if( to_color = turn ) { return false; }
+
+		let from_piece = piece[from];
+		let to_piece = piece[to];
+		if ( turn = <%=BLACK%> ) {
+			let diff = to - from;
+			let forward = 8;
+			let home_start = 15;
+			let home_end = 24;
+		} else {
+			let diff = from - to; 
+			let forward = -8;
+			let home_start = 47;
+			let home_end = 56;
+		} 
+
+		//check that to is valid	
+		// TODO I doubt jack does shortcircuiting, so this is probably more expensive than
+		// the alternative of lots of nested ifs. We've plenty of instruction space still (probably)
+		if( ( from_piece = <%=PAWN%> ) & ~(
+			//regular forward move to empty space
+			( ( diff = 8 ) & (to_piece = <%=EMPTY%> ) ) |
+			// attack diagonally 
+			( ( ( diff = 7 ) | ( diff = 9 ) ) & ( to_color = notturn ) ) |
+			// allow pushes from home row if squares are empty
+			( ( diff = 16 ) & 
+				( from < home_end ) & 
+				( from > home_start ) & 
+				( piece[from + forward] = <%=EMPTY%> ) &
+				( piece[to] = <%=EMPTY%> )
+			)	) ) { return false; }
+		//handle other pieces
+		if ( ~( from_piece = <%=PAWN%> ) & Chess.check_offsets( offset[from_piece], slide[from_piece], offsets[from_piece], to, from ) ) {
+			return false;
+		}
+
+		// alright, move is valid so do it
+		let old_king = king[turn];
+		let piece[to] = from_piece;
+		let piece[from] = <%=EMPTY%>;
+		let color[to] = turn;
+		let color[from] = <%=EMPTY%>;
+		if ( from_piece = <%=KING%> ) {
+			let king[turn] = to;
+		}
+
+		// do promotion for pawn if on last rank
+		if( ( from_piece = <%=PAWN%> ) &
+			( ( ( turn = <%=WHITE%> ) & ( to < 8 ) ) |
+				( ( turn = <%=BLACK%> ) & ( to > 55 ) ) 
+				) )  { 
+
+			if( turn = <%=BLACK%> ) {
+				let piece[to] = <%=QUEEN%>;
+			} else { //handle player input
+				while ( ~( ( promo = <%=QUEEN%> ) | ( promo = <%=ROOK%> ) | ( promo = <%=BISHOP%> ) | ( promo = <%=KNIGHT%> ) ) ) {
+					let promo = Keyboard.readInt( "Promote to [N=1, B=2, R=3, Q=4]" );
+				}
+				let piece[to] = promo;
+			}
+		}
+
+		//if king is left in jeopardy, undo move
+		if( Chess.attacked( king[turn], notturn ) ) { 
+			let piece[to] = to_piece;
+			let piece[from] = from_piece;
+			let color[to] = to_color;
+			let color[from] = turn;
+			if ( from_piece = <%=KING%> ) {
+				let king[turn] = old_king;
+			}
+			return false;
+		}
+
+		// add captured piece to list
+		if( real & ~( to_piece = <%=EMPTY%> ) ) {
+			let cur_captures = captures[turn];
+			do cur_captures.appendChar( names[to_piece] );
+		}
+
+		return true; 
+	}
+
+	// true if white king is not in check before or after move
+	function boolean try_uncheck( int from, int to ) {
+		var int cur_piece, cur_color, to_piece, to_color;
+		var boolean in_check;
+		let in_check = true;
+		// short circuit if king isn't currently in check
+		if( ~Chess.attacked( king[<%=WHITE%>], <%=BLACK%> ) ) {
+			return true;
+		}
+		//store current position
+		let cur_piece = piece[from];
+		let cur_color = color[from];
+		let to_piece = piece[to];
+		let to_color = color[to];
+		if( Chess.move( from, to, false ) ) {
+			let in_check = Chess.attacked( king[<%=WHITE%>], <%=BLACK%> );
+			//undo move
+			let piece[from] = cur_piece;
+			let color[from] = cur_color;
+			let piece[to] = to_piece;
+			let color[to] = to_color;
+			if( cur_piece = <%=KING%> ) {
+				let king[<%=WHITE%>] = from;
+			}
+		}
+		return ~in_check;
+	}
+
+	// exits game if white player is mated, stale or check
+	function void mate_check() {
+		var int i,j,n, cur_piece, offset_count;
+		var Array offs;
+		var boolean has_moves, checking, sliding;
+		let has_moves = false;
+
+		while( i < 64 ) {
+			if( color[i] = <%=WHITE%> ) {
+				// for each possible move
+				if( piece[i] = <%=PAWN%> ) {
+					if( piece[ i - 8] = <%=EMPTY%> ) {
+						let has_moves = true;
+						if( Chess.try_uncheck( i, i - 8 ) ) { return; }
+						if( ( i < 56 ) & ( i > 47 ) & ( piece[ i - 8] = <%=EMPTY%> ) ) {
+							if( Chess.try_uncheck( i, i - 16 ) ) { return; }
+						}
+					}
+					// if diag move is possible, and there's a black piece there
+					if( ~(mailbox[ mailbox64[n] - 11 ]  = (-1) ) ) {
+						if( color[i - 9] = <%=BLACK%> ) {
+							let has_moves = true;
+							if( Chess.try_uncheck( i, i - 9 ) ) { return; }
+						}
+					}
+					if( ~(mailbox[ mailbox64[n] - 9 ] = (-1) ) ) {
+						if( color[i - 7] = <%=BLACK%> ) {
+							let has_moves = true;
+							if( Chess.try_uncheck( i, i - 7 ) ) { return; }
+						}
+					}
+				} else {
+					let j = 0;
+					let cur_piece = piece[i];
+
+					let offset_count = offsets[cur_piece];
+					let offs = offset[cur_piece];
+					let sliding = slide[cur_piece];
+					while( j < offset_count ) { //for each possible offset
+						let checking = true; // so we can break out of while loop
+						let n = i;
+						while( checking ) { // keep sliding by this offset
+							let n = mailbox[ mailbox64[n] + offs[j] ]; // grab offset through mailbox
+							if( ~(n = (-1) ) ) { // if on board
+								let has_moves = true;
+								if( Chess.try_uncheck( i, n ) ) { return; }
+							}
+							// if not on board, not empty, or not sliding, stop sliding
+							if( ~(n = (-1) ) | ~( color[n] = <%=EMPTY%> ) | ~sliding ) { let checking = false; }
+						}
+						let j = j + 1;
+					}
+				}
+			}
+			let i = i + 1;
+		}
+		if( has_moves ) {
+			do Output.printString( "Checkmate! You lose!" );
+			do Output.println();
+			do Output.printString( "Computer asks if you are frustrated." );
+		} else {
+			do Output.printString( "Stalemate!" );
+			do Output.println();
+			do Output.printString( "Computer starts spouting nonsense about mutually assured destruction.");	
+		}
+		return;
+	}
+
+	// true if square is attacked by side
+	function boolean attacked( int square, int side ) {
+		var int i, j, n, offset_count, cur_piece;
+		var boolean checking, sliding;
+		var Array offs;
+		let i = 0;
+		while( i < 64 ) {
+			if( color[i] = side ) {
+				if( piece[i] = <%=PAWN%> ) {
+					if( side = <%=WHITE%> ) {
+						if( ( ( i - 9 ) = square ) | ( ( i - 7 ) = square ) ) { return true; }
+					} else {
+						if( ( ( i + 9 ) = square ) | ( ( i + 7 ) = square ) ) { return true; }
+					}
+				} else {
+					let j = 0;
+					let cur_piece = piece[i];
+					let offset_count = offsets[cur_piece];
+					let offs = offset[cur_piece];
+					let sliding = slide[cur_piece];
+					while( j < offset_count ) { //for each possible offset
+						let checking = true; // so we can break out of while loop
+						let n = i;
+						while( checking ) { // keep sliding by this offset
+							let n = mailbox[ mailbox64[n] + offs[j] ]; // grab offset through mailbox
+							if( square = n ) { return true; } // attacked
+							// if offsides, not empty, or not sliding, stop sliding
+							if( ( n = (-1) ) | ~( color[n] = <%=EMPTY%> ) | ~sliding ) { let checking = false; }
+						}
+						let j = j + 1;
+					}
+				}
+			}
+			let i = i + 1;
+		}
+		return false;
+	}
+
+}

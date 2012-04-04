@@ -1,0 +1,287 @@
+class Gameplay {
+	
+    field Board myBoard;
+    field Guy myGuy;
+    field Girl myGirl;
+    field Rock myRock;
+    field Ice myIce;
+    field int guyX, guyY;
+    field Ground myGround;
+    field End myEnd;
+    field Hole myHole;
+    field int sX, sY;
+    field int is_guy;
+
+    constructor Gameplay new() {
+        let guyX = 5;
+        let guyY = 5;
+        let is_guy = 1;
+        let myGuy = Guy.new(guyX,guyY);
+        let myGirl = Girl.new(guyX, guyY);
+        let myIce = Ice.new(0,0);
+        let myBoard = Board.new();
+        let myRock = Rock.new(0,0);
+        let myGround = Ground.new(0,0);
+        let myEnd = End.new(0,0);
+        let myHole = Hole.new(0,0);
+        return this;
+    }
+
+    method void setGuyGirl(int g){
+        let is_guy = g;
+        return;
+    }
+
+    method void clearBoard(){
+        do myBoard.clearBoard();
+        do Screen.clearScreen();
+        return;
+    }
+
+    method void setBoard(int V, int H, char VAL){
+        do myBoard.set(V,H,VAL);
+        return;
+    }
+
+    method void initalize(){
+        do drawBoard();
+        do myGuy.set(sX,sY);
+        do myGirl.set(sX,sY);
+        let guyX = sX;
+        let guyY = sY;
+        if(is_guy = 1){
+            do drawGuy(4);
+        }else{
+            do drawGirl(4);
+        }
+        return;
+    }
+
+    // 1. left, 2. up, 3. right 4. down
+    method void drawGuy(int dir){
+        if(dir = 2){
+            do myGuy.drawUp();
+        }else {
+            if(dir = 1){
+                do myGuy.drawLeft();
+            }else{
+                if(dir = 3){
+                    do myGuy.drawRight();
+                }else{
+                    do myGuy.drawDown();
+                }
+            }
+        }
+        return;
+    }
+
+    method void drawGirl(int dir){
+        if(dir = 2){
+            do myGirl.drawUp();
+        }else {
+            if(dir = 1){
+                do myGirl.drawLeft();
+            }else{
+                if(dir = 3){
+                    do myGirl.drawRight();
+                }else{
+                    do myGirl.drawDown();
+                }
+            }
+        }
+        return;
+    }
+
+    method void drawBoard(){
+        var int v, h;
+        let v = 0;
+        while(v < 16){
+            let h = 0;
+            while(h < 32){
+                do drawObject(v,h);
+                let h = h + 1;
+            }
+            let v = v + 1;
+        }
+        return;
+    }
+
+    method void drawObject(int v, int h){
+        var char obj;
+        let obj = myBoard.getSpot(h,v);
+        if ( obj = 1 ){
+            do myRock.set(v, h);
+            do myRock.draw();
+        }
+        if ( obj = 2 ){
+            do myIce.set(v, h);
+            do myIce.draw();                    
+        }
+        if ( obj = 3 ){
+            do myGround.set(v, h);
+            do myGround.draw();
+        }
+        if (obj = 6 ){
+            do myGround.set(v, h);
+            do myGround.draw(); 
+            let sX = h;
+            let sY = v;       
+        }
+        if ( obj = 5 ){
+            do myEnd.set(v,h);
+            do myEnd.draw();
+        }
+        if ( obj = 4 ){
+            do myHole.set(v,h);
+            do myHole.draw();
+        }
+        return;
+    }
+
+    method void run(){
+        var char key;
+        while(true){
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+            }
+            if (key = 131 & canMove(2)) {
+                do moveGuyUp();
+                while(myBoard.getSpot(guyX,guyY) = 2 & canMove(2)){
+                    do Sys.wait(400);
+                    do moveGuyUp();
+                }
+            }
+            if (key = 133 & canMove(4)) {
+                do moveGuyDown(); 
+                while(myBoard.getSpot(guyX,guyY) = 2 & canMove(4)){
+                    do Sys.wait(400);
+                    do moveGuyDown();
+                }           
+            }
+            if (key = 130 & canMove(1)) {
+                do moveGuyLeft();   
+                while(myBoard.getSpot(guyX,guyY) = 2 & canMove(1)){
+                    do Sys.wait(400);
+                    do moveGuyLeft();
+                }         
+            }
+            if (key = 132 & canMove(3)) {
+                do moveGuyRight();  
+                while(myBoard.getSpot(guyX,guyY) = 2 & canMove(3)){
+                    do Sys.wait(400);
+                    do moveGuyRight();
+                }          
+            }
+            if (key = 81){
+                return;
+            }
+            if(myBoard.getSpot(guyX,guyY) = 5){
+                do Output.moveCursor(16,28);
+                do Output.printString("You Win!");
+            }
+            if(myBoard.getSpot(guyX,guyY) = 4){
+                do moveGuyStart();
+            }
+            do Sys.wait(400);
+            let key = 0;
+        }
+        return;
+    }
+
+    // 1. left, 2. up, 3. right 4. down
+    method boolean canMove(int dir){
+        var int obj;
+        let obj = 0;
+        if (dir = 1){
+            let obj = myBoard.getSpot(guyX - 1,guyY);
+        }
+        if (dir = 2){
+            let obj = myBoard.getSpot(guyX,guyY - 1);
+        }
+        if (dir = 3){
+            let obj = myBoard.getSpot(guyX + 1,guyY);
+        }
+        if (dir = 4){
+            let obj = myBoard.getSpot(guyX,guyY + 1);
+        }
+        if (obj = 1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    method void moveGuyStart(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(guyX*16, guyY*16, guyX*16 + 15, guyY*16 + 15);
+        do drawObject(guyY,guyX);
+        do myGuy.set(sX,sY);
+        do myGirl.set(sX,sY);
+        let guyX = sX;
+        let guyY = sY;
+        if(is_guy = 1){
+            do drawGuy(4);
+        }else{
+            do drawGirl(4);
+        }
+        return;
+    }
+
+    method void moveGuyUp(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(guyX*16, guyY*16, guyX*16 + 15, guyY*16 + 15);
+        let guyY = guyY - 1;
+        do myGuy.set(guyX,guyY);
+        do myGirl.set(guyX,guyY);
+        if(is_guy = 1){
+            do drawGuy(2);
+        }else{
+            do drawGirl(2);
+        }
+        do drawObject(guyY + 1, guyX);
+        return;
+    }
+    method void moveGuyDown(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(guyX*16, guyY*16, guyX*16 + 15, guyY*16 + 15);
+        let guyY = guyY + 1;
+        do myGuy.set(guyX,guyY);
+        do myGirl.set(guyX,guyY);
+        if(is_guy = 1){
+            do drawGuy(4);
+        }else{
+            do drawGirl(4);
+        }
+        do drawObject(guyY - 1, guyX);
+        return;
+    }
+    method void moveGuyLeft(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(guyX*16, guyY*16, guyX*16 + 15, guyY*16 + 15);
+        let guyX = guyX - 1;
+        do myGuy.set(guyX,guyY);
+        do myGirl.set(guyX,guyY);
+        if(is_guy = 1){
+            do drawGuy(1);
+        }else{
+            do drawGirl(1);
+        }
+        do drawObject(guyY, guyX + 1);
+        return;
+    }
+    method void moveGuyRight(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(guyX*16, guyY*16, guyX*16 + 15, guyY*16 + 15);
+        let guyX = guyX + 1;
+        do myGuy.set(guyX,guyY);
+        do myGirl.set(guyX,guyY);
+        if(is_guy = 1){
+            do drawGuy(3);
+        }else{
+            do drawGirl(3);
+        }
+        do drawObject(guyY, guyX - 1);
+        return;
+    }
+
+}

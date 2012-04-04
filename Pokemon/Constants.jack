@@ -1,0 +1,222 @@
+class Constants
+{
+	static Array hit, miss, super, weak;
+	static Array win, lose;
+	static Array pokeList, names, styles, stats, types;
+	//const int a = 1;
+
+
+	function Array getPokemon()
+	{
+		if (names = null)
+		{
+			let names = Array.new(6);
+
+			let names[0] = "Alakazam";
+			let names[1] = "Blastoise";
+			let names[2] = "Charizard";
+			let names[3] = "Primeape";
+			let names[4] = "Scyther";
+			let names[5] = "Venusaur";
+		}
+
+		return names;
+	}
+
+	function Array getRules()
+	{
+		var Array rules;
+
+		let rules = Array.new(4);
+		let rules[0] = "Move cursor: (Arrow Keys)";
+		let rules[1] = "Scroll dialog: (ENTER)";
+		let rules[2] = "Select option: (ENTER)";
+		let rules[3] = "Quit: (q)";
+
+
+		return rules;
+	}
+
+	function Array getIntro()
+	{
+		var Array intro;
+
+		let intro = Array.new(26);
+		let intro[0] = "Welcome to the wonderful world of Pokemon!";
+		let intro[1] = "My name is Oak. People call me the Pokemon Professor.";
+		let intro[2] = "This world is inhabited by creatures called Pokemon.";
+		let intro[3] = "For some people, pokemon are pets.";
+		let intro[4] = "Others use them for fights!";
+		let intro[5] = "Myself... I study pokemon.";
+		let intro[6] = "No doubt you are here because you want to battle.";
+		let intro[7] = "Did you read the instructions to my right?";
+		let intro[8] = "Good! Now down to business.";
+		let intro[9] = "...";
+		let intro[10] = "Every pokemon has one or more types.";
+		let intro[11] = "For example: Charizard is a fire/flying type pokemon.";
+		let intro[12] = "Each type has weaknesses and resistances.";
+		let intro[13] = "Fire pokemon are weak against water moves,";
+		let intro[14] = "Water pokemon are weak against grass moves,";
+		let intro[15] = "and Grass pokemon are weak against fire moves.";
+		let intro[16] = "It is up to you to determine the others.";
+		let intro[17] = "Choose the best moves to deliver the most damage.";
+		let intro[18] = "Also, if your pokemon uses a move of the same type,";
+		let intro[19] = "it will get an additional damage bonus.";
+		let intro[20] = "Now on to the pokemon's powers.";
+		let intro[21] = "Each pokemon has four moves that can be used.";
+		let intro[22] = "The winner of the battle is the first trainer to";
+		let intro[23] = "drop all the opponent's pokemon to 0 HP.";
+		let intro[24] = "Do you understand all the rules?";
+		let intro[25] = "...Because I am not going back!";
+
+		return intro;
+	}
+
+	function Array getStyles()
+	{
+		if (styles = null)
+		{
+			let styles = Array.new(3);
+			let styles[0] = "Player vs Computer";
+			let styles[1] = "Player vs Player";
+			let styles[2] = "Computer vs Computer";
+		}
+
+		return styles;
+	}
+
+	function String getPlayerChoose(bool player)
+	{
+		if (player)
+		{
+			return "Player 1. Choose your pokemon!";
+		}
+		else
+		{
+			return "Player 2. Choose your pokemon!";
+		}
+	}
+
+	function Array getStats()
+	{
+		if (stats = null)
+		{
+
+			let stats = Array.new(14);
+
+			let stats[12] = "MissingNO: ---/--- Strength: ???";
+			let stats[13] = "Moves: Sky Attack, Water Gun, Water Gun, Night Shade";
+
+			let stats[0] = "Alakazam: Psychic/--- Strength: S. Att";
+			let stats[1] = "Moves: Recover, Psychic, Reflect, Teleport";	
+
+			let stats[2] = "Blastoise: Water/--- Strength: Def";
+			let stats[3] = "Moves: Hydro Pump, Skull Bash, Withdraw, Blizzard";
+		
+			let stats[4] = "Charizard: Fire/Flying Strength: Speed";
+			let stats[5] = "Moves: Fire Blast, Slash, Wing Attack, Dragon Rage";
+
+			let stats[6] = "Primeape: Fighting/--- Strength: Att";
+			let stats[7] = "Moves: Cross Chop, Seismic Toss, Fury Swipes, Screech";
+		
+			let stats[8] = "Scyther: Bug/Flying Strength: Att, Speed";
+			let stats[9] = "Moves: Slash, Fury Cutter, Swords Dance, Double Team";
+		
+			let stats[10] = "Venusaur: Grass/Poison Strength: S. Def";
+			let stats[11] = "Moves: Solar Beam, Sleep Powder, Synthesis, Growth";
+		}
+
+		return stats;
+	}
+
+	function Pokemon getAPokemon(int name)
+	{
+
+		var Pokemon pokemon;
+
+		if (pokeList = null)
+		{
+			let pokeList = Array.new(6);
+			let pokemon = Pokemon.new("Alakazam","Psychic", "???");
+			do pokemon.setAll(130,70,65,155,105,140,50);
+			do pokemon.setAttacks("Recover", "Psychic", "Reflect", "Teleport");
+			let pokeList[0] = pokemon;
+
+			let pokemon = Pokemon.new("Blastoise","Water", "???");
+			do pokemon.setAll(154,103,120,105,125,98,50);
+			do pokemon.setAttacks("Hydro Pump", "Skull Bash", "Withdraw", "Blizzard");
+			let pokeList[1] = pokemon;
+
+			let pokemon = Pokemon.new("Charizard","Fire", "Flying");
+			do pokemon.setAll(153,104,98,129,105,120,50);
+			do pokemon.setAttacks("Fire Blast", "Slash", "Wing Attack", "Dragon Rage");
+			let pokeList[2] = pokemon;
+
+			let pokemon = Pokemon.new("Primeape","Fighting", "???");
+			do pokemon.setAll(166,149,95,95,107,137,60);
+			do pokemon.setAttacks("Cross Chop", "Seismic Toss", "Fury Swipes", "Screech");
+			let pokeList[3] = pokemon;
+
+			let pokemon = Pokemon.new("Scyther","Bug", "Flying");
+			do pokemon.setAll(172,155,119,89,119,149,60);
+			do pokemon.setAttacks("Slash", "Fury Cutter", "Swords Dance", "Double Team");
+			let pokeList[4] = pokemon;
+
+			let pokemon = Pokemon.new("Venusaur","Grass", "Poison");
+			do pokemon.setAll(155,102,103,120,120,100,50);
+			do pokemon.setAttacks("Solar Beam", "Sleep Powder", "Synthesis", "Growth");
+			let pokeList[5] = pokemon;
+		}
+
+
+		let pokemon = pokeList[name];
+
+		return pokemon;
+	}
+	
+	function bool strCompare(String left, String right)
+	{
+		var int i;
+
+		if (~(left.length() = right.length()))
+		{
+			return false;
+		}
+
+		let i=0;
+		while (i < left.length())
+		{
+			if (~(left.charAt(i) = right.charAt(i)))
+			{
+				return false;
+			}
+			let i = i +1;
+		}
+		return true;
+	}
+
+	function String concat(String left, String right)
+	{
+		var String newString;
+		var int i;
+
+		let newString = String.new(left.length() + right.length());
+
+		let i = 0;
+		while (i < left.length())
+		{
+
+			let newString = newString.appendChar(left.charAt(i));
+			let i = i + 1;
+		}
+		let i = 0;
+		while (i < right.length())
+		{
+			let newString = newString.appendChar(right.charAt(i));
+			let i = i + 1;
+		}
+
+		return newString;
+	}
+	
+}

@@ -1,0 +1,53 @@
+function Game.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push argument 1
+push argument 2
+call Board.new 3
+pop this 0
+push pointer 0
+return
+function Game.run 0
+push argument 0
+pop pointer 0
+call Drawing.init 0
+pop temp 0
+push this 0
+call Drawing.drawBoard 1
+pop temp 0
+push pointer 0
+call InputHandler.handleInput 1
+pop temp 0
+push constant 0
+return
+function Game.gameState 0
+push argument 0
+pop pointer 0
+push this 0
+call Board.hasMineBeenRevealed 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 2
+return
+label IF_FALSE0
+push this 0
+call Board.getUnrevealedTileCount 1
+push this 0
+call Board.getMineCount 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+return
+label IF_FALSE1
+push constant 0
+return
+function Game.getBoard 0
+push argument 0
+pop pointer 0
+push this 0
+return

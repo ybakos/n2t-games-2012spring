@@ -1,0 +1,185 @@
+function Feeler.feelInDirection 0
+push argument 2
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+push argument 1
+push argument 3
+call Feeler.feelNorth 3
+return
+goto IF_END0
+label IF_FALSE0
+push argument 2
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 0
+push argument 1
+push argument 3
+call Feeler.feelEast 3
+return
+goto IF_END1
+label IF_FALSE1
+push argument 2
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 0
+push argument 1
+push argument 3
+call Feeler.feelSouth 3
+return
+goto IF_END2
+label IF_FALSE2
+push argument 2
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 0
+push argument 1
+push argument 3
+call Feeler.feelWest 3
+return
+label IF_FALSE3
+label IF_END2
+label IF_END1
+label IF_END0
+push constant 0
+return
+function Feeler.feelNorth 2
+push constant 1
+pop local 1
+push argument 0
+push argument 1
+push local 1
+sub
+call Game.pixelIsOccupied 2
+pop local 0
+label WHILE_EXP0
+push local 0
+not
+push local 1
+push argument 2
+lt
+and
+not
+if-goto WHILE_END0
+push argument 0
+push argument 1
+push local 1
+sub
+call Game.pixelIsOccupied 2
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+return
+function Feeler.feelEast 2
+push constant 1
+pop local 1
+push argument 0
+push local 1
+add
+push argument 1
+call Game.pixelIsOccupied 2
+pop local 0
+label WHILE_EXP0
+push local 0
+not
+push local 1
+push argument 2
+lt
+and
+not
+if-goto WHILE_END0
+push argument 0
+push local 1
+add
+push argument 1
+call Game.pixelIsOccupied 2
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+return
+function Feeler.feelSouth 2
+push constant 1
+pop local 1
+push argument 0
+push argument 1
+push local 1
+add
+call Game.pixelIsOccupied 2
+pop local 0
+label WHILE_EXP0
+push local 0
+not
+push local 1
+push argument 2
+lt
+and
+not
+if-goto WHILE_END0
+push argument 0
+push argument 1
+push local 1
+add
+call Game.pixelIsOccupied 2
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+return
+function Feeler.feelWest 2
+push constant 1
+pop local 1
+push argument 0
+push local 1
+sub
+push argument 1
+call Game.pixelIsOccupied 2
+pop local 0
+label WHILE_EXP0
+push local 0
+not
+push local 1
+push argument 2
+lt
+and
+not
+if-goto WHILE_END0
+push argument 0
+push local 1
+sub
+push argument 1
+call Game.pixelIsOccupied 2
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+return

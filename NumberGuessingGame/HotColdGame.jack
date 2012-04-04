@@ -1,0 +1,73 @@
+class HotColdGame {
+	field int choice, lastChoice, number;
+	field Random rand; 
+	field MiniGame mg;
+	
+	constructor HotColdGame new(){
+		var int x;
+		let x = Keyboard.readInt("Pick a seed: ");
+		do rand.seed(x);
+		let choice = 0;
+		let lastChoice = 150;
+		let number = rand.between(0,50);
+		return this;
+	}
+
+	method void getGuess(){
+		let choice = Keyboard.readInt("Please enter a number between 1 and 50: ");
+		return;
+	}
+	
+    method boolean checkGuess(){
+    	if(choice = number){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    
+    method void displayFeedback(){
+    	if(Math.abs(number-choice) > Math.abs(number-lastChoice) & (~(number = choice))){
+    		do Output.printString("Colder");
+    		do Sys.wait(2000);
+    		do Output.println();
+    		if(Math.abs(number-choice) > 25){
+    			do mg.runMiniGame(0);
+    		}
+    		if(Math.abs(number-choice) < 25 & Math.abs(number-choice) > 10){
+    			do mg.runMiniGame(1);
+    		}
+    		if(Math.abs(number-choice) < 10 & Math.abs(number-choice) > 5){
+    			do mg.runMiniGame(2);
+    		}
+    			
+    	}
+    	if(Math.abs(number-choice) < Math.abs(number-lastChoice) & (~(number = choice))){
+    		do Output.printString("Warmer");
+    		do Sys.wait(2000);
+    		do Output.println();
+    		if(Math.abs(number-choice) > 25){
+    			do mg.runMiniGame(0);
+    		}
+    		if(Math.abs(number-choice) < 25 & Math.abs(number-choice) > 10){
+    			do mg.runMiniGame(1);
+    		}
+    		if(Math.abs(number-choice) < 10 & Math.abs(number-choice) > 5){
+    				do mg.runMiniGame(2);
+    		} 
+    	}
+    	if(choice = number){
+    		do Output.printString("That's it - you win!!");
+    		do Output.println();
+    	}
+    	
+    	let lastChoice = choice;
+    	return;
+   }
+   
+   method void dispose() {
+   		do Memory.deAlloc(this);
+   		return;
+   }
+}

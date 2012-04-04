@@ -1,0 +1,10 @@
+class Main {
+
+  function void main() {
+    var HelicopterGame game;
+    let game = HelicopterGame.new();
+    do game.run();
+    do game.dispose();
+    return;
+  }
+}

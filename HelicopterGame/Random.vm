@@ -1,0 +1,48 @@
+function Random.seed 0
+push argument 0
+pop static 0
+push constant 0
+return
+function Random.mod 2
+push argument 0
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+neg
+pop argument 0
+label IF_FALSE0
+push argument 0
+push argument 1
+call Math.divide 2
+pop local 0
+push argument 0
+push argument 1
+push local 0
+call Math.multiply 2
+sub
+pop local 1
+push local 1
+return
+function Random.next 0
+push constant 7919
+push constant 17
+push static 0
+call Math.multiply 2
+add
+pop static 0
+push static 0
+return
+function Random.between 1
+push argument 1
+push argument 0
+sub
+pop local 0
+call Random.next 0
+push local 0
+call Random.mod 2
+push argument 0
+add
+return

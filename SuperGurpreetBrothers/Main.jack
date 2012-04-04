@@ -1,0 +1,47 @@
+class Main {
+
+	function void main() {
+		var Game game;
+		var Character character;
+		var char key;
+		do Random.seed(17);
+		do Output.printString("Welcome to Super Gurpreet Brothers!");
+		do Output.println();
+		
+		do Output.printString("Instructions:");
+		do Output.println();
+		do Output.printString("Press left or right arrow keys to move, up arrow to jump");
+		do Output.println();
+		do Output.printString("Press 'A' to increase or 'Z' to decrease the difficulty");
+		do Output.println();
+		do Output.printString("Enemies spawn pseudo-randomly");
+		do Output.println();
+		let character = Character.new(255, 254,10,5);
+//		do Output.printString("Press 'H' to enable hard mode (warning: it is buggy)");
+//		do Output.println();
+		while(true) {
+			do Output.moveCursor(9,18);
+			do Output.printString("Press any key to continue");
+			do Output.println();
+      
+			while (key = 0) {
+				let key = Keyboard.keyPressed();
+				do Sys.wait(300);
+				do character.draw(5);
+			}
+			do character.dispose();
+			do Screen.clearScreen();
+			let game = Game.new();
+			let character = game.run();
+			do game.dispose();
+			do Enemy.resetDeaths();
+			while (~(key = 0)) {
+				if (key = 81) {
+					return;
+				}
+				let key = Keyboard.keyPressed();
+			}
+		}
+		return;
+	}
+}

@@ -1,0 +1,288 @@
+
+class Game {
+    field GameRenderer g;
+    field Array moves;
+
+    constructor Game new() {
+		let g = GameRenderer.new();
+		let moves = Array.new(9);
+		let moves[0] = 0;
+		let moves[1] = 0;
+		let moves[2] = 0;
+		let moves[3] = 0;
+		let moves[4] = 0;
+		let moves[5] = 0;
+		let moves[6] = 0;
+		let moves[7] = 0;
+		let moves[8] = 0;
+		//let moves[9] = 0;
+		return this;
+    }
+
+
+    method void run() {
+		var int player;
+		var char input;
+		var int cPosX;
+		var int cPosY;
+		var int moveIndex;
+		var int valid;
+		var int winner;
+		var int moved;
+		var int printed;
+		var string message;
+		var int gameOver;
+		
+		
+		//let message = "";//"It is the turn for Player ";
+		let printed = 0;
+		let player = 1;
+		let cPosX = 0;
+		let cPosY = 0;
+		let valid = 0;
+		let gameOver = 0;
+
+		/* -1 means no winner yet
+		     *  0 means that the game is a tie
+		 *  1 means that player 1 wins
+		 *  2 means that player 2 wins
+		 */
+		let winner = -1; 
+		
+		while (gameOver = 0) {
+			do Output.moveCursor(0, 27);
+			do Output.printInt(player);
+			let input = Keyboard.keyPressed();
+			if(input = 130 & (cPosX > 0)) { //LEFT
+				let cPosX = cPosX - 1;
+				let moveIndex = Game.convertToMoveIndex(cPosX, cPosY);
+				do g.drawC(moveIndex);
+			}
+			if(input = 131 & (cPosY > 0)) { //UP
+				let cPosY = cPosY -1;
+				let moveIndex = Game.convertToMoveIndex(cPosX, cPosY);
+				do g.drawC(moveIndex);
+			}
+			if(input = 132 & (cPosX < 2)) { //RIGHT
+				let cPosX = cPosX + 1;
+				let moveIndex = Game.convertToMoveIndex(cPosX, cPosY);
+				do g.drawC(moveIndex);
+			}
+			if(input = 133 & (cPosY < 2)) { //DOWN
+				let cPosY = cPosY + 1;
+				let moveIndex = Game.convertToMoveIndex(cPosX, cPosY);
+				do g.drawC(moveIndex);
+			}
+			if(input = 32) { //SPACE
+				let moveIndex = Game.convertToMoveIndex(cPosX, cPosY);
+				let valid = isValid(moveIndex);
+				let moved=0;
+				if(valid = 1) {
+					if((player = 1) & (moved = 0)) {
+						do g.drawX(moveIndex);
+						let moves[moveIndex] = 1;
+						let player = 2;
+						let moved = 1;
+					}
+					if((player = 2) & (moved = 0)) {
+						do g.drawO(moveIndex);
+						let moves[moveIndex] = 2;
+						let player = 1;
+						let moved = 1;
+					}
+					let winner = getWinner();
+					if(winner = 1) {
+						do Screen.clearScreen();
+						do Output.printString("Player 1 wins!");
+						let gameOver = 1;
+					}
+					if(winner = 2) {
+						do Screen.clearScreen();
+						do Output.printString("Player 2 wins!");
+						let gameOver = 1;
+					}
+					if(winner = 0) {
+						do Screen.clearScreen();
+						do Output.printString("Everyone loses!");
+						let gameOver = 1;
+					}
+				}
+			}
+			do Sys.wait(100);
+		}
+	
+		return;
+    }
+
+    function int convertToMoveIndex(int cPosX, int cPosY) {
+		if(cPosY=0) {
+			return cPosX;
+		}
+		if(cPosY=1) {
+			return 3 + cPosX;
+		}
+		if(cPosY=2) {
+			return 6 + cPosX;
+		}
+		return -1;
+    }
+  
+    method int isValid(int moveIndex) {
+		var int i;
+		let i = moves[moveIndex];
+		if(i=0) {
+			return 1;
+		}
+		return 0;
+    }
+
+    method int getWinner() {	
+		var int column;
+		var int row;
+		var int diagonal;
+		var int catsGame;
+		
+		let column = checkWinColumns();
+		let row = checkWinRows();
+		let diagonal = checkWinDiagonal();
+		let catsGame = checkCatsGame();
+		
+		if(column > 0) {
+			return column;
+		}
+		if(row > 0) {
+			return row;
+		}
+		if(diagonal > 0) {
+			return diagonal;
+		}
+		if(catsGame = 0) {
+			return 0;
+		}
+		return -1;
+
+    }
+    
+    method int checkWinColumns() {
+    	if(moves[0] = 1 & moves[3] = 1 & moves[6] = 1) {
+    		return 1;
+    	}
+    	if(moves[1] = 1 & moves[4] = 1 & moves[7] = 1) {
+    		return 1;
+    	}
+    	if(moves[2] = 1 & moves[5] = 1 & moves[8] = 1) {
+    		return 1;
+    	}
+    	if(moves[0] = 2 & moves[3] = 2 & moves[6] = 2) {
+    		return 2;
+    	}
+    	if(moves[1] = 2 & moves[4] = 2 & moves[7] = 2) {
+    		return 2;
+    	}
+    	if(moves[2] = 2 & moves[5] = 2 & moves[8] = 2) {
+    		return 2;
+    	}
+    	return -1;
+    }
+
+    method int checkWinRows() {
+    	if(moves[0] = 1 & moves[1] = 1 & moves[2] = 1) {
+    		return 1;
+    	}
+    	if(moves[3] = 1 & moves[4] = 1 & moves[5] = 1) {
+    		return 1;	
+    	}
+    	if(moves[6] = 1 & moves[7] = 1 & moves[8] = 1) {
+    		return 1;
+    	}
+    	if(moves[0] = 2 & moves[1] = 2 & moves[2] = 2) {
+    		return 2;
+    	}
+    	if(moves[3] = 2 & moves[4] = 2 & moves[5] = 2) {
+    		return 2;	
+    	}
+    	if(moves[6] = 2 & moves[7] = 2 & moves[8] = 2) {
+    		return 2;
+    	}
+    	return -1;
+    }
+    
+    method int checkWinDiagonal() {
+    	if(moves[0] = 1 & moves[4] = 1 & moves[8] = 1) {
+    		return 1;
+    	}
+    	if(moves[6] = 1 & moves[4] = 1 & moves[2] = 1) {
+    		return 1;
+    	}
+    	if(moves[0] = 2 & moves[4] = 2 & moves[8] = 2) {
+    		return 2;
+    	}
+    	if(moves[6] = 2 & moves[4] = 2 & moves[2] = 2) {
+    		return 2;
+    	}
+    	return -1;
+    }
+    
+    method int checkCatsGame() 	{
+    	var int filledBoard;
+    	var int columnWins;
+    	var int rowWins;
+    	var int diagonalWins;
+    	var int isFilled;
+    	
+    	let filledBoard=checkFilled();
+    	let columnWins=checkWinColumns();
+    	let rowWins=checkWinRows();
+    	let diagonalWins=checkWinDiagonal();
+    	let isFilled = checkFilled();
+    	
+    	if(filledBoard = 1 & columnWins = -1 & rowWins = -1 & diagonalWins = -1) {
+    		return 0;
+    	}
+    	return -1;
+    }
+    
+    method int checkFilled() {
+    	if(moves[0] = 0) {
+    		return 0;
+    	}
+    	if(moves[1] = 0) {
+    		return 0;
+    	}
+    	if(moves[2] = 0) {
+    		return 0;
+    	}
+    	if(moves[3] = 0) {
+    		return 0;
+    	}
+    	if(moves[4] = 0) {
+    		return 0;
+    	}
+    	if(moves[5] = 0) {
+    		return 0;
+    	}
+    	if(moves[6] = 0) {
+    		return 0;
+    	}
+    	if(moves[7] = 0) {
+    		return 0;
+    	}
+    	if(moves[8] = 0) {
+    		return 0;
+    	}
+    	return 1;
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+

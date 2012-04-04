@@ -1,0 +1,187 @@
+// Represents the playing field and tracks the blocks that are filled.
+class Map
+{
+	field int lastChecked;
+	field Array blocks; // any block equal to lastChecked is considered an open space
+	field Array queue;
+	field int numFilled;
+
+	constructor Map new() {
+		var int i;
+		var int numBlocks;
+
+		let numBlocks = Display.numBlocks();
+
+		let blocks = Array.new(numBlocks);
+
+		let i = 0;
+		while (i < numBlocks) {
+			let blocks[i] = 0;
+			let i = i + 1;
+		}
+
+		let queue = Array.new(numBlocks);
+		let lastChecked = 0;
+		let numFilled = 0;
+		return this;
+	}
+
+	method void dispose() {
+		do blocks.dispose();
+		let blocks = null;
+		do queue.dispose();
+		let queue = null;
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	/*
+	Fills the blocks in the rectangle between (x1, y1) and (x2, y2) (both inclusive).
+	(x2, y2) does not need to be to the lower right of (x1, y1).
+	*/
+	method void fillBlocks(int x1, int y1, int x2, int y2) {
+		var int x;
+		var int numColumns;
+
+		let numColumns = Display.numColumns(); // cache for performance
+
+		// swap the coordinates if they are backwards
+		if (x1 > x2) {
+			let x = x1;
+			let x1 = x2;
+			let x2 = x;
+		}
+
+		if (y1 > y2) {
+			let x = y1;
+			let y1 = y2;
+			let y2 = x;
+		}
+
+		while ((y1 - 1) < y2) {
+			let x = x1;
+			while ((x - 1) < x2) {
+				let blocks[(y1*numColumns) + x] = -1; // lastChecked is always >= 0, so -1 is a safe value to indicate a wall
+				let x = x + 1;
+			}
+			let y1 = y1 + 1;
+		}
+
+		return;
+	}
+
+	method void checkAreas(Array balls, int numBalls) {
+		var int i;
+		var int qn; // index of the next empty spot in the queue
+		var int qi; // index of the current element of the queue
+		var Ball ball;
+		var int numColumns, numRows, numBlocks;
+		var int block; // the index of the current block in the queue
+		var int other; // the index of the adjacent block being checked
+		var int x, y;
+
+		let numColumns = Display.numColumns(); // cache these values for performance
+		let numRows = Display.numRows();
+		let numBlocks = Display.numBlocks();
+
+		let i = 0;
+		while (i < numBalls) {
+			let ball = balls[i];
+			let qn = 1;
+			let qi = 0;
+			let block = (ball.getY()*numColumns) + ball.getX();
+			let queue[0] = block; // put the current location of the ball on the queue
+			let blocks[block] = lastChecked + 1; // mark it as checked
+
+			while (qi < qn) {
+				let block = queue[qi];
+				let x = Random.mod(block, numColumns);
+				let y = block/numColumns;
+
+				// check adjacent blocks
+				// above
+				let other = block - numColumns;
+				if (y > 0) {
+					if (blocks[other] = lastChecked) {
+						let queue[qn] = other;
+						let blocks[other] = lastChecked + 1;
+						let qn = qn + 1;
+					}
+				}
+
+				// right
+				let other = block + 1;
+				if ((x + 1) < numColumns) {
+					if (blocks[other] = lastChecked) {
+						let queue[qn] = other;
+						let blocks[other] = lastChecked + 1;
+						let qn = qn + 1;
+					}
+				}
+
+				// below
+				let other = block + numColumns;
+				if ((y + 1) < numRows) {
+					if (blocks[other] = lastChecked) {
+						let queue[qn] = other;
+						let blocks[other] = lastChecked + 1;
+						let qn = qn + 1;
+					}
+				}
+
+				// left
+				let other = block - 1;
+				if (x > 0) {
+					if (blocks[other] = lastChecked) {
+						let queue[qn] = other;
+						let blocks[other] = lastChecked + 1;
+						let qn = qn + 1;
+					}
+				}
+
+				let qi = qi + 1;
+			}
+
+			let i = i + 1;
+		}
+
+		let lastChecked = lastChecked + 1;
+		return;
+	}
+
+	method void draw() {
+		var int block;
+		var int numColumns, numBlocks;
+
+		let numColumns = Display.numColumns(); // cache these values for performance
+		let numBlocks = Display.numBlocks();
+
+		let numFilled = 0;
+
+		let block = 0;
+		while (block < numBlocks) {
+			if (blocks[block] < lastChecked) {
+				do Display.fillBlock(Random.mod(block, numColumns), block/numColumns);
+				let numFilled = numFilled + 1;
+			}
+
+			let block = block + 1;
+		}
+
+		return;
+	}
+
+	method int percentFilled() {
+		return (numFilled*10)/(Display.numBlocks()/10);
+	}
+
+	method boolean blockAt(int x, int y) {
+		if ((x > -1) & (x < Display.numColumns()) & (y > -1) & (y < Display.numRows())) {
+			if (blocks[y*Display.numColumns() + x] = lastChecked) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+}

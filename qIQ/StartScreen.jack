@@ -1,0 +1,69 @@
+class StartScreen{
+	
+	// Declare global variables. 
+	field boolean exit;
+	field char key;
+	field int difficulty;
+
+	// Constructor for StartScreen. Sets exit and key. Takes no inputs.  
+	constructor StartScreen new(){
+		let exit = false;
+		let key = 0;
+		return this;
+	}
+
+	// drawStartScreen method. Takes no inputs. This outputs the Title, objective and instructions of the game. 
+	// The player is prompted for difficulty. 
+	method void drawStartScreen(){
+			do Screen.setColor(true);
+			do Output.moveCursor(3,27);
+			do Output.printString("Welcome to");
+			do Output.moveCursor(5,25);
+			do Output.printString("     xxx  xx  ");
+			do Output.moveCursor(6,25);
+			do Output.printString(" xx   x  x  x ");
+			do Output.moveCursor(7,25);
+			do Output.printString("x  x  x  x  x ");
+			do Output.moveCursor(8,25);
+			do Output.printString(" xxx xxx  xxx ");
+			do Output.moveCursor(9,25);
+			do Output.printString("   x         x");
+			do Output.moveCursor(10,25);
+			do Output.printString("   x          ");
+
+			do Output.moveCursor(12,14);
+			do Output.printString("Where players alternate the roll of");
+			do Output.moveCursor(13,9);
+			do Output.printString("assassinating one another in an alloted time.");
+			do Output.moveCursor(14,20);
+			do Output.printString("This is a 2 player game.");
+			do Output.moveCursor(16,14);
+			do Output.printString("Player 1 controls to move: A, S, W, D");
+			do Output.moveCursor(17,9);
+			do Output.printString("Player 2 controls to move: Up, Down, Left, Right");
+			do Output.moveCursor(19,10);
+			do Output.printString("Choose difficulty (1-EASY, 2-MEDIUM, 3-HARD)");
+			while(~(exit)){
+				let key = Keyboard.keyPressed();
+				if(key = 49){
+					let difficulty = 20;
+					let exit = true;
+				}
+				if(key = 50){
+					let difficulty = 10;
+					let exit = true;
+				}
+				if(key = 51){
+					let difficulty = 5;
+					let exit = true;
+				}
+			}
+			do Screen.clearScreen();
+			return;
+	}
+
+	// getDifficulty method that returns difficulty. 
+	method int getDifficulty(){
+		return difficulty;
+	}
+}

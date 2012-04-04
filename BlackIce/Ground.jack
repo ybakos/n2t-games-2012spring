@@ -1,0 +1,69 @@
+class Ground {
+	
+	field int x, y;
+	
+    constructor Ground new(int Ax, int Ay) {
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return this;
+    }
+
+    method void set(int Ay, int Ax){
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return;
+    }
+
+    /** Draws the guy on the screen */
+    method void draw() {
+        var int sstart, sX, sY, i, j;
+        let sstart =  16384;
+        let sY = y;
+        let sX = x/16;
+        let i = sstart + sX + (sY*32);
+        do Memory.poke(i,-32752);
+        do Memory.poke(i + 32,0);
+        do Memory.poke(i + 64,0);
+        do Memory.poke(i + 96,8224);
+
+        do Memory.poke(i + 128,8481);
+        do Memory.poke(i + 160,257);
+        do Memory.poke(i + 192,8);
+        do Memory.poke(i + 224,2056);
+
+        do Memory.poke(i + 256,2112);
+        do Memory.poke(i + 288,64);
+        do Memory.poke(i + 320,4);
+        do Memory.poke(i + 352,260);
+
+        do Memory.poke(i + 384,256);
+        do Memory.poke(i + 416,4096);
+        do Memory.poke(i + 448,4096);
+        do Memory.poke(i + 480,-32752);
+        return;
+    }
+}
+
+/* Ground bit map
+1000 0000 0001 0000     32784
+0000 0000 0000 0000     0
+0000 0000 0000 0000     0
+0010 0000 0010 0000     8224
+
+0010 0001 0010 0001     8481
+0000 0001 0000 0001     257
+0000 0000 0000 1000     8
+0000 1000 0000 1000     2056
+
+0000 1000 0100 0000     2112
+0000 0000 0100 0000     64
+0000 0000 0000 0100     4
+0000 0001 0000 0100     260
+
+0000 0001 0000 0000     256
+0001 0000 0000 0000     4096
+0001 0000 0000 0000     4096
+1000 0000 0001 0000     32784 = -32752 
+*/
+//0111 1111 1110 1111
+//0111 1111 1111 0000

@@ -1,0 +1,27 @@
+
+class Main {
+
+    function void main() {
+		var Game game;
+		do Output.printString("Tic Tac Toe!");
+		do Output.println();
+		do Output.printString("Use the arrow keys to move and space to confirm.");
+		do Output.println();
+		do Output.printString("Good Luck!");
+		do Output.println();
+		do Output.println();
+		do Output.printString("<press any key>");
+		do Keyboard.readChar();
+		do Screen.clearScreen();
+
+		let game = Game.new();
+		do game.run();
+		
+		do Output.moveCursor(1, 24);
+		do Output.printString("<press any key to halt>");
+		do Keyboard.readChar();
+		do Screen.clearScreen();
+		do Sys.halt();
+        return;
+    }
+}

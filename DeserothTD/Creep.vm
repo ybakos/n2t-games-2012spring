@@ -1,0 +1,167 @@
+function Creep.new 0
+push constant 12
+call Memory.alloc 1
+pop pointer 0
+push constant 1
+pop this 0
+push constant 102
+pop this 1
+push constant 1
+pop this 6
+push constant 0
+pop this 7
+push constant 0
+not
+pop this 4
+push argument 0
+pop this 5
+push constant 20
+pop this 8
+push constant 20
+pop this 9
+push constant 480
+pop this 2
+push constant 208
+pop this 3
+push constant 50
+pop this 10
+push constant 0
+pop this 11
+push pointer 0
+return
+function Creep.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memeory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Creep.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 8
+add
+push this 1
+push this 9
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Creep.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 8
+add
+push this 1
+push this 9
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Creep.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Creep.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Creep.getAlive 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function Creep.setAlive 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 4
+push constant 0
+return
+function Creep.takeDamage 0
+push argument 0
+pop pointer 0
+push this 5
+push argument 1
+sub
+pop this 5
+push this 5
+push constant 0
+gt
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Creep.erase 1
+pop temp 0
+push constant 0
+pop this 4
+label IF_FALSE0
+push constant 0
+return
+function Creep.move 0
+push argument 0
+pop pointer 0
+push this 10
+push this 11
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Creep.erase 1
+pop temp 0
+push this 0
+push constant 319
+push this 8
+sub
+eq
+not
+push this 0
+push constant 0
+eq
+not
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+push this 6
+add
+pop this 0
+goto IF_END1
+label IF_FALSE1
+push constant 0
+pop this 4
+push constant 0
+not
+return
+label IF_END1
+push constant 0
+pop this 11
+label IF_FALSE0
+push this 11
+push constant 1
+add
+pop this 11
+push constant 0
+return

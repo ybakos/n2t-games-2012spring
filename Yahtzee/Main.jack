@@ -1,0 +1,16 @@
+/** Main class for Yeetzah */
+
+class Main 
+{
+	/* var declarations */
+	static HomeScreen home;
+	static DiceRoll dr;
+
+	function void main() 
+	{	
+		let home = HomeScreen.new(0);
+		
+		return;
+	}
+
+}

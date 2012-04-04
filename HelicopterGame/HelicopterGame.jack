@@ -1,0 +1,183 @@
+class HelicopterGame {
+  field Helicopter helicopter;
+  field World world;
+  field boolean playing_game,i;
+  field int score,record;
+
+  constructor HelicopterGame new() {
+    let helicopter = Helicopter.new(96,77);
+    let world = World.new();
+    let record = 0;
+    let i = false;
+    do setup_game();
+    return this;
+  }
+
+  method void setup_game() {
+    let score = 0;
+    do clear_screen();
+    do draw_background();
+    do world.reset();
+    do helicopter.reset();
+    do helicopter.draw();
+    return;
+  }
+
+  method void run() {
+    do welcome();
+    while (playing_game) {
+      do world.draw();
+      do move_helicopter();
+      do check_for_crash();
+      do update_score();
+      do Sys.wait(7);
+    }
+    return;
+  }
+
+  method void move_helicopter() {
+    var char key;
+    let key = Keyboard.keyPressed();
+    if (key = 32) {
+      do helicopter.fly();
+    } else {
+      do helicopter.fall();
+    }
+    return;
+  }
+
+  method void check_for_crash() {
+    var int top,bottom;
+    var boolean has_crashed;
+    let top = helicopter.top();
+    let bottom = helicopter.bottom();
+    if (~i & world.collision(top,bottom)) {
+      do helicopter_crashed();
+    }
+    return;
+  }
+
+  method void helicopter_crashed() {
+    do update_record();
+    do display_game_over();
+    do wait_to_start_game();
+    do Sys.wait(500);
+    return;
+  }
+
+  method void draw_background() {
+    do Screen.setColor(true);
+    do Screen.drawRectangle(0,0,504,20);
+    do Screen.drawRectangle(0,236,504,255);
+    do Output.moveCursor(0,50);
+    do Output.printString("Score: ");
+    do Output.printInt(score);
+    do Output.moveCursor(22,49);
+    do Output.printString("Record: ");
+    do Output.printInt(record);
+    return;
+  }
+
+  method void welcome() {
+    do display_welcome();
+    do wait_to_start_game();
+    do setup_game();
+    return;
+  }
+
+  method void wait_to_start_game() {
+    var char key;
+    var int seed;
+    var boolean waiting;
+    let waiting = true;
+    let seed = 0;
+    while (waiting) {
+      let seed = seed + 1;
+      let key = Keyboard.keyPressed();
+      // SPACE starts the game
+      if ((key = 32) & ~playing_game) {
+        let playing_game = true;
+        do Random.seed(seed);
+        do setup_game();
+        let waiting = false;
+      }
+      // A resets the game
+      if ((key = 65) & playing_game) {
+        do setup_game();
+        let waiting = false;
+      }
+      // Q quits the game
+      if (key = 81) {
+        let playing_game = false;
+        let waiting = false;
+      }
+      if (key = 73) {
+        let i = ~i;
+      }
+    }
+    return;
+  }
+
+  method void update_score() {
+    let score = world.distance();
+    do Output.moveCursor(0,57);
+    do Output.printInt(score);
+    if (Random.mod(score,99) = 0) {
+      do world.shrink();
+    }
+    return;
+  }
+
+  method void update_record() {
+    if (record < score) {
+      let record = score;
+    }
+    do Output.moveCursor(22,57);
+    do Output.printInt(record);
+    return;
+  }
+
+  method void clear_screen() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(0,20,504,236);
+    return;
+  }
+
+  method void display_welcome() {
+    do Screen.setColor(true);
+    do Screen.drawRectangle(215,70,397,160);
+    do Screen.setColor(false);
+    do Screen.drawRectangle(217,72,395,158);
+    do Output.moveCursor(7,28);
+    do Output.printString("-- Helicopter Game --");
+    do Output.moveCursor(9,28);
+    do Output.printString("hold SPACE to fly up,");
+    do Output.moveCursor(11,28);
+    do Output.printString("release to fall down,");
+    do Output.moveCursor(13,28);
+    do Output.printString("and try not to crash!");
+    return;
+  }
+
+  method void display_game_over() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(213,78,399,152);
+    do Screen.setColor(true);
+    do Screen.drawRectangle(215,80,397,150);
+    do Screen.setColor(false);
+    do Screen.drawRectangle(217,82,395,148);
+    do Output.moveCursor(8,28);
+    do Output.printString("GAME OVER");
+    do Output.moveCursor(10,28);
+    do Output.printString("press A to play again");
+    do Output.moveCursor(12,28);
+    do Output.printString("press Q to Quit");
+    return;
+  }
+
+  method void dispose() {
+    do helicopter.dispose();
+    do Memory.deAlloc(this);
+    return;
+  }
+}

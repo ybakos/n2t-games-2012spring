@@ -1,0 +1,223 @@
+function Ship.new 0
+push constant 8
+call Memory.alloc 1
+pop pointer 0
+push constant 241
+pop this 0
+push constant 235
+pop this 1
+push constant 20
+pop this 2
+push constant 20
+pop this 3
+push constant 6
+pop this 6
+push constant 10
+pop this 7
+push this 0
+push this 2
+push constant 2
+call Math.divide 2
+add
+push constant 3
+sub
+pop this 4
+push this 1
+push this 7
+sub
+pop this 5
+push this 0
+push this 1
+push this 0
+push this 2
+add
+push this 1
+push this 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 4
+push this 5
+push this 4
+push this 6
+add
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push pointer 0
+return
+function Ship.shoot 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Bullet.new 2
+pop argument 3
+push argument 2
+push argument 1
+add
+push argument 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push argument 2
+push constant 1
+add
+pop argument 2
+push argument 3
+return
+function Ship.moveLeft 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 1
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+add
+push this 1
+push this 0
+push this 2
+add
+push this 1
+push this 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 4
+push this 6
+add
+push this 5
+push this 4
+push this 6
+add
+push this 5
+push this 7
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 0
+push constant 1
+sub
+pop this 0
+push this 4
+push constant 1
+sub
+pop this 4
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+push this 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 4
+push this 5
+push this 4
+push this 5
+push this 7
+add
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Ship.moveRight 0
+push argument 0
+pop pointer 0
+push this 0
+push this 2
+add
+push constant 510
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+push this 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 4
+push this 5
+push this 4
+push this 5
+push this 7
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 0
+push constant 1
+add
+pop this 0
+push this 4
+push constant 1
+add
+pop this 4
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+add
+push this 1
+push this 0
+push this 2
+add
+push this 1
+push this 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 4
+push this 6
+add
+push this 5
+push this 4
+push this 6
+add
+push this 5
+push this 7
+add
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Ship.getX1 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Ship.getY1 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Ship.destroy 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

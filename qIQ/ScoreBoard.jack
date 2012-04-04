@@ -1,0 +1,81 @@
+class ScoreBoard{
+	//Variables
+	field int size;
+
+	//Methods
+	constructor ScoreBoard new(){
+		let size = 60;
+		do drawBoard();
+		return this;
+	}
+
+	// drawBoard method. Takes no inputs. Draws the board. 
+	method void drawBoard(){
+		do Screen.setColor(true);
+		//DRAW PLAYER 1 SCORE
+		do Output.moveCursor(0,1);
+		do Output.printString("P1 Score: 0"); // 11 characters
+		//DRAW TIMER
+		do Output.moveCursor(0,29);
+		do Screen.drawRectangle(232,0,234,12);
+		do Output.moveCursor(0,30);
+		do Output.printInt(15);
+		do Screen.drawRectangle(260,0,262,12);
+		//DRAW PLAYER 2 SCORE
+		do Output.moveCursor(0,52);
+		do Output.printString("P2 Score: 0"); // 11 characters
+		//DRAW UNDERLINE BAR
+		do Screen.drawRectangle(0,15,511,18);
+		return;
+	}
+
+	// updateTimer method. Takes one input, an int Time value. Prints the new time to the screen. 
+	method void updateTimer(int time){
+		do Output.moveCursor(0,30);
+		do Output.printInt(time);
+		return;
+	}
+
+	// update Score method. Takes two inputs, an int value and int player. Prints new score to the screen for the player. 
+	method void updateScore(int value, int player){
+		if(player = 1){
+			do Output.moveCursor(0,11);
+			do Output.printInt(value);
+		}else{
+			do Output.moveCursor(0,62);
+			do Output.printInt(value);
+		}
+		return;
+	}
+
+	// drawAssassinIcon method. Takes one input, an int player. Calls drawIcon so it can draw the icon on either side of the board declaring who is chasing p1 or p2. 
+	method void drawAssassinIcon(int player){	
+		if(player = 1){
+			do drawIcon(0);		
+		}else{
+			do drawIcon(size);
+		}
+		return;
+	}
+	
+	// eraseIcon method. Takes one input, an int player. Erases the icon of the previous chaser. 
+	method void eraseIcon(int player){
+		if(player = 1){
+			do Screen.setColor(false);
+			do drawIcon(0);
+		}else{
+			do Screen.setColor(false);
+			do drawIcon(size);
+		}
+		do Screen.setColor(true);
+		return;
+	}
+
+	// drawIcon method. Takes one input, int translate. Draws the icon. This is a helper function for drawAssassinIcon. 
+	method void drawIcon(int translate){
+		do Screen.drawCircle(216+translate,6,6);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(212+translate,4,220+translate,5);	
+		return;
+	}
+}

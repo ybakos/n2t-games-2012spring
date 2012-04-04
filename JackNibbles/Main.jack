@@ -1,0 +1,24 @@
+// This file is part of the materials accompanying the book 
+// "The Elements of Computing Systems" by Nisan and Schocken, 
+// MIT Press. Book site: www.idc.ac.il/tecs
+// File name: projects/09/Square/Main.jack
+
+// Modified by Keith Risper
+// File name: projects/09/JackNibbles/NibblesGame.jack
+
+/**
+ * The Main class initializes a new Square Dance game and starts it.
+ */
+class Main {
+
+    /** Initializes a new game and starts it. */    
+    function void main() {
+        var NibblesGame game;
+
+        let game = NibblesGame.new();
+        do game.run();
+	do game.dispose();
+
+        return;
+    }
+}

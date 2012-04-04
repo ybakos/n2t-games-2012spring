@@ -1,0 +1,670 @@
+function Main.main 13
+call Display.new 0
+pop local 3
+push constant 5
+call Dragon.new 1
+pop local 4
+push local 3
+call Display.drawIntro 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+not
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END1
+call Keyboard.keyPressed 0
+pop local 0
+push local 12
+push constant 1
+add
+pop local 12
+push local 12
+push constant 10000
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+pop local 12
+label IF_FALSE0
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+pop local 1
+label IF_FALSE1
+label WHILE_EXP2
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END2
+call Keyboard.keyPressed 0
+pop local 0
+push local 12
+push constant 1
+add
+pop local 12
+push local 12
+push constant 10000
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+pop local 12
+label IF_FALSE2
+goto WHILE_EXP2
+label WHILE_END2
+goto WHILE_EXP0
+label WHILE_END0
+push local 12
+call Rand.new 1
+pop local 11
+push local 11
+push local 3
+push local 4
+call Bird.new 3
+pop local 5
+push local 11
+push local 3
+push local 4
+call Bird.new 3
+pop local 6
+push local 11
+push local 3
+push local 4
+call Bird.new 3
+pop local 7
+push local 11
+push local 3
+push local 4
+call Bird.new 3
+pop local 8
+push local 11
+push local 3
+push local 4
+call Bird.new 3
+pop local 9
+push local 11
+push local 3
+push local 4
+call Bird.new 3
+pop local 10
+push local 3
+call Display.drawInstructions 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP3
+push local 1
+not
+not
+if-goto WHILE_END3
+label WHILE_EXP4
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END4
+call Keyboard.keyPressed 0
+pop local 0
+goto WHILE_EXP4
+label WHILE_END4
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+not
+pop local 1
+label IF_FALSE3
+label WHILE_EXP5
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END5
+call Keyboard.keyPressed 0
+pop local 0
+goto WHILE_EXP5
+label WHILE_END5
+goto WHILE_EXP3
+label WHILE_END3
+push local 3
+call Display.reset 1
+pop temp 0
+push local 3
+call Display.drawScore 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP6
+push local 1
+not
+not
+if-goto WHILE_END6
+label WHILE_EXP7
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END7
+push local 3
+call Display.remaining 1
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 3
+call Display.nextRound 1
+pop temp 0
+label IF_FALSE4
+push local 4
+call Dragon.dead 1
+not
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+call Keyboard.keyPressed 0
+pop local 0
+push local 5
+call Bird.alive 1
+not
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push local 5
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE7
+goto IF_END6
+label IF_FALSE6
+push local 5
+call Bird.move 1
+pop temp 0
+label IF_END6
+push local 6
+call Bird.alive 1
+not
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push local 6
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE9
+goto IF_END8
+label IF_FALSE8
+push local 6
+call Bird.move 1
+pop temp 0
+label IF_END8
+push local 7
+call Bird.alive 1
+not
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push local 7
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE11
+goto IF_END10
+label IF_FALSE10
+push local 7
+call Bird.move 1
+pop temp 0
+label IF_END10
+push local 8
+call Bird.alive 1
+not
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push local 8
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE13
+goto IF_END12
+label IF_FALSE12
+push local 8
+call Bird.move 1
+pop temp 0
+label IF_END12
+push local 9
+call Bird.alive 1
+not
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push local 9
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE15
+goto IF_END14
+label IF_FALSE14
+push local 9
+call Bird.move 1
+pop temp 0
+label IF_END14
+push local 10
+call Bird.alive 1
+not
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push local 10
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE17
+goto IF_END16
+label IF_FALSE16
+push local 10
+call Bird.move 1
+pop temp 0
+label IF_END16
+push local 1
+not
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push local 3
+call Display.draw 1
+pop temp 0
+push local 4
+call Dragon.draw 1
+pop temp 0
+label IF_FALSE18
+goto IF_END5
+label IF_FALSE5
+push constant 81
+pop local 0
+push constant 0
+not
+pop local 1
+label IF_END5
+goto WHILE_EXP7
+label WHILE_END7
+push local 0
+push constant 81
+eq
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push constant 0
+not
+pop local 1
+label IF_FALSE19
+push local 4
+call Dragon.dead 1
+if-goto IF_TRUE20
+goto IF_FALSE20
+label IF_TRUE20
+push constant 0
+not
+pop local 1
+label IF_FALSE20
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE21
+goto IF_FALSE21
+label IF_TRUE21
+push local 4
+call Dragon.fire 1
+pop temp 0
+label IF_FALSE21
+push local 0
+push constant 87
+eq
+if-goto IF_TRUE22
+goto IF_FALSE22
+label IF_TRUE22
+push constant 1
+pop local 2
+label IF_FALSE22
+push local 0
+push constant 83
+eq
+if-goto IF_TRUE23
+goto IF_FALSE23
+label IF_TRUE23
+push constant 2
+pop local 2
+label IF_FALSE23
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE24
+goto IF_FALSE24
+label IF_TRUE24
+push constant 1
+pop local 2
+label IF_FALSE24
+push local 0
+push constant 133
+eq
+if-goto IF_TRUE25
+goto IF_FALSE25
+label IF_TRUE25
+push constant 2
+pop local 2
+label IF_FALSE25
+label WHILE_EXP8
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END8
+push local 4
+call Dragon.dead 1
+not
+if-goto IF_TRUE26
+goto IF_FALSE26
+label IF_TRUE26
+call Keyboard.keyPressed 0
+pop local 0
+push local 5
+call Bird.alive 1
+not
+if-goto IF_TRUE27
+goto IF_FALSE27
+label IF_TRUE27
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE28
+goto IF_FALSE28
+label IF_TRUE28
+push local 5
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE28
+goto IF_END27
+label IF_FALSE27
+push local 5
+call Bird.move 1
+pop temp 0
+label IF_END27
+push local 6
+call Bird.alive 1
+not
+if-goto IF_TRUE29
+goto IF_FALSE29
+label IF_TRUE29
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE30
+goto IF_FALSE30
+label IF_TRUE30
+push local 6
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE30
+goto IF_END29
+label IF_FALSE29
+push local 6
+call Bird.move 1
+pop temp 0
+label IF_END29
+push local 7
+call Bird.alive 1
+not
+if-goto IF_TRUE31
+goto IF_FALSE31
+label IF_TRUE31
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE32
+goto IF_FALSE32
+label IF_TRUE32
+push local 7
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE32
+goto IF_END31
+label IF_FALSE31
+push local 7
+call Bird.move 1
+pop temp 0
+label IF_END31
+push local 8
+call Bird.alive 1
+not
+if-goto IF_TRUE33
+goto IF_FALSE33
+label IF_TRUE33
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE34
+goto IF_FALSE34
+label IF_TRUE34
+push local 8
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE34
+goto IF_END33
+label IF_FALSE33
+push local 8
+call Bird.move 1
+pop temp 0
+label IF_END33
+push local 9
+call Bird.alive 1
+not
+if-goto IF_TRUE35
+goto IF_FALSE35
+label IF_TRUE35
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE36
+goto IF_FALSE36
+label IF_TRUE36
+push local 9
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE36
+goto IF_END35
+label IF_FALSE35
+push local 9
+call Bird.move 1
+pop temp 0
+label IF_END35
+push local 10
+call Bird.alive 1
+not
+if-goto IF_TRUE37
+goto IF_FALSE37
+label IF_TRUE37
+push local 11
+push constant 1
+push constant 100
+call Rand.intBetween 3
+push constant 1
+eq
+if-goto IF_TRUE38
+goto IF_FALSE38
+label IF_TRUE38
+push local 10
+call Bird.spawn 1
+pop temp 0
+label IF_FALSE38
+goto IF_END37
+label IF_FALSE37
+push local 10
+call Bird.move 1
+pop temp 0
+label IF_END37
+push local 3
+call Display.draw 1
+pop temp 0
+push local 4
+push local 2
+call Dragon.move 2
+pop temp 0
+push local 4
+call Dragon.draw 1
+pop temp 0
+push constant 0
+pop local 2
+goto IF_END26
+label IF_FALSE26
+push constant 0
+pop local 0
+push constant 0
+not
+pop local 1
+label IF_END26
+goto WHILE_EXP8
+label WHILE_END8
+goto WHILE_EXP6
+label WHILE_END6
+push local 3
+call Display.drawGameOver 1
+pop temp 0
+push constant 0
+pop local 1
+label WHILE_EXP9
+push local 1
+not
+not
+if-goto WHILE_END9
+label WHILE_EXP10
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END10
+call Keyboard.keyPressed 0
+pop local 0
+goto WHILE_EXP10
+label WHILE_END10
+push local 0
+push constant 81
+eq
+if-goto IF_TRUE39
+goto IF_FALSE39
+label IF_TRUE39
+push constant 0
+not
+pop local 1
+label IF_FALSE39
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE40
+goto IF_FALSE40
+label IF_TRUE40
+push constant 0
+not
+pop local 1
+label IF_FALSE40
+label WHILE_EXP11
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END11
+call Keyboard.keyPressed 0
+pop local 0
+goto WHILE_EXP11
+label WHILE_END11
+goto WHILE_EXP9
+label WHILE_END9
+push constant 0
+return

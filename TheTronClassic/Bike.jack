@@ -1,0 +1,51 @@
+//Bike class to hold position and memory location of the two players
+class Bike {
+	field int x, y, mem;
+
+	//constructor to set initial values
+	constructor Bike new(int x_pos, int y_pos){
+		var int base_mem, norm_x;
+		let base_mem = 16384;
+		let norm_x = x_pos / 16;
+		let x = x_pos;
+		let y = y_pos;
+		let mem = base_mem + (y_pos * 32) + norm_x;
+		return this;
+	}
+
+	//method to set the x position with a given value
+	method void setX(int x_pos){
+		let x = x_pos;
+		return;
+	}
+
+	//method to set the y position with a given value
+	method void setY(int y_pos){
+		let y = y_pos;
+		return;
+	}
+
+	//method to set the memory location with x and y values
+	method void setMem(){
+		var int base_mem, norm_x;
+		let base_mem = 16384;
+		let norm_x = x / 16;
+		let mem = base_mem + (y * 32) + norm_x;
+		return;
+	}
+
+	//method to return the current x value
+	method int getX(){
+		return x;
+	}
+
+	//method to return the current y value
+	method int getY(){
+		return y;
+	}
+
+	//method to return the current memory value
+	method int getMem(){
+		return mem;
+	}
+}

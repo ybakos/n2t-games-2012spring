@@ -1,0 +1,50 @@
+function Random.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 234
+pop this 0
+push constant 32767
+pop this 3
+push constant 17
+pop this 2
+push constant 7919
+pop this 1
+push pointer 0
+return
+function Random.next_int 1
+push argument 0
+pop pointer 0
+push this 0
+push this 2
+call Math.multiply 2
+push this 1
+add
+push this 3
+call Random.mod 2
+pop this 0
+push this 0
+push argument 1
+call Random.mod 2
+pop local 0
+push local 0
+return
+function Random.mod 1
+push argument 0
+push argument 1
+call Math.divide 2
+pop local 0
+push local 0
+push argument 1
+call Math.multiply 2
+pop local 0
+push argument 0
+push local 0
+sub
+pop local 0
+push local 0
+push constant 32767
+and
+pop local 0
+push local 0
+return

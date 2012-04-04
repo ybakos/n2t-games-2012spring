@@ -1,0 +1,119 @@
+/*
+Screen is 512x256
+12 pixels on top for text
+2 pixel border on top
+2 pixel border on bottom
+6 pixel border on left and right
+Level size is 500x240
+*/
+
+/*
+Represents the drawing area for the playing field as a 10x10 grid. Supports
+drawing shapes inside the cells of this grid.
+*/
+class Display
+{
+	static int xOffset, yOffset;
+	static int numColumns, numRows;
+
+	function void setOffsets(int setXOffset, int setYOffset) {
+		let xOffset = setXOffset;
+		let yOffset = setYOffset;
+		return;
+	}
+
+	// Sets the size of the field
+	function void setSize(int setNumColumns, int setNumRows) {
+		let numColumns = setNumColumns;
+		let numRows = setNumRows;
+		return;
+	}
+
+	// Returns the number of columns
+	function int numColumns() {
+		return numColumns;
+	}
+
+	// Returns the number of rows
+	function int numRows() {
+		return numRows;
+	}
+
+	function int numBlocks () {
+		return numColumns*numRows;
+	}
+
+	// Draws a circle in the x column and y row
+	function void drawCircle(int x, int y) {
+		do Screen.drawCircle(xOffset + (x*10) + 4, yOffset + (y*10) + 4, 4);
+		return;
+	}
+
+	// Draws a cross in the x column and y row
+	function void drawCross(int x, int y) {
+		do Screen.drawRectangle(xOffset + (x*10) + 4, yOffset + (y*10) + 1, xOffset + (x*10) + 5, yOffset + (y*10) + 8);
+		do Screen.drawRectangle(xOffset + (x*10) + 1, yOffset + (y*10) + 4, xOffset + (x*10) + 8, yOffset + (y*10) + 5);
+		return;
+	}
+
+	// Fills the block in the x column and y row
+	function void fillBlock(int x, int y) {
+		do Screen.setColor(true);
+		do Screen.drawRectangle(xOffset + (x*10), yOffset + (y*10), xOffset + (x*10) + 9, yOffset + (y*10) + 9);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(xOffset + (x*10) + 1, yOffset + (y*10) + 1, xOffset + (x*10) + 8, yOffset + (y*10) + 8);
+		return;
+	}
+
+	/*
+	Fills the blocks in the rectangle between (x1, y1) and (x2, y2) (both inclusive).
+	(x2, y2) does not need to be to the lower right of (x1, y1).
+	*/
+	function void fillBlocks(int x1, int y1, int x2, int y2) {
+		var int t;
+
+		// swap the coordinates if they are backwards
+		if (x1 > x2) {
+			let t = x1;
+			let x1 = x2;
+			let x2 = t;
+		}
+
+		if (y1 > y2) {
+			let t = y1;
+			let y1 = y2;
+			let y2 = t;
+		}
+
+		do Screen.setColor(true);
+		do Screen.drawRectangle(xOffset + (x1*10), yOffset + (y1*10), xOffset + (x2*10) + 9, yOffset + (y2*10) + 9);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(xOffset + (x1*10) + 1, yOffset + (y1*10) + 1, xOffset + (x2*10) + 8, yOffset + (y2*10) + 8);
+		return;
+	}
+
+	/*
+	Erases the blocks in the rectangle between (x1, y1) and (x2, y2) (both inclusive).
+	(x2, y2) does not need to be to the lower right of (x1, y1).
+	*/
+	function void eraseBlocks(int x1, int y1, int x2, int y2) {
+		var int t;
+
+		// swap the coordinates if they are backwards
+		if (x1 > x2) {
+			let t = x1;
+			let x1 = x2;
+			let x2 = t;
+		}
+
+		if (y1 > y2) {
+			let t = y1;
+			let y1 = y2;
+			let y2 = t;
+		}
+
+		do Screen.setColor(false);
+		do Screen.drawRectangle(xOffset + (x1*10), yOffset + (y1*10), xOffset + (x2*10) + 9, yOffset + (y2*10) + 9);
+		return;
+	}
+}

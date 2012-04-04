@@ -1,0 +1,10 @@
+/* Our hello zombie world program */
+
+class Main {
+	function void main() {
+	//print out a nice message about zombies
+	do Output.printString("The zombies are coming...");
+	do Output.println(); 
+	return;
+	}	
+}

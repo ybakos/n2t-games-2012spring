@@ -1,0 +1,52 @@
+/*
+Random Number Generator
+Original author: Taylor Wacker
+Modified by: Connor McKay
+Optimized by: Andrew Doppler
+
+This is a pseudo random number generator that uses the
+Linear Congruential Generator (LCG) to generate random
+numbers.
+*/
+class Random {
+  static int x;
+
+  /*
+  Sets a new seed value.
+  */
+  function void seed(int seed) {
+    let x = seed;
+    return;
+  }
+
+  /*
+  Returns a mod b. b must be positive.
+  */
+  function int mod(int a, int b) {
+    var int q,r;
+    if (a < 0) {
+      let a = -a;
+    }
+    let q = a / b;
+    let r = a - (b * q);
+    return r;
+  }
+
+  /*
+  Returns the next random number. Can be negative or positive.
+  */
+  function int next() {
+    let x = 7919 + (17*x);
+    return x;
+  }
+
+  /*
+  Returns a random value between x (inclusive) and y (non-inclusive).
+  y must be greater than x.
+  */
+  function int between(int x, int y) {
+    var int diff;
+    let diff = y - x;
+    return Random.mod(Random.next(), diff) + x;
+  }
+}

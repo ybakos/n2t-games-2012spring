@@ -1,0 +1,189 @@
+// implementation of the FallDown game
+class FallDownGame {
+   // the player's ball
+   field Ball ball;
+
+   // constructs the game
+   constructor FallDownGame new() {
+      // start the ball in the middle of the screen
+      // radius is 12
+      // (512-12)/2 + 12 = 262
+      // start on row radius+1 because the first action will be to move the
+      // objects on the screen up
+      let ball = Ball.new(262, 13, 12);
+
+      return this;
+   }
+
+   // deconstructs the game
+   method void dispose() {
+      do ball.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   // the game's main loop
+   method void run() {
+      // the key that is pressed
+      var char key;
+
+      // the list of obstacles
+      var Obstacles obstacles;
+
+      // variables for tracking movement
+      var boolean movedLeft;
+      var boolean movedRight;
+      var boolean movedDown;
+
+      // loop variables + random number
+      var int i;
+      var int j;
+      var int rand;
+
+      // counter of lines, used for initializing new lines and moving
+      // items at different speeds
+      var int lineCount;
+      var int lineCount2;
+
+      // whether the player has lost; false by default
+      var boolean lost;
+      let lost = false;
+
+      // initialize lineCount
+      let lineCount = 0;
+      let lineCount2 = 0;
+
+      // initialize and create a few obstacles
+      let obstacles = Obstacles.new(null);
+      do obstacles.add(Obstacle.new(0, 60));
+      do obstacles.add(Obstacle.new(250, 400));
+
+      // loop until the player has lost
+      while(~lost) {
+         // gets the current keypress state
+         let key = Keyboard.keyPressed();
+
+         // undraw the objects
+         do ball.draw(false);
+         // do not undraw the obstacles, as they are updated only when they
+         // move
+
+         if(lineCount = 0) {
+            // move all of the objects up
+            do ball.moveUp();
+            do obstacles.moveUp();
+         }
+
+         // process keys, moving the ball's position to the left or right as
+         // possible
+         if(key = 81) {
+            // q for quit
+            let lost = true;
+         }
+         if(key = 130) {
+            // left arrow to move left
+
+            // see if we can move left
+            let movedLeft = ball.canMoveLeft(obstacles);
+
+            // if we can move, move left 
+            if(movedLeft) {
+               do ball.moveLeft();
+            }
+         }
+         if(key = 132) {
+            // right arrow to move right
+
+            // see if we can move right
+            let movedRight = ball.canMoveRight(obstacles);
+
+            // if we can move, move right
+            if(movedRight) {
+               do ball.moveRight();
+            }
+         }
+
+         // move the ball's position down if there is nothing below it
+         // ---
+         // do this multiple times, to speed the game
+         let movedDown = ball.canMoveDown(obstacles);
+         if(movedDown) {
+            do ball.moveDown();
+
+            if(lineCount = 0) {
+               let movedDown = ball.canMoveDown(obstacles);
+               if(movedDown) {
+                  do ball.moveDown();
+               }
+            }
+         }
+
+         // check for a crash
+         // if the ball has reached the top of the screen or the player quit,
+         // then the game is over
+         if(ball.getTopEdge() < 0) {
+            let lost = true;
+         }
+
+         if(~lost) {
+            // draw the objects
+            do ball.draw(true);
+            // do not draw the obstacles; they are drawn only when they move
+
+            // let the duty cycle show the screen before trying to process
+            // again
+            do Sys.wait(15);
+         }
+
+         // lines move up every 2 iterations
+         if(lineCount = 2) {
+            let lineCount = 0;
+         }
+         else {
+            let lineCount = lineCount + 1;
+         }
+
+         // new squares appear every so often
+         if(lineCount2 = 50) {
+            // produce random lines
+            let i = 0;
+
+            while(i < 512) {
+               // choose a length for the next block
+               let rand = Random.randInt(30, 100);
+               let j = i + rand;
+
+               // limit the length so it fits on screen
+               if(j > 511) {
+                  let j = 511;
+               }
+
+               // add the obstacle and increase i, but only randomly
+               // there have to be some holes, most of the time
+               if(Random.randInt(0, 10000) > 3000) {
+                  do obstacles.add(Obstacle.new(i, j));
+               }
+               // do not use j, since i has to go over 511
+               let i = i + rand;
+            }
+
+            // reset the second line counter
+            let lineCount2 = 0;
+         }
+         else {
+            let lineCount2 = lineCount2 + 1;
+         }
+      }
+
+      // the player lost
+      // move the ball back down by one and draw, so the player can see how
+      // they lost
+      do ball.moveDown();
+      do ball.draw(true);
+      do Output.printString("You Lose!");
+
+      do Sys.wait(3000);
+
+      return;
+   }
+}

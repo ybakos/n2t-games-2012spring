@@ -1,0 +1,145 @@
+function Ice.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push constant 16
+call Math.multiply 2
+pop this 0
+push argument 1
+push constant 16
+call Math.multiply 2
+pop this 1
+push pointer 0
+return
+function Ice.set 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 16
+call Math.multiply 2
+pop this 0
+push argument 1
+push constant 16
+call Math.multiply 2
+pop this 1
+push constant 0
+return
+function Ice.draw 5
+push argument 0
+pop pointer 0
+push constant 16384
+pop local 0
+push this 1
+pop local 2
+push this 0
+push constant 16
+call Math.divide 2
+pop local 1
+push local 0
+push local 1
+add
+push local 2
+push constant 32
+call Math.multiply 2
+add
+pop local 3
+push local 3
+push constant 1160
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 32
+add
+push constant 2320
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 64
+add
+push constant 4640
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 96
+add
+push constant 9280
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 128
+add
+push constant 18560
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 160
+add
+push constant 28416
+neg
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 192
+add
+push constant 8705
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 224
+add
+push constant 17410
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 256
+add
+push constant 30716
+neg
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 288
+add
+push constant 4105
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 320
+add
+push constant 8210
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 352
+add
+push constant 16420
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 384
+add
+push constant 32696
+neg
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 416
+add
+push constant 145
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 448
+add
+push constant 290
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 480
+add
+push constant 580
+call Memory.poke 2
+pop temp 0
+push constant 0
+return

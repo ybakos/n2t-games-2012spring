@@ -1,0 +1,186 @@
+function Asteroid.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 0
+push constant 15
+add
+pop this 1
+push argument 1
+pop this 2
+push argument 1
+push constant 15
+add
+pop this 3
+push constant 10
+pop static 0
+push constant 0
+pop this 4
+push pointer 0
+call Asteroid.update 1
+pop temp 0
+push pointer 0
+return
+function Asteroid.isHit 2
+push argument 0
+pop pointer 0
+push argument 1
+call Bullet.getX 1
+pop local 0
+push argument 1
+call Bullet.getY 1
+pop local 1
+push local 0
+push this 0
+lt
+not
+push local 0
+push this 1
+gt
+not
+and
+push local 1
+push this 2
+lt
+not
+and
+push local 1
+push this 3
+gt
+not
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+goto IF_END0
+label IF_FALSE0
+push constant 0
+return
+label IF_END0
+function Asteroid.passedBorder 0
+push argument 0
+pop pointer 0
+push this 2
+push constant 225
+lt
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+goto IF_END0
+label IF_FALSE0
+push constant 0
+return
+label IF_END0
+function Asteroid.move 0
+push argument 0
+pop pointer 0
+push this 4
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 2
+push static 0
+add
+pop this 2
+push this 3
+push static 0
+add
+pop this 3
+push pointer 0
+call Asteroid.update 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Asteroid.update 0
+push argument 0
+pop pointer 0
+push this 0
+push this 2
+push this 1
+push this 3
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+push constant 15
+sub
+push this 1
+push this 3
+push constant 15
+sub
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+return
+function Asteroid.getX1 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Asteroid.getX2 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Asteroid.getY1 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Asteroid.getY2 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Asteroid.destroy 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+push this 1
+push this 3
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+not
+pop this 4
+push constant 0
+return
+function Asteroid.isDestroyed 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function Asteroid.deAlloc 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

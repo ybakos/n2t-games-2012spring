@@ -1,0 +1,506 @@
+class Battle
+{
+
+	field boolean turn;
+	field Player p1, p2;
+	//field Array pokemon;
+	static int timer;
+
+	constructor Battle new()
+	{
+		let p1 = Player.new();
+		let p2 = Player.new();
+
+		do p1.setLeft(true);
+
+		let turn = false;
+		let timer = 0;
+
+		return this;
+	} 
+
+	method void dispose() {
+		do p1.dispose();
+		do p2.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    function char getKey()
+    {
+    	var char key;
+
+    	let key = Keyboard.keyPressed();
+    	while (key = 0)
+    	{
+    		do Sys.wait(30);
+    		let timer = timer + 1;
+    		if (timer < 0)
+    		{
+    			let timer = 100;
+    		}
+    		let key = Keyboard.keyPressed();
+    	}
+
+    	if (key = 81)
+    	{
+    		do Sys.halt();
+    	}
+
+    	return key;
+    }
+
+    function void waitKeyUp()
+    {
+    	var char key;
+
+    	let key = Keyboard.keyPressed();
+    	while (~(key = 0))
+    	{
+    		do Sys.wait(30);
+    		let timer = timer + 1;
+    		if (timer < 0)
+    		{
+    			let timer = 100;
+    		}
+    		let key = Keyboard.keyPressed();
+    	}
+
+    	return;
+    }
+
+    function void continue()
+    {
+    	var char key;
+    	do Battle.waitKeyUp();
+		let key = Battle.getKey();
+		while (~(key = 128))
+		{
+			let key = Battle.getKey();
+		}
+		do Battle.waitKeyUp();
+    	return;
+    }
+
+    function int getTimer() {return timer;}
+
+    function void addTimer(int time) 
+    {
+    	let timer = timer + time;
+    	if (timer < 0)
+    	{
+    		let timer = 87;
+    	}
+    	return;
+    }
+
+    function int randInt(int range)
+    {
+    	var int num;
+
+    	let num = Battle.getTimer()/range;
+    	let num = Battle.getTimer() - (range * num);
+
+    	let timer = (timer * timer) + timer + 1;
+    	if (timer < 0)
+    	{
+    		let timer = Math.abs(timer);
+    	}
+
+    	return num;
+
+    }
+
+	method void doStartUp()
+	{
+
+		var char key;
+
+		do Sprite.drawScreen();
+		do Output.moveCursor(10, 20);
+		do Output.printString("Pokemon Battle Simulation");
+		do Output.moveCursor(11, 26);
+		do Output.printString("by JD Baugher");
+		do Output.moveCursor(15, 1);
+		do Output.printString("*Nintendo is the soul owner and creator of");
+		do Output.moveCursor(16, 2);
+		do Output.printString("Pokemon. All ideas are based off their design.");
+
+		do Sprite.drawDialog("Press ENTER to continue","...");
+		do Sprite.drawCursor(2, 482, 221, true);
+
+		let key = Battle.getKey();
+		while (~(key = 128))
+		{
+			let key = Battle.getKey();
+		}
+		do Battle.waitKeyUp();
+
+		return;
+	}
+
+	function void doIntro()
+	{
+		var int i;
+		var Array dialog;
+		var String temp1, temp2;
+		var char key;
+
+		do Sprite.clearScreen();
+		do Sprite.drawScreen();
+		
+
+		do Sprite.drawOptions(Constants.getRules(),4);
+		let dialog = Constants.getIntro();
+
+		do Sprite.drawOak(64,32);
+
+		let i = 0;
+		while (i < 26)
+		{
+			let temp1 = dialog[i];
+			let temp2 = dialog[i+1];
+			do Sprite.drawDialog(temp1,temp2);
+			do Sprite.drawCursor(2, 482, 221, true);
+
+			let key = Battle.getKey();
+			while (~(key = 128))
+			{
+				let key = Battle.getKey();
+			}
+			do Battle.waitKeyUp();
+			let i = i + 2;
+			
+		}
+		
+		return;
+	}
+
+	method void doPlayStyle()
+	{
+		var int shamt, current, min, max;
+		var char key;
+		var String dia1, dia2;
+		let shamt = 11;
+		let current = 23;
+		let min = 23;
+		let max = current + (shamt * 2);
+		let dia1 = "Now to the battle simulations.";
+		let dia2 = "Choose the mode of battle you would like.";
+
+		do Sprite.clearScreen();
+		do Sprite.drawScreen();
+
+		do Sprite.drawOak(64,32);
+
+		do Sprite.drawOptions(Constants.getStyles(),3);
+		do Sprite.drawDialog(dia1, dia2);
+		do Sprite.drawCursor(2, 482, 221, false);
+		do Sprite.drawCursor(0, 482, current, true);
+
+		do Sys.wait(250);
+		let key = Battle.getKey();
+		while (~(key = 128))
+		{
+			let key = Battle.getKey();
+			do Battle.waitKeyUp();
+			if (key = 133)
+			{
+				if (~(current = max))
+				{
+					do Sprite.drawCursor(0, 482, current, false);
+					let current = current + shamt;
+					do Sprite.drawCursor(0, 482, current, true);
+				}
+			}
+			if (key = 131)
+			{
+				if (~(current = min))
+				{
+					do Sprite.drawCursor(0, 482, current, false);
+					let current = current - shamt;
+					do Sprite.drawCursor(0, 482, current, true);
+				}
+			}
+		}
+
+		if (current = min)
+		{
+			do p1.setReal(true);
+			do p2.setReal(false);
+		}
+		if (current = (min + shamt))
+		{
+			do p1.setReal(true);
+			do p2.setReal(true);
+		}
+		if (current = (min + (2*shamt)))
+		{
+			do p1.setReal(false);
+			do p2.setReal(false);
+		}
+		
+		do dia1.dispose();
+		do dia2.dispose();
+
+		return;
+	}
+	method void doChoosePokemon()
+	{
+		
+		var String dia;
+		var Array pokemon, stats;
+		let dia = "...";
+
+		let pokemon = Array.new(6);
+		let stats = Array.new(2);
+
+		let pokemon = Constants.getPokemon();
+		do Sprite.drawOptions(pokemon,6);
+		do Sprite.drawDialog(Constants.getPlayerChoose(true),dia);
+		do Sprite.drawCursor(2, 482, 221, true);
+
+		do Battle.continue();
+
+		do p1.choosePokemon();
+
+		do Sprite.drawDialog(Constants.getPlayerChoose(false),"...");
+		do Sprite.drawCursor(2, 482, 221, true);
+
+		do Battle.continue();
+
+		do p2.choosePokemon();
+
+		do dia.dispose();
+		
+		return;
+	}
+	method void doStartBattle()
+	{
+		var char key;
+		var Pokemon poke1, poke2;
+		var String dia1, dia2, dia3;
+
+		let poke1 = p1.getPokemon();
+		let poke2 = p2.getPokemon();
+		let dia1 = "You don't stand a chance against me!";
+		let dia2 = "Prepare to lose!";
+
+		do Sprite.clearScreen();
+		do Sprite.drawScreen();
+		do Sprite.drawHPBar(poke1, p1.getLeft());
+		do Sprite.drawHPBar(poke2, p2.getLeft());
+		do Sprite.drawAsh(57,56);
+		do Sprite.drawGary(327,5);
+		do Sprite.drawDialog(dia1, dia2);
+		do Sprite.drawCursor(2, 482, 221, true);
+
+		do Battle.continue();
+
+		do dia1.dispose();
+		do dia2.dispose();
+
+		let dia1 = "I choose you... ";
+		let dia2 = Constants.concat(dia1,poke1.getName());
+		let dia3 = Constants.concat(dia1,poke2.getName());
+
+		do Sprite.draw(57,56,poke1.getName(),true);
+		do Sprite.draw(327,5,poke2.getName(),false);
+		do Sprite.drawDialog(dia2,dia3);
+		do Sprite.drawCursor(2, 482, 221, true);
+
+		do Battle.continue();
+
+		do Sprite.drawCursor(2, 482, 221, false);
+
+		do dia1.dispose();
+		do dia2.dispose();
+		do dia3.dispose();
+
+		return;
+	}
+	method void doCommence()
+	{
+		var char key;
+		var Pokemon poke1, poke2;
+		var int LL,LT,RL,RT;
+		var String move;
+		var String dia1, dia2, dia3, dia4;
+		var String hit, miss;
+
+		let LL = 57;
+		let LT = 56;
+		let RL = 327;
+		let RT = 5;
+
+		let poke1 = p1.getPokemon();
+		let poke2 = p2.getPokemon();
+
+		do Sprite.draw(LL,LT,poke1.getName(),true);
+		do Sprite.draw(RL,RT,poke2.getName(),false);
+
+		if (poke1.getSpeed() > poke2.getSpeed())
+		{
+			let turn = true;
+		}
+
+
+
+		while ((poke1.getHP() > 0) & (poke2.getHP() > 0))
+		{
+			do Sprite.drawHPBar(poke1, p1.getLeft());
+			do Sprite.drawHPBar(poke2, p2.getLeft());
+			if (turn)
+			{
+				let move = p1.chooseMove();
+				let dia1 = " used ";
+				let dia2 = Constants.concat(poke1.getName(), dia1);
+				let dia3 = Constants.concat(dia2, move);
+				if (Attack.attack(move,poke1,poke2,true))
+				{
+					let dia4 = "and it was a success!";
+				}
+				else {let dia4 = "...but it failed!";}
+				
+
+			}
+			else
+			{
+				let move = p2.chooseMove();
+				let dia1 = " used ";
+				let dia2 = Constants.concat(poke2.getName(), dia1);
+				let dia3 = Constants.concat(dia2, move);
+				if (Attack.attack(move,poke2,poke1,false))
+				{
+					let dia4 = "and it was a success!";
+				}
+				else {let dia4 = "...but it failed!";}
+				
+			}
+
+			do Sprite.drawDialog(dia3,dia4);
+			do Sprite.drawCursor(2, 482, 221, true);
+
+			do Battle.continue();
+
+			do Sprite.drawCursor(2, 482, 221, false);
+
+			do dia1.dispose();
+			do dia2.dispose();
+			do dia3.dispose();
+			do dia4.dispose();
+
+			let turn = ~turn;
+		}
+
+		do Sprite.drawHPBar(poke1, p1.getLeft());
+		do Sprite.drawHPBar(poke2, p2.getLeft());
+
+		do Sprite.drawGary(RL,RT);
+		do Sprite.drawAsh(LL,LT);
+
+		if (poke1.getHP() > 0)
+		{
+			let dia1 = " fainted";
+			let dia2 = Constants.concat(poke2.getName(), dia1);
+			let dia3 = "Oh no! How could I have lost?";
+			do Sprite.drawDialog(dia2,dia3);
+		}
+		else
+		{
+			let dia1 = " fainted";
+			let dia2 = Constants.concat(poke1.getName(), dia1);
+			let dia3 = "See I told you i'd win!";
+			do Sprite.drawDialog(dia2,dia3);
+		}
+
+		do Sprite.drawCursor(2, 482, 221, true);
+
+		do Battle.continue();
+
+		do Sprite.drawCursor(2, 482, 221, false);
+
+		do dia1.dispose();
+		do dia2.dispose();
+		do dia3.dispose();
+
+		return;
+	}
+	
+	function bool doAgain()
+	{
+		var Array yn;
+		var String again, dotdot;
+		var char key;
+		var int shamt, current, min, max;
+		
+		let shamt = 11;
+		let current = 0;
+		let min = 0;
+		let max = 1;
+
+		let yn = Array.new(2);
+		let yn[0] = "YES!";
+		let yn[1] = "no...";
+		let again = "Would you like to play again?";
+		let dotdot = "...";
+
+		do Sprite.clearScreen();
+		do Sprite.drawScreen();
+		
+		do Sprite.drawOptions(yn,2);
+		do Sprite.drawCursor(0, 482, 23 + (current * shamt), true);
+
+		do Sprite.drawDialog(again,dotdot);
+		do Sprite.drawCursor(2, 482, 221, false);
+
+		do Battle.waitKeyUp();
+		let key = Battle.getKey();
+		while (~(key = 128))
+		{
+			let key = Battle.getKey();
+			do Battle.waitKeyUp();
+			if (key = 133)
+			{
+				if (~(current = max))
+				{
+					do Sprite.drawCursor(0, 482, 23 + (current * shamt), false);
+					let current = current + 1;
+					do Sprite.drawCursor(0, 482, 23 + (current * shamt), true);
+				}
+			}
+			if (key = 131)
+			{
+				if (~(current = min))
+				{
+					do Sprite.drawCursor(0, 482, 23 + (current * shamt), false);
+					let current = current - 1;
+					do Sprite.drawCursor(0, 482, 23 + (current * shamt), true);
+				}
+			}
+		}
+
+		if (current = 0)
+		{
+			return true;
+		}
+
+		do yn.dispose();
+		do again.dispose();
+		do dotdot.dispose();
+
+		return false;
+	}
+
+	function void doThanks()
+	{
+		do Sprite.clearScreen();
+		do Sprite.drawScreen();
+		do Sprite.drawDialog("                Thanks for playing!!!","");
+		do Sprite.drawVenusaur(7, 56, false);
+		do Sprite.drawCharizard(192, 7, false);
+		do Sprite.drawBlastoise(376, 56, false);
+
+		return;
+	}
+}

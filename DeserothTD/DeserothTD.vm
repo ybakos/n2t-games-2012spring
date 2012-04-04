@@ -1,0 +1,785 @@
+function DeserothTD.new 0
+push constant 16
+call Memory.alloc 1
+pop pointer 0
+push constant 60
+call Array.new 1
+pop this 1
+push constant 0
+pop this 4
+push constant 0
+pop this 7
+push constant 2500
+pop this 11
+push constant 1000
+pop this 13
+push constant 0
+pop this 14
+push constant 0
+pop this 12
+push pointer 0
+return
+function DeserothTD.dispose 0
+push argument 0
+pop pointer 0
+push this 1
+call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function DeserothTD.sendWave 2
+push argument 0
+pop pointer 0
+push this 5
+call InGameDisplayPanel.getLevel 1
+pop local 1
+push local 1
+push local 1
+call Math.multiply 2
+pop local 1
+push constant 0
+not
+pop this 7
+push argument 1
+pop this 8
+push constant 0
+pop this 9
+push local 1
+pop this 10
+push constant 0
+pop local 0
+push argument 1
+call Array.new 1
+pop this 2
+push constant 0
+pop this 15
+push this 5
+call InGameDisplayPanel.increaseLevel 1
+pop temp 0
+push constant 2500
+pop this 12
+push constant 0
+return
+function DeserothTD.drawWave 2
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push local 0
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 2
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Creep.getAlive 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+call Creep.draw 1
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function DeserothTD.updateWave 2
+push argument 0
+pop pointer 0
+push this 12
+push this 11
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 9
+push this 8
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 9
+push this 2
+add
+push this 10
+call Creep.new 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 9
+push constant 1
+add
+pop this 9
+label IF_FALSE1
+push constant 0
+pop this 12
+label IF_FALSE0
+push this 12
+push constant 1
+add
+pop this 12
+push constant 0
+pop this 7
+label WHILE_EXP0
+push local 0
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 2
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Creep.getAlive 1
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 1
+call Creep.move 1
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 5
+call InGameDisplayPanel.loseLife 1
+pop temp 0
+push pointer 0
+call DeserothTD.printGameScreen 1
+pop temp 0
+label IF_FALSE3
+push constant 0
+not
+pop this 7
+label IF_FALSE2
+push this 9
+push constant 10
+lt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 0
+not
+pop this 7
+label IF_FALSE4
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+push this 9
+lt
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+not
+pop this 7
+label IF_FALSE5
+push this 7
+not
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push pointer 0
+call DeserothTD.printGameScreen 1
+pop temp 0
+push pointer 0
+call DeserothTD.disposeWave 1
+pop temp 0
+label IF_FALSE6
+push constant 0
+return
+function DeserothTD.disposeWave 0
+push argument 0
+pop pointer 0
+push this 2
+call Array.dispose 1
+pop temp 0
+push constant 0
+pop this 7
+push constant 0
+return
+function DeserothTD.towerShoot 3
+push argument 0
+pop pointer 0
+push this 14
+push this 13
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop this 14
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 9
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 2
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Creep.getAlive 1
+push local 1
+push constant 0
+eq
+not
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 9
+pop local 2
+label IF_FALSE1
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+push constant 0
+eq
+not
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+pop local 2
+label WHILE_EXP1
+push local 2
+push this 4
+lt
+not
+if-goto WHILE_END1
+push local 2
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+push local 1
+call Tower.setTarget 2
+pop temp 0
+push local 0
+call Tower.shootTarget 1
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 5
+call InGameDisplayPanel.increaseScore 1
+pop temp 0
+push this 5
+call InGameDisplayPanel.increaseGold 1
+pop temp 0
+label IF_FALSE3
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP1
+label WHILE_END1
+label IF_FALSE2
+label IF_FALSE0
+push this 14
+push constant 2
+call Math.multiply 2
+push this 13
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+call Screen.clearScreen 0
+pop temp 0
+push pointer 0
+call DeserothTD.printGameScreen 1
+pop temp 0
+label IF_FALSE4
+push this 14
+push constant 1
+add
+pop this 14
+push constant 0
+return
+function DeserothTD.run 5
+push argument 0
+pop pointer 0
+push constant 0
+pop local 2
+push constant 0
+pop local 1
+push constant 0
+pop local 0
+call Cursor.new 0
+pop this 3
+call InGameDisplayPanel.new 0
+pop this 5
+label WHILE_EXP0
+push local 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop this 0
+push local 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 3
+push pointer 0
+call DeserothTD.printGameScreen 1
+pop temp 0
+push constant 0
+not
+pop local 1
+label IF_FALSE0
+push this 7
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call DeserothTD.towerShoot 1
+pop temp 0
+push pointer 0
+call DeserothTD.updateWave 1
+pop temp 0
+push pointer 0
+call DeserothTD.drawWave 1
+pop temp 0
+label IF_FALSE1
+push this 0
+push constant 130
+eq
+push local 2
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 3
+call Cursor.decX 1
+pop temp 0
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+call Screen.clearScreen 0
+pop temp 0
+label IF_FALSE2
+push this 0
+push constant 131
+eq
+push local 2
+and
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 3
+call Cursor.decY 1
+pop temp 0
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+call Screen.clearScreen 0
+pop temp 0
+label IF_FALSE3
+push this 0
+push constant 132
+eq
+push local 2
+and
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 3
+call Cursor.incX 1
+pop temp 0
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+call Screen.clearScreen 0
+pop temp 0
+label IF_FALSE4
+push this 0
+push constant 133
+eq
+push local 2
+and
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 3
+call Cursor.incY 1
+pop temp 0
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+call Screen.clearScreen 0
+pop temp 0
+label IF_FALSE5
+push this 0
+push constant 66
+eq
+push local 2
+and
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 0
+pop local 2
+push constant 0
+pop local 1
+push constant 10
+push this 5
+call InGameDisplayPanel.getGold 1
+gt
+not
+push this 6
+push constant 0
+eq
+and
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 4
+push this 1
+add
+push this 3
+call Cursor.getX 1
+push this 3
+call Cursor.getY 1
+call Tower.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 4
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 4
+push this 5
+push local 4
+call Tower.getCost 1
+call InGameDisplayPanel.buyTower 2
+pop temp 0
+push this 4
+push constant 1
+add
+pop this 4
+label IF_FALSE7
+label IF_FALSE6
+push this 0
+push constant 85
+eq
+push local 2
+and
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 0
+pop local 2
+push constant 0
+pop local 1
+push constant 0
+pop local 3
+label WHILE_EXP1
+push local 3
+push this 4
+lt
+not
+if-goto WHILE_END1
+push local 3
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 4
+push local 4
+call Tower.getX 1
+push this 3
+call Cursor.getX 1
+eq
+push local 4
+call Tower.getY 1
+push this 3
+call Cursor.getY 1
+eq
+and
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push local 4
+call Tower.getCost 1
+push this 5
+call InGameDisplayPanel.getGold 1
+gt
+not
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push this 5
+push local 4
+call Tower.getCost 1
+call InGameDisplayPanel.buyTower 2
+pop temp 0
+push local 4
+call Tower.upgradeTower 1
+pop temp 0
+push local 3
+push this 1
+add
+push local 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE10
+push this 4
+pop local 3
+label IF_FALSE9
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP1
+label WHILE_END1
+label IF_FALSE8
+push this 0
+push constant 83
+eq
+push local 2
+and
+push this 7
+not
+and
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push pointer 0
+push constant 10
+call DeserothTD.sendWave 2
+pop temp 0
+label IF_FALSE11
+push this 0
+push constant 81
+eq
+push this 5
+call InGameDisplayPanel.getLives 1
+push constant 0
+gt
+not
+or
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push constant 0
+not
+pop local 0
+label IF_FALSE12
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 0
+not
+pop local 2
+label IF_FALSE13
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function DeserothTD.drawGrid 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push constant 0
+pop local 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+label WHILE_EXP0
+push local 0
+push constant 352
+eq
+not
+not
+if-goto WHILE_END0
+push local 0
+push constant 0
+push local 0
+push constant 96
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push constant 128
+push local 0
+push constant 224
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+label WHILE_EXP1
+push local 1
+push constant 256
+eq
+not
+not
+if-goto WHILE_END1
+push constant 0
+push local 1
+push constant 320
+push local 1
+call Screen.drawLine 4
+pop temp 0
+push local 1
+push constant 32
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push constant 0
+return
+function DeserothTD.printGameScreen 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push constant 0
+pop this 6
+push pointer 0
+call DeserothTD.drawGrid 1
+pop temp 0
+label WHILE_EXP0
+push local 1
+push this 4
+lt
+not
+if-goto WHILE_END0
+push local 1
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Tower.getX 1
+push this 3
+call Cursor.getX 1
+eq
+push local 0
+call Tower.getY 1
+push this 3
+call Cursor.getY 1
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+push this 1
+add
+pop pointer 1
+push that 0
+pop this 6
+push this 4
+pop local 1
+label IF_FALSE0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+pop local 1
+label WHILE_EXP1
+push local 1
+push this 4
+lt
+not
+if-goto WHILE_END1
+push local 1
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Tower.draw 1
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push this 6
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 5
+push constant 0
+push constant 10
+push constant 0
+push constant 0
+call InGameDisplayPanel.draw 5
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push this 5
+push this 6
+call Tower.getLevel 1
+push this 6
+call Tower.getCost 1
+push this 6
+call Tower.getKills 1
+push this 6
+call Tower.getAttack 1
+call InGameDisplayPanel.draw 5
+pop temp 0
+label IF_END1
+push this 3
+call Cursor.draw 1
+pop temp 0
+push constant 0
+return

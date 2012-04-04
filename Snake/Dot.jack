@@ -1,0 +1,40 @@
+//Class that represents a dot on the screen within the grid restrictions 
+
+
+class Dot{
+	field int m_x;
+	field int m_y;
+
+	constructor Dot new(int x, int y){
+		let m_x=x;
+		let m_y=y;
+		return this;
+	}	
+	method void draw(){
+		do Screen.drawRectangle(m_x*8,m_y*8,m_x*8+8, m_y*8+8);
+		return;
+	}
+
+	method int get_x(){
+		return m_x;
+	}
+
+	method int get_y(){
+		return m_y;
+	}
+
+	method void set_x(int x){
+		let m_x=x;
+		return;
+	}
+
+	method void set_y( int y){
+		let m_y =y;
+		return;
+	}
+
+	method void dispose(){
+		do Memory.deAlloc(this);
+		return;
+	}
+}

@@ -1,0 +1,134 @@
+/*
+
+*/
+class HomeScreen {
+
+	field int play;
+	field Gameplay gp;
+	field Tutorial tutor;
+	field ChooseGender cg;
+	field int is_guy;
+
+    constructor HomeScreen new() {
+    	let play = 1;
+    	let is_guy = 1;
+    	let gp = Gameplay.new();
+    	let tutor = Tutorial.new();
+    	let cg = ChooseGender.new();
+    	do initalize();
+    	do setCursor();
+        return this;
+    }
+
+    method void initalize(){
+    	do Screen.clearScreen();
+    	do Output.moveCursor(3,15);
+    	do Output.printString("BB  L    A   C  K K   III  C  EEE");
+    	do Output.moveCursor(4,15);
+    	do Output.printString("B B L   A A C C K K    I  C C E  ");
+    	do Output.moveCursor(5,15);
+    	do Output.printString("BB  L   AAA C   KK     I  C   EE ");
+    	do Output.moveCursor(6,15);
+    	do Output.printString("B B L   A A C C K K    I  C C E  ");
+    	do Output.moveCursor(7,15);
+    	do Output.printString("BB  LLL A A  C  K K   III  C  EEE");
+    	do Output.moveCursor(10, 24);
+    	do Output.printString("Play Game");
+    	do Output.moveCursor(11, 24);
+    	do Output.printString("Tutorial");
+    	do Output.moveCursor(12, 24);
+    	do Output.printString("Choose Avatar");
+    	do Output.moveCursor(14,21);
+    	do Output.printString("Press e to select");
+    	do Output.moveCursor(21,7);
+    	do Output.printString("*Art and Ideas modified from the Pokemon Silver and Gold Gameboy games.");
+    	return;
+    }
+
+    method void setCursor(){
+    	do Output.moveCursor(10,21);
+    	do Output.printString(">");
+    	do Output.moveCursor(10,41);
+    	do Output.printString("<");
+    	return;
+    }
+
+    method void run(){
+    	var char key;
+    	while ( true ) {
+	    	let key = 0;
+	    	while( ~ (key = 69)){
+	    		let key = 0;
+	    	    while (key = 0) {
+	                let key = Keyboard.keyPressed();
+	            }
+	            if (key = 131 & (play = 0) ) {
+	    			do Output.moveCursor(11,21);
+	    			do Output.printString(" ");
+	    			do Output.moveCursor(11,41);
+	    			do Output.printString(" ");
+	    			do Output.moveCursor(10,21);
+	    			do Output.printString(">");
+	    			do Output.moveCursor(10,41);
+	    			do Output.printString("<");
+	                let play = 1;
+	            }
+	            if (key = 131 & (play = -1) ) {
+	    			do Output.moveCursor(12,21);
+	    			do Output.printString(" ");
+	    			do Output.moveCursor(12,41);
+	    			do Output.printString(" ");
+	    			do Output.moveCursor(11,21);
+	    			do Output.printString(">");
+	    			do Output.moveCursor(11,41);
+	    			do Output.printString("<");
+	                let play = 0;
+	            }
+	            if (key = 133 & (play = 0) ) {
+	    			do Output.moveCursor(11,21);
+	    			do Output.printString(" ");
+	    			do Output.moveCursor(11,41);
+	    			do Output.printString(" ");
+	    	    	do Output.moveCursor(12,21);
+	    			do Output.printString(">");
+	    			do Output.moveCursor(12,41);
+	    			do Output.printString("<");
+	                let play = -1;         
+	            }
+	            if (key = 133 & (play = 1) ) {
+	    			do Output.moveCursor(10,21);
+	    			do Output.printString(" ");
+	    			do Output.moveCursor(10,41);
+	    			do Output.printString(" ");
+	    	    	do Output.moveCursor(11,21);
+	    			do Output.printString(">");
+	    			do Output.moveCursor(11,41);
+	    			do Output.printString("<");
+	                let play = 0;         
+	            }
+	            do Sys.wait(400);
+	    	}
+	    	if(play = 1){
+	    		//play game
+	    		do gp.initalize();
+				do gp.run();
+	    	}else{
+	    		if(play = 0){
+		    		//play tutorial
+		    		do tutor.run();	    		
+	    		}else{
+	    			//change gender
+	    			do cg.initalize();
+	    			let is_guy = cg.run(is_guy);
+	    			do gp.setGuyGirl(is_guy);
+	    			do tutor.setGuyGirl(is_guy);
+	    		}
+	    	}
+	    	do initalize();
+	    	do setCursor();
+	    	let play = 1;
+    	}
+    	return;
+    }
+
+}

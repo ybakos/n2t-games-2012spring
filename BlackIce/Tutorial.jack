@@ -1,0 +1,593 @@
+/* Needs to teach
+	Movement on Ground
+	Movement on Ice/Boulders
+	Holes
+	End
+*/
+class Tutorial {
+
+	field Gameplay gp;
+	field int key;
+
+    constructor Tutorial new() {
+    	let gp = Gameplay.new();
+    	let key = 0;
+        return this;
+    }
+
+    method void setGuyGirl(int g){
+        do gp.setGuyGirl(g);
+        return;
+    }
+
+    method void run(){
+    	let key = 0;
+    	do teachGround();
+    	if (key = 81){
+    		return;
+    	}
+    	let key = 0;
+    	do teachIce();
+    	if (key = 81){
+    		return;
+    	}
+        let key = 0;
+        do teachHole();
+        if (key = 81){
+            return;
+        }
+        let key = 0;
+        do teachEnd();
+    	return;
+    }
+
+    method void teachGround(){
+    	var int dir, count;
+    	let dir = 3;
+    	do gp.clearBoard();
+    	do gp.setBoard(5,13,3);
+    	do gp.setBoard(6,13,3);
+    	do gp.setBoard(7,13,3);
+    	do gp.setBoard(8,13,3);
+    	do gp.setBoard(9,13,3);
+    	do gp.setBoard(10,13,3);
+ 
+    	do gp.setBoard(5,14,3);
+    	do gp.setBoard(6,14,3);
+    	do gp.setBoard(7,14,3);
+    	do gp.setBoard(8,14,3);
+    	do gp.setBoard(9,14,3);
+    	do gp.setBoard(10,14,3);
+
+    	do gp.setBoard(5,15,3);
+    	do gp.setBoard(6,15,3);
+    	do gp.setBoard(7,15,3);
+    	do gp.setBoard(8,15,3);
+    	do gp.setBoard(9,15,3);
+    	do gp.setBoard(10,15,3);
+
+    	do gp.setBoard(5,16,3);
+    	do gp.setBoard(6,16,3);
+    	do gp.setBoard(7,16,6);
+    	do gp.setBoard(8,16,3);
+    	do gp.setBoard(9,16,3);
+    	do gp.setBoard(10,16,3);
+
+	   	do gp.setBoard(5,17,3);
+    	do gp.setBoard(6,17,3);
+    	do gp.setBoard(7,17,3);
+    	do gp.setBoard(8,17,3);
+    	do gp.setBoard(9,17,3);
+    	do gp.setBoard(10,17,3);
+
+    	do gp.setBoard(5,18,3);
+    	do gp.setBoard(6,18,3);
+    	do gp.setBoard(7,18,3);
+    	do gp.setBoard(8,18,3);
+    	do gp.setBoard(9,18,3);
+    	do gp.setBoard(10,18,3);
+    	do gp.initalize();
+    	do gp.moveGuyStart();
+
+    	do Output.moveCursor(1,4);
+    	do Output.printString("Move with the arrow keys");
+    	do Output.moveCursor(2,4);
+    	do Output.printString("On the dirt you will only move one space at a time");
+    	do Output.moveCursor(20,4);
+    	do Output.printString("Press n to continue");
+    	do Output.moveCursor(21,4);
+    	do Output.printString("Press q to return to main screen");
+
+    	let key = 0;
+        while(~ (key = 78)){
+            let key = Keyboard.keyPressed();
+            if (dir = 1){
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+            	do gp.moveGuyRight();
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+            	do gp.moveGuyUp();
+            	let dir = 2;
+            }else{
+            	if(dir = 2){
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+	            	do gp.moveGuyDown();
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+	            	do gp.moveGuyRight();
+	            	let dir = 3;
+            	}else{
+            		if (dir = 3){
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+		            	do gp.moveGuyLeft();
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+		            	do gp.moveGuyDown();
+		            	let dir = 4;
+            		}else{
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+		            	do gp.moveGuyUp();
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+		            	do gp.moveGuyLeft();
+		            	let dir = 1;
+            		}
+            	}
+            }
+            if(key = 81){
+            	return;
+            }
+        }
+ 		return;
+    }
+
+
+    method void teachIce(){
+    	var int dir, count;
+    	let dir = 4;
+    	do gp.clearBoard();
+    	do gp.setBoard(5,13,2);
+    	do gp.setBoard(6,13,1);
+    	do gp.setBoard(7,13,2);
+    	do gp.setBoard(8,13,2);
+    	do gp.setBoard(9,13,2);
+    	do gp.setBoard(10,13,2);
+ 
+    	do gp.setBoard(5,14,2);
+    	do gp.setBoard(6,14,2);
+    	do gp.setBoard(7,14,2);
+    	do gp.setBoard(8,14,2);
+    	do gp.setBoard(9,14,6);
+    	do gp.setBoard(10,14,1);
+
+    	do gp.setBoard(5,15,2);
+    	do gp.setBoard(6,15,2);
+    	do gp.setBoard(7,15,2);
+    	do gp.setBoard(8,15,2);
+    	do gp.setBoard(9,15,2);
+    	do gp.setBoard(10,15,2);
+
+    	do gp.setBoard(5,16,2);
+    	do gp.setBoard(6,16,2);
+    	do gp.setBoard(7,16,2);
+    	do gp.setBoard(8,16,2);
+    	do gp.setBoard(9,16,2);
+    	do gp.setBoard(10,16,2);
+
+	   	do gp.setBoard(5,17,1);
+    	do gp.setBoard(6,17,2);
+    	do gp.setBoard(7,17,2);
+    	do gp.setBoard(8,17,2);
+    	do gp.setBoard(9,17,2);
+    	do gp.setBoard(10,17,2);
+
+    	do gp.setBoard(5,18,2);
+    	do gp.setBoard(6,18,2);
+    	do gp.setBoard(7,18,2);
+    	do gp.setBoard(8,18,2);
+    	do gp.setBoard(9,18,1);
+    	do gp.setBoard(10,18,2);
+    	do gp.initalize();
+    	do gp.moveGuyStart();
+
+    	do Output.moveCursor(1,4);
+    	do Output.printString("You will slide on the ice");
+    	do Output.moveCursor(2,4);
+    	do Output.printString("You can't change direction when sliding");
+    	do Output.moveCursor(3,4);
+    	do Output.printString("Hitting a boulder will stop you so you can change direction");
+    	do Output.moveCursor(20,4);
+    	do Output.printString("Press n to continue");
+    	do Output.moveCursor(21,4);
+    	do Output.printString("Press q to return to main screen");
+
+    	let key = 0;
+        while(~ (key = 78)){
+            let key = Keyboard.keyPressed();
+            if (dir = 1){
+                let count = 0;
+                while(count < 120){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+            	do gp.moveGuyUp();
+                let count = 0;
+                while(count < 40){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+                do gp.moveGuyUp();
+                let count = 0;
+                while(count < 40){
+                    let key = Keyboard.keyPressed();
+                    if (key = 78){ return; }
+                    if (key = 81){ return; }
+                    let count = count + 1;
+                    do Sys.wait(10);
+                }
+                do gp.moveGuyUp();
+            	let dir = 2;
+            }else{
+            	if(dir = 2){
+                    let count = 0;
+                    while(count < 120){
+                        let key = Keyboard.keyPressed();
+                        if (key = 78){ return; }
+                        if (key = 81){ return; }
+                        let count = count + 1;
+                        do Sys.wait(10);
+                    }
+	            	do gp.moveGuyLeft();
+                    let count = 0;
+                    while(count < 40){
+                        let key = Keyboard.keyPressed();
+                        if (key = 78){ return; }
+                        if (key = 81){ return; }
+                        let count = count + 1;
+                        do Sys.wait(10);
+                    }
+	                do gp.moveGuyLeft();
+                    let count = 0;
+                    while(count < 40){
+                        let key = Keyboard.keyPressed();
+                        if (key = 78){ return; }
+                        if (key = 81){ return; }
+                        let count = count + 1;
+                     do Sys.wait(10);
+                    }
+	                do gp.moveGuyLeft();
+	            	let dir = 3;
+            	}else{
+            		if (dir = 3){
+                        let count = 0;
+                        while(count < 120){
+                            let key = Keyboard.keyPressed();
+                            if (key = 78){ return; }
+                            if (key = 81){ return; }
+                            let count = count + 1;
+                            do Sys.wait(10);
+                        }
+		            	do gp.moveGuyDown();
+                        let count = 0;
+                        while(count < 40){
+                            let key = Keyboard.keyPressed();
+                            if (key = 78){ return; }
+                            if (key = 81){ return; }
+                            let count = count + 1;
+                            do Sys.wait(10);
+                        }
+		                do gp.moveGuyDown();
+                        let count = 0;
+                        while(count < 40){
+                            let key = Keyboard.keyPressed();
+                            if (key = 78){ return; }
+                            if (key = 81){ return; }
+                            let count = count + 1;
+                            do Sys.wait(10);
+                        }
+		                do gp.moveGuyDown();
+		            	let dir = 4;
+            		}else{
+                        let count = 0;
+                        while(count < 120){
+                            let key = Keyboard.keyPressed();
+                            if (key = 78){ return; }
+                            if (key = 81){ return; }
+                            let count = count + 1;
+                            do Sys.wait(10);
+                        }
+		            	do gp.moveGuyRight();
+                        let count = 0;
+                        while(count < 40){
+                            let key = Keyboard.keyPressed();
+                            if (key = 78){ return; }
+                            if (key = 81){ return; }
+                            let count = count + 1;
+                            do Sys.wait(10);
+                        }
+		                do gp.moveGuyRight();
+                        let count = 0;
+                        while(count < 40){
+                            let key = Keyboard.keyPressed();
+                            if (key = 78){ return; }
+                            if (key = 81){ return; }
+                            let count = count + 1;
+                            do Sys.wait(10);
+                        }
+		                do gp.moveGuyRight();
+		            	let dir = 1;
+            		}
+            	}
+            }
+            if(key = 81){
+            	return;
+            }
+        }
+ 		return;
+    }
+
+    method void teachHole(){
+        var int dir, count;
+        let dir = 3;
+        do gp.clearBoard();
+        do gp.setBoard(5,13,3);
+        do gp.setBoard(6,13,3);
+        do gp.setBoard(7,13,3);
+        do gp.setBoard(8,13,3);
+        do gp.setBoard(9,13,3);
+        do gp.setBoard(10,13,3);
+ 
+        do gp.setBoard(5,14,3);
+        do gp.setBoard(6,14,3);
+        do gp.setBoard(7,14,6);
+        do gp.setBoard(8,14,3);
+        do gp.setBoard(9,14,3);
+        do gp.setBoard(10,14,3);
+
+        do gp.setBoard(5,15,3);
+        do gp.setBoard(6,15,3);
+        do gp.setBoard(7,15,3);
+        do gp.setBoard(8,15,3);
+        do gp.setBoard(9,15,3);
+        do gp.setBoard(10,15,3);
+
+        do gp.setBoard(5,16,3);
+        do gp.setBoard(6,16,3);
+        do gp.setBoard(7,16,3);
+        do gp.setBoard(8,16,3);
+        do gp.setBoard(9,16,3);
+        do gp.setBoard(10,16,3);
+
+        do gp.setBoard(5,17,3);
+        do gp.setBoard(6,17,3);
+        do gp.setBoard(7,17,4);
+        do gp.setBoard(8,17,3);
+        do gp.setBoard(9,17,3);
+        do gp.setBoard(10,17,3);
+
+        do gp.setBoard(5,18,3);
+        do gp.setBoard(6,18,3);
+        do gp.setBoard(7,18,3);
+        do gp.setBoard(8,18,3);
+        do gp.setBoard(9,18,3);
+        do gp.setBoard(10,18,3);
+        do gp.initalize();
+        do gp.moveGuyStart();
+
+        do Output.moveCursor(1,4);
+        do Output.printString("When you fall into a hole you will return to the start");
+        do Output.moveCursor(20,4);
+        do Output.printString("Press n to continue");
+        do Output.moveCursor(21,4);
+        do Output.printString("Press q to return to main screen");
+
+        let key = 0;
+        while(~ (key = 78)){
+            let key = Keyboard.keyPressed();
+            let count = 0;
+            while(count < 120){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyRight();
+            let count = 0;
+            while(count < 120){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyRight();
+            let count = 0;
+            while(count < 120){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyRight();
+            let count = 0;
+            while(count < 40){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyStart();
+            if(key = 81){
+                return;
+            }
+        }
+        return;
+    }
+
+    method void teachEnd(){
+        var int dir, count;
+        let dir = 3;
+        do gp.clearBoard();
+        do gp.setBoard(5,13,3);
+        do gp.setBoard(6,13,3);
+        do gp.setBoard(7,13,3);
+        do gp.setBoard(8,13,3);
+        do gp.setBoard(9,13,3);
+        do gp.setBoard(10,13,3);
+ 
+        do gp.setBoard(5,14,3);
+        do gp.setBoard(6,14,3);
+        do gp.setBoard(7,14,6);
+        do gp.setBoard(8,14,3);
+        do gp.setBoard(9,14,3);
+        do gp.setBoard(10,14,3);
+
+        do gp.setBoard(5,15,3);
+        do gp.setBoard(6,15,3);
+        do gp.setBoard(7,15,3);
+        do gp.setBoard(8,15,3);
+        do gp.setBoard(9,15,3);
+        do gp.setBoard(10,15,3);
+
+        do gp.setBoard(5,16,3);
+        do gp.setBoard(6,16,3);
+        do gp.setBoard(7,16,3);
+        do gp.setBoard(8,16,3);
+        do gp.setBoard(9,16,3);
+        do gp.setBoard(10,16,3);
+
+        do gp.setBoard(5,17,3);
+        do gp.setBoard(6,17,3);
+        do gp.setBoard(7,17,5);
+        do gp.setBoard(8,17,3);
+        do gp.setBoard(9,17,3);
+        do gp.setBoard(10,17,3);
+
+        do gp.setBoard(5,18,3);
+        do gp.setBoard(6,18,3);
+        do gp.setBoard(7,18,3);
+        do gp.setBoard(8,18,3);
+        do gp.setBoard(9,18,3);
+        do gp.setBoard(10,18,3);
+        do gp.initalize();
+        do gp.moveGuyStart();
+
+        do Output.moveCursor(1,4);
+        do Output.printString("When you reach the flag you completed the level");
+        do Output.moveCursor(20,4);
+        do Output.printString("Press n to return to main screen");
+        do Output.moveCursor(21,4);
+        do Output.printString("Press q to return to main screen");
+
+        let key = 0;
+        while(~ (key = 78)){
+            let key = Keyboard.keyPressed();
+            let count = 0;
+            while(count < 120){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyRight();
+            let count = 0;
+            while(count < 120){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyRight();
+            let count = 0;
+            while(count < 120){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }
+            do gp.moveGuyRight();
+            do Output.moveCursor(16,29);
+            do Output.printString("You Win");
+            let count = 0;
+            while(count < 300){
+                let key = Keyboard.keyPressed();
+                if (key = 78){ return; }
+                if (key = 81){ return; }
+                let count = count + 1;
+                do Sys.wait(10);
+            }            
+            do Output.moveCursor(16,29);
+            do Output.printString("       ");
+            do gp.moveGuyStart();
+            if(key = 81){
+                return;
+            }
+        }
+        return;
+    }
+
+}

@@ -1,0 +1,8 @@
+//This class holds all constants
+// At this stage in the program, we only need one constant - the number of territories
+
+class Constants {
+	function int numTerritories() {
+		return 10;
+	}
+}

@@ -1,0 +1,399 @@
+class Drawing {
+    static Array tileBorder, cursor, mine, flag;
+    static Array numbers;
+    
+    function void init() {
+        do Drawing.initBorder();
+        do Drawing.initCursor();
+        do Drawing.initMine();
+        do Drawing.initFlag();
+        do Drawing.initNumbers();
+        
+        return;
+    }
+    
+    function void initBorder() {
+        var int i;
+        let i = 1;
+        
+        let tileBorder = Array.new(16);
+        
+        let tileBorder[0] = -1; //solid black row
+                
+        while (i < 15) {
+            let tileBorder[i] = -32767; //black first and last pixels
+            let i = i + 1;
+        }
+
+        let tileBorder[15] = -1;
+        
+        return;
+    }
+    
+    function void initCursor() {
+        let cursor = Array.new(16);
+        
+        let cursor[0] = 0;
+        let cursor[1] = 0;
+        let cursor[2] = 15420;
+        let cursor[3] = 8196;
+        let cursor[4] = 8196;
+        let cursor[5] = 8196;
+        let cursor[6] = 0;
+        let cursor[7] = 0;
+        let cursor[8] = 0;
+        let cursor[9] = 0;
+        let cursor[10] = 8196;
+        let cursor[11] = 8196;
+        let cursor[12] = 8196;
+        let cursor[13] = 15420;
+        let cursor[14] = 0;
+        let cursor[15] = 0;
+        
+        return;
+    }
+    
+    function void initMine() {
+        let mine = Array.new(16);
+
+        let mine[0]  = 0;
+        let mine[1]  = 0;
+        let mine[2]  = 0;
+        let mine[3]  = 0;
+        let mine[4]  = 1536;
+        let mine[5]  = 2432;
+        let mine[6]  = 384;
+        let mine[7]  = 960;
+        let mine[8]  = 2016;
+        let mine[9]  = 2016;
+        let mine[10] = 1504;
+        let mine[11] = 960;
+        let mine[12] = 0;
+        let mine[13] = 0;
+        let mine[14] = 0;
+        let mine[15] = 0;
+
+        return;
+    }
+    
+    function void initFlag() {
+        let flag = Array.new(16);
+
+        let flag[0]  = 0;
+        let flag[1]  = 0;
+        let flag[2]  = 0;
+        let flag[3]  = 0;
+        let flag[4]  = 96;
+        let flag[5]  = 416;
+        let flag[6]  = 1568;
+        let flag[7]  = 416;
+        let flag[8]  = 96;
+        let flag[9]  = 32;
+        let flag[10] = 32;
+        let flag[11] = 32;
+        let flag[12] = 0;
+        let flag[13] = 0;
+        let flag[14] = 0;
+        let flag[15] = 0;
+
+        return;
+    }
+    
+    function void initNumbers() {
+        var int i;
+        var Array temp;
+        let i = 0;
+        
+        let numbers = Array.new(9);
+        
+        /*
+         * for each number, 0-8:
+         *      add new array to numbers
+         *      populate array
+         */
+
+        //loops are for chumps! (a.k.a. without array filling shortcuts can't think of a better way...)
+        let temp = Array.new(16);
+        let numbers[0] = temp;
+        //populate 0
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 2016;
+        let temp[5]  = 2016;
+        let temp[6]  = 1632;
+        let temp[7]  = 1632;
+        let temp[8]  = 1632;
+        let temp[9]  = 1632;
+        let temp[10] = 2016;
+        let temp[11] = 2016;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[1] = temp;
+        //populate 1
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 384;
+        let temp[5]  = 448;
+        let temp[6]  = 384;
+        let temp[7]  = 384;
+        let temp[8]  = 384;
+        let temp[9]  = 384;
+        let temp[10] = 384;
+        let temp[11] = 960;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[2] = temp;
+        //populate 2
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 2016;
+        let temp[5]  = 2016;
+        let temp[6]  = 1536;
+        let temp[7]  = 2016;
+        let temp[8]  = 2016;
+        let temp[9]  = 96;
+        let temp[10] = 2016;
+        let temp[11] = 2016;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[3] = temp;
+        //populate 3
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 2016;
+        let temp[5]  = 2016;
+        let temp[6]  = 1536;
+        let temp[7]  = 1920;
+        let temp[8]  = 1920;
+        let temp[9]  = 1536;
+        let temp[10] = 2016;
+        let temp[11] = 2016;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[4] = temp;
+        //populate 4
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 1632;
+        let temp[5]  = 1632;
+        let temp[6]  = 1632;
+        let temp[7]  = 2016;
+        let temp[8]  = 2016;
+        let temp[9]  = 1536;
+        let temp[10] = 1536;
+        let temp[11] = 1536;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[5] = temp;
+        //populate 5
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 2016;
+        let temp[5]  = 2016;
+        let temp[6]  = 96;
+        let temp[7]  = 2016;
+        let temp[8]  = 2016;
+        let temp[9]  = 1536;
+        let temp[10] = 2016;
+        let temp[11] = 2016;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[6] = temp;
+        //populate 6
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 992;
+        let temp[5]  = 992;
+        let temp[6]  = 96;
+        let temp[7]  = 2016;
+        let temp[8]  = 2016;
+        let temp[9]  = 1632;
+        let temp[10] = 2016;
+        let temp[11] = 2016;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[7] = temp;
+        //populate 7
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 2016;
+        let temp[5]  = 2016;
+        let temp[6]  = 1536;
+        let temp[7]  = 1536;
+        let temp[8]  = 1536;
+        let temp[9]  = 1536;
+        let temp[10] = 1536;
+        let temp[11] = 1536;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        let temp = Array.new(16);
+        let numbers[8] = temp;
+        //populate 8
+        let temp[0]  = 0;
+        let temp[1]  = 0;
+        let temp[2]  = 0;
+        let temp[3]  = 0;
+        let temp[4]  = 2016;
+        let temp[5]  = 2016;
+        let temp[6]  = 1632;
+        let temp[7]  = 2016;
+        let temp[8]  = 2016;
+        let temp[9]  = 1632;
+        let temp[10] = 2016;
+        let temp[11] = 2016;
+        let temp[12] = 0;
+        let temp[13] = 0;
+        let temp[14] = 0;
+        let temp[15] = 0;
+
+        return;
+    }
+
+    function void drawBoard(Board board) {
+        var int x, y;
+        
+        do Screen.clearScreen();
+
+        let x = 0;
+        while(x < board.getWidth()) {
+            let y = 0;
+            while(y < board.getHeight()) {
+                do Drawing.drawTile(board.tileAt(x, y));
+                let y = y + 1;
+            }
+            let x = x + 1;
+        }
+
+        do Drawing.drawCursor(board.getCursorX(), board.getCursorY());
+        
+        return;
+    }
+
+    function void drawTile(Tile tile) {
+        do Drawing.drawTileBorder(tile);
+        
+        if (tile.hasBeenRevealed()) {
+            do Drawing.drawTileValue(tile);
+        }
+        
+        return;
+    }
+    
+    function void drawTileBorder(Tile tile) {
+        do Drawing.imgOverlay(tileBorder, tile.getX(), tile.getY());
+        return;
+    }   
+    
+    function void drawTileValue(Tile tile) {
+        var int tileValue;
+        var Board board;
+        let board = tile.getBoard();
+        let tileValue = board.adjacentMineCount(tile);
+        
+        if (tileValue < 0) {
+            do Drawing.imgOverlay(mine, tile.getX(), tile.getY());
+        }
+        else {
+            do Drawing.imgOverlay(numbers[tileValue], tile.getX(), tile.getY());
+        }
+        
+        return;
+    }
+
+    function void drawCursor(int x, int y) {
+        do Drawing.imgOverlay(cursor, x, y);
+        return;
+    }
+    
+    function void eraseCursor(int x, int y) {
+        do Drawing.imgRemove(cursor, x, y);
+        return;
+    }
+
+    function void toggleFlag(boolean state, int x, int y) {
+        if(state) {
+            do Drawing.imgOverlay(flag, x, y);
+        }
+        else {
+            do Drawing.imgRemove(flag, x, y);
+        }
+        return;
+    }
+    
+    function void imgOverlay(Array img, int x, int y) {
+        var int i, address, rowData;
+        let i = 0;
+        let address = 16384 + x + (y * 512);
+        
+        while (i < 16) {
+            let rowData = Memory.peek(address) | img[i];
+            do Memory.poke(address, rowData);
+            let i = i + 1;
+            let address = address + 32;
+        }
+        
+        return;
+    }
+    
+    function void imgRemove(Array img, int x, int y) {
+        var int i, address, rowData;
+        let i = 0;
+        let address = 16384 + x + (y * 512);
+
+        while (i < 16) {
+            let rowData = Memory.peek(address) & (~img[i]);
+            do Memory.poke(address, rowData);
+            let i = i + 1;
+            let address = address + 32;
+        }
+        
+        return;
+    }
+}

@@ -1,0 +1,96 @@
+function Tile.new 0
+push constant 6
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 3
+push argument 1
+pop this 4
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push argument 2
+pop this 5
+push constant 0
+pop this 2
+push pointer 0
+return
+function Tile.setIsMine 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 0
+push constant 0
+return
+function Tile.reveal 0
+push argument 0
+pop pointer 0
+push this 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop this 1
+push this 2
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call Tile.toggleIsFlag 1
+pop temp 0
+label IF_FALSE1
+push pointer 0
+call Drawing.drawTileValue 1
+pop temp 0
+push this 5
+call Board.decrementUnrevealedTileCount 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Tile.getX 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Tile.getY 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function Tile.isMine 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Tile.isFlag 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Tile.hasBeenRevealed 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Tile.getBoard 0
+push argument 0
+pop pointer 0
+push this 5
+return
+function Tile.toggleIsFlag 0
+push argument 0
+pop pointer 0
+push this 2
+not
+pop this 2
+push this 2
+push this 3
+push this 4
+call Drawing.toggleFlag 3
+pop temp 0
+push constant 0
+return

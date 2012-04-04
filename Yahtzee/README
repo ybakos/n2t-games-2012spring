@@ -1,0 +1,10 @@
+Instructions to start the game are presented in game, but there are a few tricks during game play that you need to be aware of.
+
+1. You ALWAYS have to press some key in order to get random dice rolls. So when you are asked which die you would like to re-roll, you enter the dice numbers (135) + enter + random key.
+2. If you don't want to roll all three times, type 0. Unfortunately it will act as another roll, without actually rolling the dice. So you still have to go through the motion, but nothing happens.
+3. If you mess up before you hit enter when typing, it works fine unless you backspace too far. Then you get an error and have to restart the program.
+4. If you make a mistake.. too bad.
+
+On top of these, there are also a few things I'd like to make note of:
+1. I didn't have time to error-check. So a user could have 42314 and make that a YEETZAH and it would count. There is some constraint when you try to enter the score for Ace through Six though. My code counts how many of that specific die there are and multiplies it by the appropriate number. So if you have 11134 and try to put it under Twos, you will get 0 points.
+2. I didn't have time to add scores and determine a winner.

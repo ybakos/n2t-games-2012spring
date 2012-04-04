@@ -1,0 +1,16 @@
+class RulesScreen{
+	method void printRulesScreen(){
+		var boolean keyPressed;
+		let keyPressed = false;
+		do Output.printString("Welcome to the hot cold game. This is a number guessing where you try and guess a number between 0 and 50, but with a slight twist. If your guess is 25 or greater away you must complete a hard mini game to continue playing. If your guess is between 25 or 10 away then you will have to beat a medium difficulty mini game. If your guess is between 10 or 5 away then you will have to play an easy difficulty mini game and if your guess is 5 or less away you will be allowed to simply guess again. To begin the game you must pick a random seed. This can be any number you want. ");
+		do Output.println();
+		do Output.printString("Hit enter to continue");
+		while(~(keyPressed)){
+			if(Keyboard.keyPressed() = 128){
+				let keyPressed = true;
+			}
+		}	
+		do Screen.clearScreen();
+		return;
+	}
+}

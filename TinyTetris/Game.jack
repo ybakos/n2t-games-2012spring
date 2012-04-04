@@ -1,0 +1,33 @@
+class Game {
+	field int started;
+
+	function void start() {
+		do Sys.wait(800);
+		do Graphics.printWaitingMessage();
+		do Game.waitForKey();
+		do Graphics.clearWaitingMessage();
+		do Game.startLoop();
+
+		return;
+	}
+
+	function void waitForKey() {
+		var int key;
+		let key = 0;
+
+		while(key = 0) {
+			let key = Keyboard.keyPressed();
+		}
+
+		return;
+	}
+
+	function void startLoop() {
+		while(true) {
+
+		}
+
+		return;
+	}
+	
+}

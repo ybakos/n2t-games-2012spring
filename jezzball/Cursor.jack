@@ -1,0 +1,72 @@
+class Cursor
+{
+	field int x, y; // positions within the grid, not screen pixels
+	field Map map;
+
+	constructor Cursor new(int set_x, int set_y, Map setMap) {
+		let x = set_x;
+		let y = set_y;
+		let map = setMap;
+
+		return this;
+	}
+
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void draw() {
+		do Display.drawCross(x, y);
+		return;
+	}
+
+	// 0 = up, 1 = right, 2 = down, 3 = left
+	method void move(int key) {
+		do Screen.setColor(false);
+
+		do draw();
+
+		if (key = 131) {
+			let y = y - 1;
+			if (y < 0) {
+				let y = 0;
+			}
+		} else {
+			if (key = 132) {
+				let x = x + 1;
+				if ((x + 1) > Display.numColumns()) {
+					let x = Display.numColumns() - 1;
+				}
+			} else {
+				if (key = 133) {
+					let y = y + 1;
+					if ((y + 1) > Display.numRows()) {
+						let y = Display.numRows() - 1;
+					}
+				} else {
+					if (key = 130) {
+						let x = x - 1;
+						if (x < 0) {
+							let x = 0;
+						}
+					}
+				}
+			}
+		}
+
+		do Screen.setColor(true);
+
+		do draw();
+
+		return;
+	}
+
+	method int getX() {
+		return x;
+	}
+
+	method int getY() {
+		return y;
+	}
+}

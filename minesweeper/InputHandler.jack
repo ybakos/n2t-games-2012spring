@@ -1,0 +1,59 @@
+class InputHandler {
+    function void handleInput(Game game) {
+        var int key;
+        var Board board;
+        
+        let board = game.getBoard();
+        
+        while (game.gameState() = 0) {
+            // handle input
+            let key = Keyboard.keyPressed();
+
+            if ((key = 130) | (key = 65)) { // Left/A
+                //do Output.printString("Left: ");
+                do board.moveCursorLeft();
+            }
+            
+            if ((key = 131) | (key = 87)) { // Up/W
+                //do Output.printString("Up: ");
+                do board.moveCursorUp();
+            }
+            
+            if ((key = 132) | (key = 68)) { // Right/D
+                //do Output.printString("Right: ");
+                do board.moveCursorRight();
+            }
+            
+            if ((key = 133) | (key = 83)) { // Down/S
+                //do Output.printString("Down: ");
+                do board.moveCursorDown();
+            }
+
+            if (key = 70) { // F
+                //do Output.printString("Flag: ");
+                do board.toggleFlagAtCursor();
+            }
+
+            if (key = 32) { // Space
+                //do Output.printString("Reveal: ");
+                do board.revealTileAtCursor();
+            }
+
+            /*
+            if (key = 81) { // Q [reserved for future use]
+                do Output.printString("Question mark: ");
+            }
+            
+            
+            if (~(key = 0)) {
+                do Output.printInt(key);
+                do Output.println();
+            }
+            */
+
+            do Sys.wait(250);
+        }
+        
+        return;
+    }
+}

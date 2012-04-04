@@ -1,0 +1,28 @@
+class End {
+	
+	field int x, y;
+	
+    constructor End new(int Ax, int Ay) {
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return this;
+    }
+
+    method void set(int Ay, int Ax){
+        let x = Ax * 16;
+        let y = Ay * 16;
+        return;
+    }
+
+    /** Draws the guy on the screen */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawLine(x +4,y +2,x +4,y +14);
+        do Screen.drawLine(x +5,y +2,x +9,y +2);
+        do Screen.drawLine(x +10,y +3,x +13,y +3);
+        do Screen.drawLine(x +13,y +4,x +13,y +8);
+        do Screen.drawLine(x +10,y +9,x +13,y +9);
+        do Screen.drawLine(x +5,y +8,x +9,y +8);
+        return;
+    }
+}

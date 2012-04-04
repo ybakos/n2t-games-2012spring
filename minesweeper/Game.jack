@@ -1,0 +1,34 @@
+class Game {
+    field Board board;
+
+    constructor Game new(int x, int y, int mineCount) {
+        let board = Board.new(x, y, mineCount);
+        return this;
+    }
+    
+    method void run() {
+        do Drawing.init();
+        do Drawing.drawBoard(board);
+        do InputHandler.handleInput(this);
+        return;
+    }
+    
+    /**
+     * 0 : Game still in progress
+     * 1 : Game won
+     * 2 : Game lost
+     */
+    method int gameState() {
+        if (board.hasMineBeenRevealed()) {
+            return 2;
+        }
+    
+        if (board.getUnrevealedTileCount() = board.getMineCount()) {
+            return 1;
+        }        
+        
+        return 0;
+    }
+    
+    method Board getBoard() { return board; }
+}

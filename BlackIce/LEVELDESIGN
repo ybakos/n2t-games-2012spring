@@ -1,0 +1,14 @@
+Some simple rules to making levels.
+1. Must be completable
+	This includes:
+	- start square
+	- end square
+	- path from end to start
+2. Must have start and end square
+3. Must be outlined in boulders!!!
+4. Other 4 objects are:
+	-Ground
+	-Ice
+	-Boulder
+	-Hole
+5. Make it fun/funny.

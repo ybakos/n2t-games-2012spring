@@ -1,0 +1,72 @@
+function Bike.new 2
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push constant 16384
+pop local 0
+push argument 0
+push constant 16
+call Math.divide 2
+pop local 1
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push local 0
+push argument 1
+push constant 32
+call Math.multiply 2
+add
+push local 1
+add
+pop this 2
+push pointer 0
+return
+function Bike.setX 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 0
+push constant 0
+return
+function Bike.setY 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return
+function Bike.setMem 2
+push argument 0
+pop pointer 0
+push constant 16384
+pop local 0
+push this 0
+push constant 16
+call Math.divide 2
+pop local 1
+push local 0
+push this 1
+push constant 32
+call Math.multiply 2
+add
+push local 1
+add
+pop this 2
+push constant 0
+return
+function Bike.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Bike.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Bike.getMem 0
+push argument 0
+pop pointer 0
+push this 2
+return

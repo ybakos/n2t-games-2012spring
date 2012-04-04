@@ -1,0 +1,290 @@
+/*
+   Wheatley: Most test subjects do experience some, uh, cognitive deterioration after a few months in suspension.
+             Now, you've been under for quite a lot longer, and it's *not* out of the question that you might have a
+             *very* minor case of serious brain damage! But don't be alarmed, all right? Uh, although if you do feel
+             alarmed, try to hold on to that feeling because that is the proper reaction to being told that you've
+             got brain damage.
+*/
+
+class Player {
+	// player location on grid
+	field int x, y;
+	// direction player is facing, false=left true=right
+	field bool direction;
+
+	// creates new player, need starting location and direction
+	constructor Player new(int X, int Y, bool dir) {
+		let x=X;
+		let y=Y;
+		let direction=dir;
+		return this;
+	}
+
+	// return x position
+	method int getX() {
+		return x;
+	}
+
+	// return y position
+	method int getY() {
+		return y;
+	}
+	
+	// draw character
+	method void draw() {
+		if(direction) {     // right
+			do drawRight();
+		}
+		else {              // left
+			do drawLeft();
+		}
+		return;
+	}
+
+	// draws character on screen at location x,y facing right
+	method void drawRight() {
+		do Tilesets.drawPlayerRight(x, y);
+        return;
+	}
+	
+	// draws character on screen at location x,y facing left
+	method void drawLeft() {
+		do Tilesets.drawPlayerLeft(x, y);
+        return;
+	}
+
+	// clear the current location of the player
+	method void clearDraw() {
+        var int offset;
+        let offset = x + (512 * y);
+
+        do Memory.poke(16384 + offset, 0);
+        do Memory.poke(16416 + offset, 0);
+        do Memory.poke(16448 + offset, 0);
+        do Memory.poke(16480 + offset, 0);
+        do Memory.poke(16512 + offset, 0);
+        do Memory.poke(16544 + offset, 0);
+        do Memory.poke(16576 + offset, 0);
+        do Memory.poke(16608 + offset, 0);
+        do Memory.poke(16640 + offset, 0);
+        do Memory.poke(16672 + offset, 0);
+        do Memory.poke(16704 + offset, 0);
+        do Memory.poke(16736 + offset, 0);
+        do Memory.poke(16768 + offset, 0);
+        do Memory.poke(16800 + offset, 0);
+        do Memory.poke(16832 + offset, 0);
+        do Memory.poke(16864 + offset, 0);
+
+        return;
+	}
+
+	// move character left
+	method void moveLeft() {
+		var Array chamber;
+		let chamber = Chambers.getRoom();
+
+		// if position to the left is unobstructed, clear the current position and update the player position
+        if(x > 0) {
+			if(chamber[(y * 32) + x - 1] = 0) {
+				do clearDraw();
+				let x = x - 1;
+			}
+			else {
+				if(Portals.twoPlaced()){
+				if(Portals.portalExists(y,x-1)=1){
+				//portal entrace is left
+				if(Portals.getDir(1)=2){
+					do clearDraw();
+					//exits left
+					if(Portals.getDir(2)=0){
+						let x=Portals.getX(2)-1;
+						let y=Portals.getY(2);
+					}
+					if(Portals.getDir(2)=1){
+						let y=Portals.getY(2)-1;
+						let x=Portals.getX(2);
+					}
+					if(Portals.getDir(2)=2){
+						let x=Portals.getX(2)+1;
+						let y=Portals.getY(2);
+					}
+					if(Portals.getDir(2)=3){
+						let y=Portals.getY(2)+1;
+						let x=Portals.getX(2);
+					}
+				}
+			} else {
+				if(Portals.portalExists(y,x-1)=2){
+					//portal entrace is left
+					if(Portals.getDir(2)=2){
+						do clearDraw();
+						//exits left
+						if(Portals.getDir(1)=0){
+							let x=Portals.getX(1)-1;
+							let y=Portals.getY(1);
+						}
+						if(Portals.getDir(1)=1){
+							let y=Portals.getY(1)-1;
+							let x=Portals.getX(1);
+						}
+						if(Portals.getDir(1)=2){
+							let x=Portals.getX(1)+1;
+							let y=Portals.getY(1);
+						}
+						if(Portals.getDir(1)=3){
+							let y=Portals.getY(1)+1;
+							let x=Portals.getX(1);
+						}
+					}
+				}
+			}
+			}}
+        }
+		let direction = false;
+        return;
+	}
+	
+	// move character right
+	method void moveRight() {
+		var Array chamber;
+		let chamber = Chambers.getRoom();
+
+		// if position to right is unobstructed, clear the current position and update the player position
+        if(x < 31) {
+			if(chamber[(y * 32) + x + 1] = 0) {
+				do clearDraw();
+				let x = x + 1;
+			}
+			else {
+				if(Portals.twoPlaced()){
+				if(Portals.portalExists(y,x+1)=1){
+				//portal entrace is left
+				if(Portals.getDir(1)=0){
+					do clearDraw();
+					//exits left
+					if(Portals.getDir(2)=0){
+						let x=Portals.getX(2)-1;
+						let y=Portals.getY(2);
+					}
+					if(Portals.getDir(2)=1){
+						let y=Portals.getY(2)-1;
+						let x=Portals.getX(2);
+					}
+					if(Portals.getDir(2)=2){
+						let x=Portals.getX(2)+1;
+						let y=Portals.getY(2);
+					}
+					if(Portals.getDir(2)=3){
+						let y=Portals.getY(2)+1;
+						let x=Portals.getX(2);
+					}
+				}
+			} else {
+				if(Portals.portalExists(y,x+1)=2){
+					//portal entrace is left
+					if(Portals.getDir(2)=0){
+						do clearDraw();
+						//exits left
+						if(Portals.getDir(1)=0){
+							let x=Portals.getX(1)-1;
+							let y=Portals.getY(1);
+						}
+						if(Portals.getDir(1)=1){
+							let y=Portals.getY(1)-1;
+							let x=Portals.getX(1);
+						}
+						if(Portals.getDir(1)=2){
+							let x=Portals.getX(1)+1;
+							let y=Portals.getY(1);
+						}
+						if(Portals.getDir(1)=3){
+							let y=Portals.getY(1)+1;
+							let x=Portals.getX(1);
+						}
+					}
+				}
+			}
+			}}
+				
+        }
+		let direction = true;
+		return;
+	}
+
+	// gravity
+	method void moveDown() {
+		var Array chamber;
+		let chamber = Chambers.getRoom();
+
+		// if position underneath is unobstructed, clear the current position and update the player position
+		if(chamber[((y + 1) * 32) + x] = 0) {
+			do clearDraw();
+			let y = y + 1;
+		}
+		else{
+			//portal exists in that square
+			if(Portals.twoPlaced()){
+			if(Portals.portalExists(y+1,x)=1){
+				//portal entrace is up
+				if(Portals.getDir(1)=1){
+					do clearDraw();
+					//exits left
+					if(Portals.getDir(2)=0){
+						let x=Portals.getX(2)-1;
+						let y=Portals.getY(2);
+					}
+					if(Portals.getDir(2)=1){
+						let y=Portals.getY(2)-1;
+						let x=Portals.getX(2);
+					}
+					if(Portals.getDir(2)=2){
+						let x=Portals.getX(2)+1;
+						let y=Portals.getY(2);
+					}
+					if(Portals.getDir(2)=3){
+						let y=Portals.getY(2)+1;
+						let x=Portals.getX(2);
+					}
+				}
+			} else {
+				if(Portals.portalExists(y+1,x)=2){
+					//portal entrace is up
+					if(Portals.getDir(2)=1){
+						do clearDraw();
+						//exits left
+						if(Portals.getDir(1)=0){
+							let x=Portals.getX(1)-1;
+							let y=Portals.getY(1);
+						}
+						if(Portals.getDir(1)=1){
+							let y=Portals.getY(1)-1;
+							let x=Portals.getX(1);
+						}
+						if(Portals.getDir(1)=2){
+							let x=Portals.getX(1)+1;
+							let y=Portals.getY(1);
+						}
+						if(Portals.getDir(1)=3){
+							let y=Portals.getY(1)+1;
+							let x=Portals.getX(1);
+						}
+					}
+				}
+			}
+			}
+		}
+		return;
+		
+	}
+	
+	method bool onExit() {
+		var Array chamber;
+		let chamber = Chambers.getRoom();
+
+		// if position underneath is unobstructed, clear the current position and update the player position
+		if(chamber[((y + 1) * 32) + x] = 3) {
+			return true;
+		}
+		return false;
+	}
+}

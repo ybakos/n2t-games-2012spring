@@ -1,0 +1,33 @@
+// Main declares a new pokemon battle and runs it
+
+class Main 
+{
+	
+	function void main() 
+	{
+
+		var Battle battle;
+		var int i;
+		var bool playing;
+		
+		let battle = Battle.new();
+		let playing = true;
+
+		do battle.doStartUp();
+		do Battle.doIntro();
+
+		while (playing)
+		{
+			do battle.doPlayStyle();
+			do battle.doChoosePokemon();
+			do battle.doStartBattle();
+			do battle.doCommence();
+			let playing = Battle.doAgain();
+		}
+
+		do Battle.doThanks();
+			
+		do battle.dispose();
+		return;
+	}
+}

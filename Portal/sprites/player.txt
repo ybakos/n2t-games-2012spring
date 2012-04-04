@@ -1,0 +1,17 @@
+/** COPY THIS INTO WHEREVER TILESETS OR SPRITES ARE USED */
+do Memory.poke(16384 + offset, 1984);
+do Memory.poke(16416 + offset, 4064);
+do Memory.poke(16448 + offset, 3568);
+do Memory.poke(16480 + offset, 1992);
+do Memory.poke(16512 + offset, 4064);
+do Memory.poke(16544 + offset, 16376);
+do Memory.poke(16576 + offset, -4);
+do Memory.poke(16608 + offset, -18434);
+do Memory.poke(16640 + offset, 18410);
+do Memory.poke(16672 + offset, 4036);
+do Memory.poke(16704 + offset, 3968);
+do Memory.poke(16736 + offset, 8128);
+do Memory.poke(16768 + offset, 15600);
+do Memory.poke(16800 + offset, 14448);
+do Memory.poke(16832 + offset, 7280);
+do Memory.poke(16864 + offset, 3120);

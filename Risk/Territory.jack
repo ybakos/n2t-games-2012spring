@@ -1,0 +1,85 @@
+// Lauren Aberle
+// This class handles all information related to a territory
+// This includes information for drawing the territories as well as gameplay information
+
+
+class Territory {
+
+	// Drawing
+	field int x, y;
+	field int size, inside, inside_size;
+	field int cursorI, cursorJ;
+	field String name;
+	//Gameplay
+	field Player player;
+	field int numArmies;
+	field Array neighbors;
+	
+	constructor Territory new(int Ax, int Ay, Player Aplayer, String n, int aI, int aJ, int armies) {
+        let x = Ax;
+        let y = Ay;
+		let size = 40;
+		let inside = 10;
+		let inside_size = 20;
+		let name = n;
+		let cursorI = aI;
+		let cursorJ = aJ;
+		let player = Aplayer;
+		let numArmies = armies;
+		let neighbors = Array.new(Constants.numTerritories()); //Unused in current version of program
+        return this;
+    }
+	
+	//Draws the territory in the correct location on the map
+	method void draw() {
+		var int playerNum;
+		var String space;
+		let space = " ";
+		let playerNum = player.getNumber();
+		if (playerNum = 2) { //Black rectangle, white text
+			do Screen.setColor(true);
+			do Screen.drawRectangle(x, y, x + size, y + size);
+		}
+		else { //White rectangle, black text
+			do Screen.setColor(true);
+			do Screen.drawLine(x, y, x + size, y);
+			do Screen.drawLine(x, y, x, y + size);
+			do Screen.drawLine(x, y + size, x + size, y + size);
+			do Screen.drawLine(x + size, y, x + size, y + size);
+		}
+		do Output.moveCursor(cursorI, cursorJ);
+		do Output.printString(name);
+		do Output.printString(space);
+		do Output.printInt(numArmies);
+		do space.dispose();
+		return;
+	}
+	
+	//Adds armies to territory
+	method void addArmies(int armies) {
+		let numArmies = numArmies + armies;
+		return;
+	}
+	
+	//Sets specific number of armies
+	method void setArmies(int armies) {
+		let numArmies = armies;
+		return;
+	}
+	
+	//Returns number of armies
+	method int getArmies() {
+		return numArmies;
+	}
+	
+	//Sets player that owns territory
+	method void setPlayer(Player p) {
+		let player = p;
+		return;
+	}
+	
+	//Returns player that owns territory
+	method Player getPlayer() {
+		return player;
+	}
+}

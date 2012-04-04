@@ -1,0 +1,85 @@
+class EndScreen{
+	
+	// Declare variables. 
+	field int winner;
+	field boolean exit;
+	field char key;
+	field Player p1;
+	field Player p2;
+	field int count1;
+
+	// Constuructor for EndScreen. This takes no inputs. Sets all variables. 
+	constructor EndScreen new(){
+		let winner = 0;
+		let count1 = 0;
+		let key = 0;
+		let p1 = Player.new(50,200);
+		let p2 = Player.new(325,20);
+		let exit = false;
+		return this;
+	}
+
+	// drawEndScreen method. Takes one input, int player. Prints who is the winner and runs the animations for the end screen. 
+	method void drawEndScreen(int player){
+		let winner = player;
+		do Screen.clearScreen();
+		do Screen.setColor(true);
+		do Output.moveCursor(7,25);
+		do Output.printString(" Player ");
+		do Output.printInt(winner);
+		do Output.printString(" wins!");
+		do Output.moveCursor(8,28);
+		do Output.printString(" GAME OVER ");
+		do Output.moveCursor(10,28);
+		do Output.printString("Created by:");
+		do Output.moveCursor(11,28);
+		do Output.printString("Cole Kembel");
+		do Output.moveCursor(12,27);
+		do Output.printString("Ricardo Lopez");
+		do Output.moveCursor(13,29);
+		do Output.printString("Craig Soto");
+		do p1.drawPlayer(true);
+		do p2.drawPlayer(true);
+
+		while(~(exit)){
+			let key = Keyboard.keyPressed();
+			let count1 = 0;
+			while(~(count1 = 150) & ~(exit)){
+				let count1 = count1 + 1;
+				do p1.refreshPosition(2);
+				do p2.refreshPosition(3);
+				if(key = 140){
+					let exit = true;
+				}
+			}
+			let count1 = 0;
+			while(~(count1 = 150) & ~(exit)){
+				let count1 = count1 +1;
+				do p1.refreshPosition(3);
+				do p2.refreshPosition(1);
+				if(key = 140){
+					let exit = true;
+				}
+			}
+			let count1 = 0;
+			while(~(count1 = 150) & ~(exit)){
+				let count1 = count1 +1;
+				do p1.refreshPosition(4);
+				do p2.refreshPosition(2);
+				if(key = 140){
+					let exit = true;
+				}
+			}
+			let count1 = 0;
+			while(~(count1 = 150) & ~(exit)){
+				let count1 = count1 +1;
+				do p1.refreshPosition(1);
+				do p2.refreshPosition(4);
+				if(key = 140){
+					let exit = true;
+				}
+			}
+		}
+		return;
+	}
+}

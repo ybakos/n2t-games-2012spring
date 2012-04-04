@@ -1,0 +1,480 @@
+function Helicopter.new 0
+push constant 24
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+call Helicopter.setup_drawing_variables 1
+pop temp 0
+push pointer 0
+call Helicopter.reset 1
+pop temp 0
+push pointer 0
+return
+function Helicopter.fly 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 1
+sub
+pop this 3
+push pointer 0
+call Helicopter.draw 1
+pop temp 0
+push constant 0
+return
+function Helicopter.fall 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 2
+add
+pop this 3
+push pointer 0
+call Helicopter.draw 1
+pop temp 0
+push constant 0
+return
+function Helicopter.draw 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Helicopter.erase 1
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 6
+add
+push this 3
+push this 17
+add
+push this 2
+push this 16
+add
+push this 3
+push this 17
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 11
+add
+push this 3
+push this 17
+add
+push this 2
+push this 11
+add
+push this 3
+push this 18
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 9
+add
+push this 3
+push this 18
+add
+push this 2
+push this 14
+add
+push this 3
+push this 18
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 4
+add
+push this 3
+push this 20
+add
+push this 2
+push this 7
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 12
+add
+push this 3
+push this 20
+add
+push this 2
+push this 16
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 12
+add
+push this 3
+push this 18
+add
+push this 2
+push this 12
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 9
+add
+push this 3
+push this 22
+add
+push this 2
+push this 14
+add
+push this 3
+push this 22
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 4
+add
+push this 3
+push this 18
+add
+push this 2
+push this 4
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 4
+add
+push this 3
+push this 18
+add
+push this 2
+push this 6
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 7
+add
+push this 3
+push this 20
+add
+push this 2
+push this 9
+add
+push this 3
+push this 18
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 7
+add
+push this 3
+push this 20
+add
+push this 2
+push this 9
+add
+push this 3
+push this 22
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 14
+add
+push this 3
+push this 22
+add
+push this 2
+push this 16
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 14
+add
+push this 3
+push this 18
+add
+push this 2
+push this 16
+add
+push this 3
+push this 20
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 7
+add
+push this 3
+push this 23
+add
+push this 2
+push this 16
+add
+push this 3
+push this 23
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 9
+add
+push this 3
+push this 22
+add
+push this 2
+push this 8
+add
+push this 3
+push this 23
+add
+call Screen.drawLine 4
+pop temp 0
+push this 2
+push this 13
+add
+push this 3
+push this 22
+add
+push this 2
+push this 14
+add
+push this 3
+push this 23
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Helicopter.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 6
+add
+push constant 2
+sub
+push this 3
+push this 17
+add
+push constant 2
+sub
+push this 2
+push this 16
+add
+push constant 2
+add
+push this 3
+push this 22
+add
+push constant 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 2
+push this 4
+add
+push constant 2
+sub
+push this 3
+push this 18
+add
+push constant 2
+sub
+push this 2
+push this 6
+add
+push constant 2
+add
+push this 3
+push this 20
+add
+push constant 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 2
+push this 7
+add
+push constant 2
+sub
+push this 3
+push this 22
+add
+push constant 2
+sub
+push this 2
+push this 16
+add
+push constant 2
+add
+push this 3
+push this 23
+add
+push constant 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Helicopter.setup_drawing_variables 4
+push argument 0
+pop pointer 0
+push constant 6
+push constant 8
+call Math.multiply 2
+pop local 0
+push local 0
+push constant 12
+call Math.divide 2
+pop local 2
+push constant 0
+push local 2
+call Math.multiply 2
+pop this 4
+push constant 1
+push local 2
+call Math.multiply 2
+pop this 5
+push constant 2
+push local 2
+call Math.multiply 2
+pop this 6
+push constant 3
+push local 2
+call Math.multiply 2
+pop this 7
+push constant 4
+push local 2
+call Math.multiply 2
+pop this 8
+push constant 5
+push local 2
+call Math.multiply 2
+pop this 9
+push constant 6
+push local 2
+call Math.multiply 2
+pop this 10
+push constant 7
+push local 2
+call Math.multiply 2
+pop this 11
+push constant 8
+push local 2
+call Math.multiply 2
+pop this 12
+push constant 9
+push local 2
+call Math.multiply 2
+pop this 13
+push constant 10
+push local 2
+call Math.multiply 2
+pop this 14
+push constant 11
+push local 2
+call Math.multiply 2
+pop this 15
+push constant 12
+push local 2
+call Math.multiply 2
+pop this 16
+push constant 3
+push constant 8
+call Math.multiply 2
+pop local 1
+push local 1
+push constant 6
+call Math.divide 2
+pop local 3
+push constant 0
+push local 3
+call Math.multiply 2
+pop this 17
+push constant 1
+push local 3
+call Math.multiply 2
+pop this 18
+push constant 2
+push local 3
+call Math.multiply 2
+pop this 19
+push constant 3
+push local 3
+call Math.multiply 2
+pop this 20
+push constant 4
+push local 3
+call Math.multiply 2
+pop this 21
+push constant 5
+push local 3
+call Math.multiply 2
+pop this 22
+push constant 6
+push local 3
+call Math.multiply 2
+pop this 23
+push constant 0
+return
+function Helicopter.reset 0
+push argument 0
+pop pointer 0
+push this 0
+pop this 2
+push this 1
+pop this 3
+push constant 0
+return
+function Helicopter.top 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Helicopter.bottom 0
+push argument 0
+pop pointer 0
+push this 3
+push this 23
+add
+return
+function Helicopter.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

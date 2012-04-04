@@ -1,0 +1,538 @@
+function Plane.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push constant 0
+pop this 2
+push constant 0
+pop this 3
+push constant 24
+call Array.new 1
+pop static 0
+push constant 0
+push static 0
+add
+push constant 1
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push static 0
+add
+push constant 1
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push static 0
+add
+push constant 2
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push static 0
+add
+push constant 2
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 4
+push static 0
+add
+push constant 4
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 5
+push static 0
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 6
+push static 0
+add
+push constant 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 7
+push static 0
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 8
+push static 0
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 9
+push static 0
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+push static 0
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 11
+push static 0
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 12
+push static 0
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 13
+push static 0
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 14
+push static 0
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 15
+push static 0
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 16
+push static 0
+add
+push constant 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 17
+push static 0
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push static 0
+add
+push constant 4
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push static 0
+add
+push constant 2
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 20
+push static 0
+add
+push constant 2
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 21
+push static 0
+add
+push constant 1
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 22
+push static 0
+add
+push constant 1
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 23
+push static 0
+add
+push constant 1
+neg
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+call Plane.draw 1
+pop temp 0
+push pointer 0
+return
+function Plane.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Plane.move 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Plane.erase 1
+pop temp 0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push constant 1
+call Plane.accel 2
+pop temp 0
+label IF_FALSE0
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+push constant 1
+neg
+call Plane.accel 2
+pop temp 0
+label IF_FALSE1
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+push constant 15
+neg
+call Plane.turn 2
+pop temp 0
+label IF_FALSE2
+push argument 1
+push constant 4
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push constant 15
+call Plane.turn 2
+pop temp 0
+label IF_FALSE3
+push this 0
+push pointer 0
+push constant 0
+not
+push this 2
+call Plane.trig 3
+add
+pop this 0
+push this 0
+push constant 495
+gt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 16
+push this 0
+push constant 495
+sub
+add
+pop this 0
+label IF_FALSE4
+push this 0
+push constant 17
+lt
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 496
+push constant 17
+push this 0
+sub
+sub
+pop this 0
+label IF_FALSE5
+push this 1
+push pointer 0
+push constant 0
+push this 2
+call Plane.trig 3
+add
+pop this 1
+push this 1
+push constant 239
+gt
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 16
+push this 1
+push constant 239
+sub
+add
+pop this 1
+label IF_FALSE6
+push this 1
+push constant 17
+lt
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 240
+push constant 17
+push this 1
+sub
+sub
+pop this 1
+label IF_FALSE7
+push pointer 0
+call Plane.draw 1
+pop temp 0
+push constant 0
+return
+function Plane.accel 0
+push argument 0
+pop pointer 0
+push this 2
+push argument 1
+add
+pop this 2
+push this 2
+push constant 16
+neg
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 16
+neg
+pop this 2
+label IF_FALSE0
+push this 2
+push constant 16
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 16
+pop this 2
+label IF_FALSE1
+push constant 0
+return
+function Plane.turn 0
+push argument 0
+pop pointer 0
+push this 3
+push argument 1
+add
+pop this 3
+push this 3
+push constant 195
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 165
+neg
+pop this 3
+label IF_FALSE0
+push this 3
+push constant 180
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 180
+pop this 3
+label IF_FALSE1
+push this 3
+call Output.printInt 1
+pop temp 0
+push constant 2
+call String.new 1
+push constant 44
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+return
+function Plane.trig 1
+push argument 0
+pop pointer 0
+push this 3
+push constant 165
+add
+push constant 15
+call Math.divide 2
+pop local 0
+push argument 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push constant 6
+sub
+pop local 0
+push local 0
+push constant 6
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 24
+push local 0
+add
+pop local 0
+label IF_FALSE1
+label IF_FALSE0
+push local 0
+push static 0
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+return
+goto IF_END2
+label IF_FALSE2
+push argument 2
+push local 0
+push static 0
+add
+pop pointer 1
+push that 0
+call Math.divide 2
+return
+label IF_END2
+function Plane.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push constant 4
+call Screen.drawCircle 3
+pop temp 0
+push this 0
+push this 1
+push this 0
+push pointer 0
+push constant 0
+not
+push constant 16
+call Plane.trig 3
+add
+push this 1
+push pointer 0
+push constant 0
+push constant 16
+call Plane.trig 3
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Plane.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push constant 4
+call Screen.drawCircle 3
+pop temp 0
+push this 0
+push this 1
+push this 0
+push pointer 0
+push constant 0
+not
+push constant 16
+call Plane.trig 3
+add
+push this 1
+push pointer 0
+push constant 0
+push constant 16
+call Plane.trig 3
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,102 @@
+function Guy.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push constant 32
+pop this 0
+push constant 12
+pop this 1
+push this 0
+pop this 2
+push this 1
+pop this 3
+push constant 0
+pop this 4
+push pointer 0
+return
+function Guy.move_right 0
+push argument 0
+pop pointer 0
+push this 0
+pop this 2
+push this 1
+pop this 3
+push this 0
+push constant 1
+add
+pop this 0
+push constant 0
+return
+function Guy.move_left 0
+push argument 0
+pop pointer 0
+push this 0
+pop this 2
+push this 1
+pop this 3
+push this 0
+push constant 1
+sub
+pop this 0
+push constant 0
+return
+function Guy.move_up 0
+push argument 0
+pop pointer 0
+push this 0
+pop this 2
+push this 1
+pop this 3
+push this 1
+push constant 1
+sub
+pop this 1
+push constant 0
+return
+function Guy.move_down 0
+push argument 0
+pop pointer 0
+push this 0
+pop this 2
+push this 1
+pop this 3
+push this 1
+push constant 1
+add
+pop this 1
+push constant 0
+return
+function Guy.get_player_x 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Guy.get_player_y 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Guy.get_previous_x 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Guy.get_previous_y 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Guy.add_mcguffin 0
+push argument 0
+pop pointer 0
+push this 4
+push constant 1
+add
+pop this 4
+push constant 0
+return
+function Guy.get_mcguffins 0
+push argument 0
+pop pointer 0
+push this 4
+return

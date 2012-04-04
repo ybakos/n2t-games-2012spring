@@ -1,0 +1,91 @@
+// a single obstacle; comprises an element in a linked list
+class Obstacle {
+   // the next obstacle in the linked list
+   field Obstacle next;
+
+   // the coordinates of the obstacles
+   field int x1, x2, y;
+
+   // construct the obstacle
+   constructor Obstacle new(int xx1, int xx2) {
+      let x1 = xx1;
+      let x2 = xx2;
+
+      // each obstacle starts at the bottom of the screen
+      let y = 255;
+
+      // no next pointer
+      let next = null;
+
+      return this;
+   }
+
+   // desconstruct this object
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   // set the next obstacle in the list
+   method void setNext(Obstacle nnext) {
+      let next = nnext;
+      return;
+   }
+
+   // gets the next obstacle in the list
+   method Obstacle getNext() {
+      return next;
+   }
+
+   // draws/undraws the obstacle
+   method void draw(boolean draw) {
+      var int y1;
+      var int y2;
+
+      let y1 = y;
+      let y2 = getY2();
+
+      if(y2 < 0) {
+         // off screen and needs to be cleaned up; do not draw
+         return;
+      }
+
+      if(y1 < 0) {
+         let y1 = 0;
+      }
+      if(y2 > 255) {
+         let y2 = 255;
+      }
+
+      do Screen.setColor(draw);
+      do Screen.drawRectangle(x1, y1, x2, y2);
+
+      return;
+   }
+
+   // moves the obstacle up by 5
+   method void moveUp() {
+      let y = y - 5;
+      return;
+   }
+
+   // returns the left X coordinate
+   method int getX1() {
+      return x1;
+   }
+
+   // retursn the right X coordinate
+   method int getX2() {
+      return x2;
+   }
+
+   // returns the upper Y coordinate
+   method int getY1() {
+      return y;
+   }
+
+   // returns the lower Y coordinate
+   method int getY2() {
+      return y + 10;
+   }
+}

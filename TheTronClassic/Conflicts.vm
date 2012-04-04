@@ -1,0 +1,924 @@
+function Conflicts.aConflict 4
+push argument 1
+pop local 1
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 1
+push constant 15
+gt
+not
+if-goto WHILE_END0
+push local 1
+push constant 16
+sub
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+pop local 1
+label IF_FALSE0
+push local 1
+push constant 4
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 2
+pop local 1
+label IF_FALSE1
+push local 1
+push constant 8
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 3
+pop local 1
+label IF_FALSE2
+push local 1
+push constant 12
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 4
+pop local 1
+label IF_FALSE3
+push argument 2
+push constant 114
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 16415
+pop local 3
+label WHILE_EXP1
+push local 3
+push constant 24576
+lt
+not
+if-goto WHILE_END1
+push argument 0
+push local 3
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push local 1
+push constant 4
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 1
+neg
+pop local 0
+push local 0
+return
+label IF_FALSE6
+label IF_FALSE5
+push local 3
+push constant 32
+add
+pop local 3
+goto WHILE_EXP1
+label WHILE_END1
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push argument 0
+call Conflicts.oneAndTwoPositionConflict 1
+pop local 0
+label IF_FALSE7
+push local 1
+push constant 2
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push argument 0
+call Conflicts.twoAndThreePositionConflict 1
+pop local 0
+label IF_FALSE8
+push local 1
+push constant 3
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push argument 0
+call Conflicts.threeAndFourPositionConflict 1
+pop local 0
+label IF_FALSE9
+push local 1
+push constant 4
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push argument 0
+push constant 1
+add
+pop local 2
+push local 2
+call Conflicts.onlyOnePositionConflict 1
+pop local 0
+label IF_FALSE10
+label IF_FALSE4
+push argument 2
+push constant 108
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 16384
+pop local 3
+label WHILE_EXP2
+push local 3
+push constant 24576
+lt
+not
+if-goto WHILE_END2
+push argument 0
+push local 3
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 1
+neg
+pop local 0
+push local 0
+return
+label IF_FALSE13
+label IF_FALSE12
+push local 3
+push constant 32
+add
+pop local 3
+goto WHILE_EXP2
+label WHILE_END2
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push argument 0
+push constant 1
+sub
+pop local 2
+push local 2
+call Conflicts.onlyFourPositionConflict 1
+pop local 0
+label IF_FALSE14
+push local 1
+push constant 2
+eq
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push argument 0
+call Conflicts.oneAndTwoPositionConflict 1
+pop local 0
+label IF_FALSE15
+push local 1
+push constant 3
+eq
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push argument 0
+call Conflicts.twoAndThreePositionConflict 1
+pop local 0
+label IF_FALSE16
+push local 1
+push constant 4
+eq
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push argument 0
+call Conflicts.threeAndFourPositionConflict 1
+pop local 0
+label IF_FALSE17
+label IF_FALSE11
+push argument 2
+push constant 117
+eq
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push argument 0
+push constant 128
+sub
+pop local 2
+push constant 16384
+pop local 3
+label WHILE_EXP3
+push local 3
+push constant 16416
+lt
+not
+if-goto WHILE_END3
+push argument 0
+push local 3
+eq
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push constant 1
+neg
+pop local 0
+push local 0
+return
+label IF_FALSE19
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP3
+label WHILE_END3
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE20
+goto IF_FALSE20
+label IF_TRUE20
+push local 2
+call Conflicts.onlyOnePositionConflict 1
+pop local 0
+label IF_FALSE20
+push local 1
+push constant 2
+eq
+if-goto IF_TRUE21
+goto IF_FALSE21
+label IF_TRUE21
+push local 2
+call Conflicts.onlyTwoPositionConflict 1
+pop local 0
+label IF_FALSE21
+push local 1
+push constant 3
+eq
+if-goto IF_TRUE22
+goto IF_FALSE22
+label IF_TRUE22
+push local 2
+call Conflicts.onlyThreePositionConflict 1
+pop local 0
+label IF_FALSE22
+push local 1
+push constant 4
+eq
+if-goto IF_TRUE23
+goto IF_FALSE23
+label IF_TRUE23
+push local 2
+call Conflicts.onlyFourPositionConflict 1
+pop local 0
+label IF_FALSE23
+label IF_FALSE18
+push argument 2
+push constant 100
+eq
+if-goto IF_TRUE24
+goto IF_FALSE24
+label IF_TRUE24
+push argument 0
+push constant 128
+add
+pop local 2
+push constant 24448
+pop local 3
+label WHILE_EXP4
+push local 3
+push constant 24479
+lt
+not
+if-goto WHILE_END4
+push argument 0
+push local 3
+eq
+if-goto IF_TRUE25
+goto IF_FALSE25
+label IF_TRUE25
+push constant 1
+neg
+pop local 0
+push local 0
+return
+label IF_FALSE25
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP4
+label WHILE_END4
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE26
+goto IF_FALSE26
+label IF_TRUE26
+push local 2
+call Conflicts.onlyOnePositionConflict 1
+pop local 0
+label IF_FALSE26
+push local 1
+push constant 2
+eq
+if-goto IF_TRUE27
+goto IF_FALSE27
+label IF_TRUE27
+push local 2
+call Conflicts.onlyTwoPositionConflict 1
+pop local 0
+label IF_FALSE27
+push local 1
+push constant 3
+eq
+if-goto IF_TRUE28
+goto IF_FALSE28
+label IF_TRUE28
+push local 2
+call Conflicts.onlyThreePositionConflict 1
+pop local 0
+label IF_FALSE28
+push local 1
+push constant 4
+eq
+if-goto IF_TRUE29
+goto IF_FALSE29
+label IF_TRUE29
+push local 2
+call Conflicts.onlyFourPositionConflict 1
+pop local 0
+label IF_FALSE29
+label IF_FALSE24
+push local 0
+return
+function Conflicts.onlyOnePositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 15
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 4081
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 3855
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 241
+neg
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push argument 0
+call Memory.peek 1
+push constant 255
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 1
+neg
+pop local 0
+label IF_FALSE4
+push argument 0
+call Memory.peek 1
+push constant 3841
+neg
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 1
+neg
+pop local 0
+label IF_FALSE5
+push argument 0
+call Memory.peek 1
+push constant 4095
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 1
+neg
+pop local 0
+label IF_FALSE6
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 1
+neg
+pop local 0
+label IF_FALSE7
+push local 0
+return
+function Conflicts.onlyTwoPositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 255
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 3841
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 4095
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 240
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push argument 0
+call Memory.peek 1
+push constant 3856
+neg
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 1
+neg
+pop local 0
+label IF_FALSE4
+push argument 0
+call Memory.peek 1
+push constant 4080
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 1
+neg
+pop local 0
+label IF_FALSE5
+push argument 0
+call Memory.peek 1
+push constant 16
+neg
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 1
+neg
+pop local 0
+label IF_FALSE6
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 1
+neg
+pop local 0
+label IF_FALSE7
+push local 0
+return
+function Conflicts.onlyThreePositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 3855
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 241
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 4095
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 3840
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push argument 0
+call Memory.peek 1
+push constant 256
+neg
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 1
+neg
+pop local 0
+label IF_FALSE4
+push argument 0
+call Memory.peek 1
+push constant 4080
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 1
+neg
+pop local 0
+label IF_FALSE5
+push argument 0
+call Memory.peek 1
+push constant 16
+neg
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 1
+neg
+pop local 0
+label IF_FALSE6
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 1
+neg
+pop local 0
+label IF_FALSE7
+push local 0
+return
+function Conflicts.onlyFourPositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 4096
+neg
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 4081
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 256
+neg
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 241
+neg
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push argument 0
+call Memory.peek 1
+push constant 3856
+neg
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 1
+neg
+pop local 0
+label IF_FALSE4
+push argument 0
+call Memory.peek 1
+push constant 3841
+neg
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 1
+neg
+pop local 0
+label IF_FALSE5
+push argument 0
+call Memory.peek 1
+push constant 16
+neg
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 1
+neg
+pop local 0
+label IF_FALSE6
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 1
+neg
+pop local 0
+label IF_FALSE7
+push local 0
+return
+function Conflicts.oneAndTwoPositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 255
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 3841
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 4095
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push local 0
+return
+function Conflicts.twoAndThreePositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 4095
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 4080
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 16
+neg
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push local 0
+return
+function Conflicts.threeAndFourPositionConflict 1
+push constant 0
+pop local 0
+push argument 0
+call Memory.peek 1
+push constant 241
+neg
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop local 0
+label IF_FALSE0
+push argument 0
+call Memory.peek 1
+push constant 256
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+neg
+pop local 0
+label IF_FALSE1
+push argument 0
+call Memory.peek 1
+push constant 16
+neg
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+neg
+pop local 0
+label IF_FALSE2
+push argument 0
+call Memory.peek 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+neg
+pop local 0
+label IF_FALSE3
+push local 0
+return

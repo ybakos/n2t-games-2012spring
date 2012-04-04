@@ -1,0 +1,228 @@
+function ScoreBoard.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 60
+pop this 0
+push pointer 0
+call ScoreBoard.drawBoard 1
+pop temp 0
+push pointer 0
+return
+function ScoreBoard.drawBoard 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+push constant 1
+call Output.moveCursor 2
+pop temp 0
+push constant 11
+call String.new 1
+push constant 80
+call String.appendChar 2
+push constant 49
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 83
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 48
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+push constant 29
+call Output.moveCursor 2
+pop temp 0
+push constant 232
+push constant 0
+push constant 234
+push constant 12
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+push constant 30
+call Output.moveCursor 2
+pop temp 0
+push constant 15
+call Output.printInt 1
+pop temp 0
+push constant 260
+push constant 0
+push constant 262
+push constant 12
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+push constant 52
+call Output.moveCursor 2
+pop temp 0
+push constant 11
+call String.new 1
+push constant 80
+call String.appendChar 2
+push constant 50
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 83
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 48
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+push constant 15
+push constant 511
+push constant 18
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function ScoreBoard.updateTimer 0
+push argument 0
+pop pointer 0
+push constant 0
+push constant 30
+call Output.moveCursor 2
+pop temp 0
+push argument 1
+call Output.printInt 1
+pop temp 0
+push constant 0
+return
+function ScoreBoard.updateScore 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push constant 11
+call Output.moveCursor 2
+pop temp 0
+push argument 1
+call Output.printInt 1
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+push constant 62
+call Output.moveCursor 2
+pop temp 0
+push argument 1
+call Output.printInt 1
+pop temp 0
+label IF_END0
+push constant 0
+return
+function ScoreBoard.drawAssassinIcon 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push constant 0
+call ScoreBoard.drawIcon 2
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+push this 0
+call ScoreBoard.drawIcon 2
+pop temp 0
+label IF_END0
+push constant 0
+return
+function ScoreBoard.eraseIcon 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+push constant 0
+call ScoreBoard.drawIcon 2
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+push this 0
+call ScoreBoard.drawIcon 2
+pop temp 0
+label IF_END0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 0
+return
+function ScoreBoard.drawIcon 0
+push argument 0
+pop pointer 0
+push constant 216
+push argument 1
+add
+push constant 6
+push constant 6
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 212
+push argument 1
+add
+push constant 4
+push constant 220
+push argument 1
+add
+push constant 5
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return

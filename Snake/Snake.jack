@@ -1,0 +1,152 @@
+class Snake {
+	static int UP;
+	static int DOWN;
+	static int LEFT;
+	static int RIGHT;
+
+	field Dot data;
+	field Snake next;
+	
+
+	constructor Snake new(Dot d, Snake s ){
+		
+		let UP = 131;
+		let DOWN = 133;
+		let RIGHT = 132;
+		let LEFT = 130;
+
+
+		let data=d;
+		let next = s;
+		return this;
+	}
+
+	method boolean move(int dir, Dot food){
+	var Snake old_next;
+	var Dot tail_to_head;
+	var int nextPos;
+	var bool ate;
+	let ate=false;
+
+
+	
+		if(dir=0){
+			return ate;
+		}
+		
+
+		//Move tail to between head and Head's next and undraw tail from screen
+		let tail_to_head = popTail(this);
+		//Undraw from screen
+			do Screen.setColor(false);
+			do tail_to_head.draw();
+			do Screen.setColor(true);
+		do tail_to_head.set_x(data.get_x());
+			do tail_to_head.set_y(data.get_y());
+		let next = Snake.new(tail_to_head,next);
+
+
+		if(dir = UP){
+			let nextPos = data.get_y()-1;
+			if(nextPos <0){
+				do data.set_y(30);
+			} else {
+				do data.set_y(nextPos);
+			}
+		}
+
+		if (dir = DOWN){
+			let nextPos = data.get_y()+1;
+			if(nextPos >30){
+				do data.set_y(0);
+			} else {
+				do data.set_y(nextPos);
+			}
+		}
+
+		if (dir = LEFT){
+			let nextPos = data.get_x()-1;
+			if(nextPos<0){
+				do data.set_x(62);
+			} else {
+				do data.set_x(nextPos);
+			}
+		}
+
+		if (dir = RIGHT){
+			let nextPos = data.get_x()+1;
+			if(nextPos >62){
+				do data.set_x(0);
+			} else {
+				do data.set_x(nextPos);
+			}
+		}
+
+		do data.draw();
+
+		if(  (data.get_x()=food.get_x()) & (data.get_y()=food.get_y()) ) {
+			let ate = true;
+			let next = Snake.new(food,next);
+		}
+
+		return ate; 
+	}
+
+	method boolean collision(){
+		var bool collided;
+		var Snake next_next;
+		let next_next = next.get_next();
+		let collided = next_next.find_collision(data);
+		return collided;
+	}
+
+
+	method boolean find_collision(Dot head){
+		if((head.get_x()=data.get_x())&(head.get_y()=data.get_y())){
+			return true;
+		}
+		if(~(next = null)){
+			return next.find_collision(head);
+		}
+		return false;
+	}
+	method Dot popTail(Snake caller){
+		if(~(next=null)){
+			return next.popTail(this);
+		}
+		do caller.isLast();
+		return data;
+	}
+
+
+	method void isLast(){
+		do next.dispose();
+		let next = null;
+		return;
+	}
+
+	method void drawAll(){
+		if(~(next=null)){
+			do next.drawAll();
+		}
+		do data.draw();
+		return;
+	}
+
+	method Snake get_next(){
+		return next;
+	}
+
+	method void dispose_all() {
+		if (~(next=null)){
+			do next.dispose();
+		}
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+}

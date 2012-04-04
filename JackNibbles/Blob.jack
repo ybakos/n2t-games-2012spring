@@ -1,0 +1,49 @@
+// Original file was from SnakeLike from git repository 
+// https://github/ybakos/csci498-games2011
+// Modified by Keith Risper
+// File name: projects09/JackNibbles/Blob.jack
+
+class Blob {
+
+field int SIZE;
+field int x, y;
+
+constructor Blob new(int Ax, int Ay) {
+let x = Ax;
+let y = Ay;
+let SIZE = 1;
+return this;
+}
+
+/** Deallocates the object's memory. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+method void draw() {
+do Screen.setColor(true);
+do Screen.drawRectangle(x, y, x+SIZE, y+SIZE);
+return;
+}
+
+    method int getX() {
+
+        return x;
+    }
+    method int getY() {
+
+        return y;
+    }
+
+method int getSize(){
+return SIZE;
+}
+
+/** Erases the square from the screen. */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + SIZE, y + SIZE);
+        return;
+    }
+}

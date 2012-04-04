@@ -1,0 +1,80 @@
+function RAND.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 3
+push constant 17
+pop this 0
+push constant 7919
+pop this 1
+push constant 16384
+pop this 2
+push pointer 0
+return
+function RAND.mod 3
+push argument 0
+push argument 1
+call Math.divide 2
+pop local 0
+push local 0
+push argument 1
+call Math.multiply 2
+pop local 1
+push argument 0
+push local 1
+sub
+pop local 2
+push local 2
+return
+function RAND.nextRand 0
+push argument 0
+pop pointer 0
+push this 1
+push this 0
+push this 3
+call Math.multiply 2
+add
+push this 2
+call RAND.mod 2
+pop this 3
+push this 3
+return
+function RAND.intBetween 3
+push argument 0
+pop pointer 0
+push argument 2
+push argument 1
+sub
+pop local 0
+push pointer 0
+call RAND.nextRand 1
+pop local 1
+push local 1
+push local 0
+call RAND.mod 2
+pop local 2
+push local 2
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push local 2
+sub
+pop local 2
+label IF_FALSE0
+push local 2
+push argument 1
+add
+pop local 2
+push local 2
+return
+function RAND.reSeed 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 3
+push constant 0
+return

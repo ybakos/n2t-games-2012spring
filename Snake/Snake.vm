@@ -1,0 +1,331 @@
+function Snake.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 131
+pop static 0
+push constant 133
+pop static 1
+push constant 132
+pop static 3
+push constant 130
+pop static 2
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function Snake.move 4
+push argument 0
+pop pointer 0
+push constant 0
+pop local 3
+push argument 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 3
+return
+label IF_FALSE0
+push pointer 0
+push pointer 0
+call Snake.popTail 2
+pop local 1
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 1
+call Dot.draw 1
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 1
+push this 0
+call Dot.get_x 1
+call Dot.set_x 2
+pop temp 0
+push local 1
+push this 0
+call Dot.get_y 1
+call Dot.set_y 2
+pop temp 0
+push local 1
+push this 1
+call Snake.new 2
+pop this 1
+push argument 1
+push static 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call Dot.get_y 1
+push constant 1
+sub
+pop local 2
+push local 2
+push constant 0
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+push constant 30
+call Dot.set_y 2
+pop temp 0
+goto IF_END2
+label IF_FALSE2
+push this 0
+push local 2
+call Dot.set_y 2
+pop temp 0
+label IF_END2
+label IF_FALSE1
+push argument 1
+push static 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 0
+call Dot.get_y 1
+push constant 1
+add
+pop local 2
+push local 2
+push constant 30
+gt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 0
+push constant 0
+call Dot.set_y 2
+pop temp 0
+goto IF_END4
+label IF_FALSE4
+push this 0
+push local 2
+call Dot.set_y 2
+pop temp 0
+label IF_END4
+label IF_FALSE3
+push argument 1
+push static 2
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 0
+call Dot.get_x 1
+push constant 1
+sub
+pop local 2
+push local 2
+push constant 0
+lt
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 0
+push constant 62
+call Dot.set_x 2
+pop temp 0
+goto IF_END6
+label IF_FALSE6
+push this 0
+push local 2
+call Dot.set_x 2
+pop temp 0
+label IF_END6
+label IF_FALSE5
+push argument 1
+push static 3
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 0
+call Dot.get_x 1
+push constant 1
+add
+pop local 2
+push local 2
+push constant 62
+gt
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 0
+push constant 0
+call Dot.set_x 2
+pop temp 0
+goto IF_END8
+label IF_FALSE8
+push this 0
+push local 2
+call Dot.set_x 2
+pop temp 0
+label IF_END8
+label IF_FALSE7
+push this 0
+call Dot.draw 1
+pop temp 0
+push this 0
+call Dot.get_x 1
+push argument 2
+call Dot.get_x 1
+eq
+push this 0
+call Dot.get_y 1
+push argument 2
+call Dot.get_y 1
+eq
+and
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push constant 0
+not
+pop local 3
+push argument 2
+push this 1
+call Snake.new 2
+pop this 1
+label IF_FALSE9
+push local 3
+return
+function Snake.collision 2
+push argument 0
+pop pointer 0
+push this 1
+call Snake.get_next 1
+pop local 1
+push local 1
+push this 0
+call Snake.find_collision 2
+pop local 0
+push local 0
+return
+function Snake.find_collision 0
+push argument 0
+pop pointer 0
+push argument 1
+call Dot.get_x 1
+push this 0
+call Dot.get_x 1
+eq
+push argument 1
+call Dot.get_y 1
+push this 0
+call Dot.get_y 1
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push this 1
+push constant 0
+eq
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push argument 1
+call Snake.find_collision 2
+return
+label IF_FALSE1
+push constant 0
+return
+function Snake.popTail 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push pointer 0
+call Snake.popTail 2
+return
+label IF_FALSE0
+push argument 1
+call Snake.isLast 1
+pop temp 0
+push this 0
+return
+function Snake.isLast 0
+push argument 0
+pop pointer 0
+push this 1
+call Snake.dispose 1
+pop temp 0
+push constant 0
+pop this 1
+push constant 0
+return
+function Snake.drawAll 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+call Snake.drawAll 1
+pop temp 0
+label IF_FALSE0
+push this 0
+call Dot.draw 1
+pop temp 0
+push constant 0
+return
+function Snake.get_next 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Snake.dispose_all 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+call Snake.dispose 1
+pop temp 0
+label IF_FALSE0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Snake.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

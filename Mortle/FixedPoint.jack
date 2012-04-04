@@ -1,0 +1,153 @@
+class FixedPoint {
+	field bool sign;
+	field int whole;
+	field int fraction;
+
+	//creates new Fixed point.
+	//wholePart: portion of number in front of raddix point
+	//fractionPart: portion of number behind raddix point, prepresented in
+	//	fractions of 256.
+	//sign:	the sign of the number-false->positive, true->negative
+	constructor FixedPoint new(int wholePart, int fractionPart, bool signPart) {
+		var int carry;
+		let whole=wholePart;
+		let fraction=fractionPart;
+		let sign=signPart;
+		if(whole<0) {
+			let sign = ~sign;
+			let whole = -whole;
+			let fraction = -fraction;
+		}
+		if((whole=0) & (fraction<0)) {
+			let sign = ~sign;
+			let fraction = -fraction;
+		}
+		if(fraction>255) {
+			let carry=fraction/256;
+			let fraction=fraction-(carry*256);
+			let whole=whole+carry;
+		}
+		if(fraction<0) {
+			let carry=(fraction/256)-1;
+			let fraction=fraction-(carry*256);
+			if(whole<0) {
+				let carry=-carry;
+			}
+			let whole=whole+carry;
+		}
+		return this;
+	}
+	method FixedPoint copy() {
+		return FixedPoint.new(whole, fraction, sign);
+	}
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+	method void copyFrom(FixedPoint src) {
+		let whole = src.getWhole();
+		let fraction = src.getFraction();
+		let sign = src.getSign();
+		return;
+	}
+
+	method int getWhole() {
+		return whole;
+	}
+	method int getFraction() {
+		return fraction;
+	}
+	method bool getSign() {
+		return sign;
+	}
+	method bool isEqual(FixedPoint other) {
+		return (whole=other.getWhole()) & (fraction=other.getFraction()) & (sign=other.getSign());
+	}
+
+	method int round() {
+		var int round;
+		if(fraction>127) {
+			let round=1;
+		}
+		else {
+			let round=0;
+		}
+		if(sign) {
+			return -(whole+round);
+		}
+		return whole+round;
+	}
+
+	method FixedPoint multInt(int mult) {
+		return FixedPoint.new(whole*mult,fraction*mult,sign);
+	}
+
+	method void multIntEq(int mult) {
+		var FixedPoint temp;
+		let temp = multInt(mult);
+		do copyFrom(temp);
+		do temp.dispose();
+		return;
+	}
+
+	method FixedPoint negate() {
+		return FixedPoint.new(whole, fraction, ~sign);
+	}
+
+	method void negateEq() {
+		let sign = ~sign;
+		return;
+	}
+
+	method FixedPoint add(FixedPoint other) {
+		if(sign=other.getSign()) {
+			return FixedPoint.new(whole+other.getWhole(), fraction+other.getFraction(), sign);
+		}
+		else {
+			return FixedPoint.new(whole-other.getWhole(), fraction-other.getFraction(), sign);
+		}
+	}
+
+	method void addEq(FixedPoint other) {
+		var FixedPoint temp;
+		let temp = add(other);
+		do copyFrom(temp);
+		do temp.dispose();
+		return;
+	}
+
+	method FixedPoint sub(FixedPoint other) {
+		var FixedPoint neg, diff;
+		let neg=other.negate();
+		let diff=add(neg);
+		do neg.dispose();
+		return diff;
+	}
+
+	method void subEq(FixedPoint other) {
+		var FixedPoint temp;
+		let temp = sub(other);
+		do copyFrom(temp);
+		do temp.dispose();
+		return;
+	}
+
+	method FixedPoint mul(FixedPoint other) {
+		var FixedPoint fracSq;
+		var int iFracSq;
+		let fracSq = FixedPoint.new(0,fraction*other.getFraction(),false);
+		let iFracSq = fracSq.round();
+		do fracSq.dispose();
+		return FixedPoint.new(whole*other.getWhole(),(whole*other.getFraction())+(other.getWhole()*fraction)+iFracSq,~(sign=other.getSign()));
+	}
+
+	method void print() {
+		if(sign) {
+			do Output.printString("-");
+		}
+		do Output.printInt(whole);
+		do Output.printString(":");
+		do Output.printInt(fraction);
+		return;
+	}
+}

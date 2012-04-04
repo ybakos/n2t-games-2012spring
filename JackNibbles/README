@@ -1,0 +1,43 @@
+Keith Risper
+CSCI410
+Project09
+JackNibbles - README
+
+JackNibbles is a variant of the Nibbles(Qbasic version of Snake) that I have decided to
+create.  This was the first game I ever played on a computer and it's always had a 
+special place in my heart.  
+
+My original plan was to have an almost exact replica of the Nibbles game.  Well
+I quickly found out that I would not have color but that did not deter me.  I 
+figured the best way for me to start would be get my game start and game over 
+screens working properly.  Then I would move on to snake movement, number blocks,
+collisions and then maybe add some obstacles.  I never got past snake movement.  
+I spent quite a bit of time trying to get the snake movement working correctly 
+but ended up using the the example square as a template for snake movement.  I 
+could never get the snake to be drawn correctly no matter what I did to draw the
+rectangle.  I decided to adapt the same blob model as the SnakeLike game in git 
+repository https://github/ybakos/csci498-games2011 because I was running out of 
+time and had other homework and projects to get done.  Overall I like what I 
+finished up with but feel a little defeated that I couldn't actually get the 
+fluid snake movement that I was looking for.
+
+The JackNibbles directory contains:
+Main.jack
+JackNibbles.jack // Modified from Square and SnakeLike
+Blob.jack  	 // Modified from SnakeLike
+Snake.jack 	 // Modified from Square and SnakeLike
+Random.jack 	 // Create by Taylor Whacker and Connor McKay and used with permission
+
+Usage is:
+
+Game play will begin with a relatively slow moving snake at some random part of the
+screen. It is then up to the player to maneuver the snake around using the A(left), 
+S(down), W(up), D(right) or corresponding arrow keys. The goal is to gather number 
+blocks(blobs) while avoiding itself and the screen edges.  If the player is lucky enough 
+to get 15 blocks, then the player will declared a winner, while anything less is 
+considered a failure.
+
+Compile the JackNibbles directory
+Load the JackNibbles directory into VMEmulator and watch the magic.
+
+ 

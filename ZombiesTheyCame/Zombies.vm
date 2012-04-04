@@ -1,0 +1,146 @@
+function Zombies.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 215
+pop this 0
+push constant 465
+pop this 1
+push constant 15
+pop this 2
+push constant 0
+not
+pop this 3
+push pointer 0
+return
+function Zombies.kill 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Zombies.undraw 1
+pop temp 0
+push constant 465
+pop this 1
+push pointer 0
+call Zombies.redraw 1
+pop temp 0
+push constant 0
+return
+function Zombies.getX 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Zombies.getY 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Zombies.setY 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 0
+push constant 0
+return
+function Zombies.setX 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return
+function Zombies.setAlive 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 3
+push constant 0
+return
+function Zombies.getSize 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Zombies.redraw 0
+push argument 0
+pop pointer 0
+push this 3
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push this 0
+push this 1
+push this 2
+add
+push this 0
+push this 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Zombies.undraw 0
+push argument 0
+pop pointer 0
+push this 3
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 1
+push this 0
+push this 1
+push this 2
+add
+push this 0
+push this 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Zombies.move 0
+push argument 0
+pop pointer 0
+push this 3
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Zombies.undraw 1
+pop temp 0
+push this 1
+push constant 1
+sub
+pop this 1
+push pointer 0
+call Zombies.redraw 1
+pop temp 0
+push this 1
+push constant 10
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+return
+label IF_FALSE1
+label IF_FALSE0
+push constant 0
+return
+function Zombies.dispose 0
+push argument 0
+pop pointer 0
+push constant 0
+return

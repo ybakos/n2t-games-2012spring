@@ -1,0 +1,70 @@
+/* 	Random Number Generator
+	Author: Taylor Wacker
+	This is a pseudo random number generator that uses the
+	Linear Congruential Generator (LCG) to generate random
+	numbers.
+*/
+class RAND {
+	
+	field int a;
+	field int c;
+	field int m;
+	field int X;
+	/*	The constructor for rand
+		the imput is the seed for this.
+		I suggest that you use some form of seeding that
+		counter that looks for when a key is pressed. 
+		Beware of overflow.
+	*/	
+	constructor RAND new(int x){
+		let X = x;
+		let a = 17;
+		let c = 7919;
+		let m = 16384;
+		return this;
+	}
+	/*	The function mod is useful in life everywhere.
+		The imputs are
+			a - the dividend
+			b - the divisor
+		Can be used as RAND.mod(a,b);
+	*/
+	function int mod(int a, int b){
+		var int div, prod, mod;
+		let div = a / b;
+		let prod = div * b;
+		let mod = a - prod;
+		return mod;
+	}
+	/*	A method that will return the next random value 
+		includes negatives and positives.
+	*/
+	method int nextRand(){
+		let X = RAND.mod( c + (a * X), m);
+		return X;
+	}
+	/*	Perhaps more useful this method will give you a
+		result between the two values you enter.
+		This method is sensitive to order so enter the lower
+		number before the higher.
+		Also returns values between x including x up to
+		y - 1;
+	*/
+	method int intBetween(int x, int y){
+		var int diff, ran, temp;
+		let diff = y - x;
+		let ran = nextRand();
+		let temp = RAND.mod(ran, diff);
+		if (temp < 0){
+			let temp = 0 - temp;
+		}
+		let temp = temp + x;
+		return temp;
+	}
+	/* changes the seed */
+	method void reSeed(int x){
+		let X = x;
+		return;
+	}
+
+}

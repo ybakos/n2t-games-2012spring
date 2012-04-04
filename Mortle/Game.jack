@@ -1,0 +1,66 @@
+class Game {
+	field Array arrLevels;
+
+	constructor Game new() {
+		do setLevels();
+		do Trig.init();
+		return this;
+	}
+	method void playGame() {
+		var int i;
+		var MGun mGun;
+		var Mortle mortle;
+		var Level level;
+		let i =0;	
+		while(i<2){
+			let level = arrLevels[i];
+			let mGun = MGun.new(level, 7, 255);
+			do level.draw();
+			while((mGun.getX() <496)|(mGun.getY()<248)){
+				let mortle = mGun.aim();
+				do mGun.dispose();
+				do mortle.launch();
+				let mGun = MGun.new(level, mortle.getX(), mortle.getY());
+				do mortle.dispose();
+			}
+			do mGun.dispose();
+			let i = i +1;
+		}
+		return;
+	}
+
+	method void setLevels(){
+		let arrLevels = Array.new(2);
+		let arrLevels[0] = Level.new("_______________________________*_______________*_______________*_______________*_______________*_______________*_______________*_______________*_______________*_______________________________________________*______________________________*______________________________***_____________*_______________*_______________*_______________*_______________________________**_______________*________________________________*_______________*_______________*_______________*_______________*________________________________");
+		let arrLevels[1] = Level.new("__*___*____*_*______*_*_*_*____**___*_*_*_*_****___*__*_*___*____****_*_*****_*__*____*_______*__*_************__*____*___*___*__*__*___*___*____**************_________________*_*************_*______*_________*****___******____*___**_____*__*_*__*___***_*__*___*___*__*_*__*__*___*___*_*__*_*___*__*_*_*__*_*__*__*__*_*__***__*__*_*__*______*__*__*__*_*******_*____*_____*__*_*****____*_*_____________*_*_***********_*_*___________*_*_***********_*_*_*___*___*___*_*___*___*___*_*_***************________________");
+
+		return;
+	}
+
+	function void drawSplash() {
+		do Output.moveCursor(5, 29);
+		do Output.printString("Mortle");
+		do Output.moveCursor(8, 25);
+		do Output.printString("Created by:");
+		do Output.moveCursor(9, 27);
+		do Output.printString("Aaron Lebahn");
+		do Output.moveCursor(10, 27);
+		do Output.printString("Jon Waldow");
+		do Output.moveCursor(14, 25);
+		do Output.printString("Press Any Key");
+		do Output.moveCursor(15, 28);
+		do Output.printString("To Start");
+		do Output.moveCursor(21, 25);
+		do Output.printString("Copyright 2012");
+		do Game.waitForKey();
+		return;
+	}
+
+	function void waitForKey() {
+		while((Keyboard.keyPressed()=0)) {
+		}
+		while(~(Keyboard.keyPressed()=0)) {
+		}
+		return;
+	}
+}

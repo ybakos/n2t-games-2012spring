@@ -1,0 +1,241 @@
+// Original file was from SnakeLike from git repository 
+// https://github/ybakos/csci498-games2011
+// Modified by Keith Risper
+// File name: projects/09/JackNibbles/NibblesGame.jack
+
+class NibblesGame {
+//screen is 256 rows by 512 columns
+// (COLUMN, ROW)
+
+field Array blobArray;
+field Snake nib;
+field int trackerIndex;
+field Blob curBlob;
+field int speed;
+field int temp;
+// The snake's movement direction
+field int direction; // 0=none,1=up,2=down,3=left,4=right
+
+    constructor NibblesGame new() {
+        do gameInit();
+        //let nib = Snake.new(256,128,1);
+        do Random.seed(Random.between(-16384, 16383));
+        let nib = Snake.new(Random.between(3,510), Random.between(3,254),1);
+	// Quickly learned that I would not be able to 
+	//let curBlob = Blob.new(Random.between(3,510), Random.between(3,254));
+        let trackerIndex = 0;
+        let blobArray = Array.new(15);
+        do initializeBlobArray();
+        let curBlob = blobArray[trackerIndex];
+        do curBlob.draw();
+        return this;
+    }
+
+    method void dispose() {
+        do nib.dispose();
+        do blobArray.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Moves the snake in the current direction. */
+    method void moveSnake() {
+        if (direction = 1) {
+            do nib.moveUp();
+        }
+        if (direction = 2) {
+            do nib.moveDown();
+        }
+        if (direction = 3) {
+            do nib.moveLeft();
+        }
+        if (direction = 4) {
+            do nib.moveRight();
+        }
+
+        do Sys.wait(speed); // Delays the next movement.
+        return;
+    }
+
+    method boolean checkIfCollisionWithBlob (int direction) {
+        var int i, col1, col2, row1, row2;
+        let i=0;
+        let row1 = curBlob.getY();
+        let row2 = curBlob.getY() + curBlob.getSize();
+        let col1 = curBlob.getX();
+        let col2 = curBlob.getX() + curBlob.getSize();
+
+        if( (direction=1) & (nib.getY() = row2)){
+            while(i<nib.getSize()){
+                if(((nib.getX() + i) = col1) | ((nib.getX() + i) = col2)) {
+                    return true;
+                }
+                let i = i + 1;
+            }
+        }
+        let i = 0;
+        if( (direction=2) & ((nib.getY() + nib.getSize())=row1)) {
+            while(i<nib.getSize()){
+                if(((nib.getX() + i) = col1) | ((nib.getX() + i) = col2)) {
+                    return true;
+                }
+                let i = i + 1;
+             }
+        }
+        let i = 0;
+
+        if( (direction=3) & ((nib.getX())=col2)) {
+            while(i<nib.getSize()){
+                if(((nib.getY() + i) = row1) | ((nib.getY() + i) = row2)) {
+                    return true;
+                }
+                let i = i + 1;
+            }
+        }
+        let i = 0;
+
+        if( (direction=4) & ((nib.getX() + nib.getSize())=col1)) {
+            while(i<nib.getSize()){
+               if(((nib.getY() + i) = row1) | ((nib.getY() + i) = row2)) {
+                   return true;
+               }
+               let i = i + 1;
+             }
+        }
+        let i = 0;
+
+        return false;
+    }
+
+    method void gameInit() {
+        var String gs;
+        let gs = "Welcome to JackNibbles!!!";
+        do Output.printString( gs );
+        do Output.println();
+        let gs = Keyboard.readLine( "Press any key to continue." );
+        let speed = 16;
+        do Screen.clearScreen();
+        return;
+    }
+
+    /** Starts the game. Handles inputs from the user that controls
+     * the snake movement direction and size. */
+    method void run() {
+        var char key;
+        var boolean exit;
+        let exit = false;
+
+        while (~exit) {
+            // waits for a key to be pressed.
+
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+                do moveSnake();
+                do curBlob.draw();
+                if(checkForWallCollision()) {
+                    do Screen.clearScreen();
+                    do Output.println();
+                    do Output.println();
+                    do Output.printString("GAME OVER, Don't be afraid to try again.");
+                    return;
+                }
+                if( checkIfCollisionWithBlob(direction) ) {
+                    do curBlob.erase();
+                    do curBlob.dispose();
+                    do nib.incSize();
+                    let speed = speed - 1;
+                    let trackerIndex = trackerIndex + 1;
+                    if(trackerIndex = 15){
+                        do Screen.clearScreen();
+                        do Output.println();
+                        do Output.println();
+                        do Output.printString("Congrats!!! You Won!");
+                        return;
+                    }
+                    let curBlob = blobArray[trackerIndex];
+                   do curBlob.draw();
+                }
+            }
+
+            if (key = 81) {
+                let exit = true;
+            }
+            if ((key = 131) | (key = 87)) {
+                let direction = 1;
+            }
+            if ((key = 133) | (key = 83)) {
+                let direction = 2;
+            }
+            if ((key = 130) | (key = 65)) {
+                let direction = 3;
+            }
+            if ((key = 132) | (key = 68)) {
+                let direction = 4;
+            }
+            
+            // waits for the key to be released.
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do moveSnake();
+                do curBlob.draw();
+
+                if(checkForWallCollision()) {
+                    do Screen.clearScreen();
+                    do Output.println();
+                    do Output.println();
+                    do Output.printString("GAME OVER, Don't be afraid to try again.");
+                    return;
+                }
+                if( checkIfCollisionWithBlob(direction) ) {
+                    do curBlob.erase();
+                    do curBlob.dispose();
+                    do nib.incSize();
+                    let speed = speed - 1;
+                    let trackerIndex = trackerIndex + 1;
+                    if(trackerIndex = 15) {
+                        do Screen.clearScreen();
+                        do Output.println();
+                        do Output.println();
+                        do Output.printString("Congrats!!! You Won!");
+                        return;
+                    }
+                    let curBlob = blobArray[trackerIndex];
+                    do curBlob.draw();
+                }
+            }
+        }
+        return;
+    }
+
+    method boolean checkForWallCollision() {
+        var boolean lose;
+        let lose = false;
+        if( (nib.getY() = 1) | ((nib.getY() + nib.getSize())= 255)) { 
+            let lose = true; 
+        }
+        if( (nib.getX() = 1) | ((nib.getX() + nib.getSize())= 511)) { 
+            let lose = true; 
+        }
+        return lose;
+    }
+
+    method void initializeBlobArray() {
+        let blobArray[0] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[1] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[2] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[3] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[4] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[5] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[6] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[7] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[8] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[9] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[10] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[11] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[12] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[13] = Blob.new(Random.between(3,510), Random.between(3,254));
+        let blobArray[14] = Blob.new(Random.between(3,510), Random.between(3,254));
+        return;
+    }
+
+}

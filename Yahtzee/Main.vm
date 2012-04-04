@@ -1,0 +1,6 @@
+function Main.main 0
+push constant 0
+call HomeScreen.new 1
+pop static 0
+push constant 0
+return

@@ -1,0 +1,302 @@
+class Attack
+{
+
+	static int cutter;
+	static Array attacks;
+
+
+	function bool attack(string name, Pokemon user, Pokemon other, bool left)
+	{
+		if (attacks = null)
+		{
+			let attacks = Array.new(22);
+			let attacks[0] = "Recover";
+			let attacks[1] = "Psychic";
+			let attacks[2] = "Reflect";
+			let attacks[3] = "Hydro Pump";
+			let attacks[4] = "Skull Bash";
+			let attacks[5] = "Withdraw";
+			let attacks[6] = "Blizzard";
+			let attacks[7] = "Fire Blast";
+			let attacks[8] = "Slash";
+			let attacks[9] = "Wing Attack";
+			let attacks[10] = "Dragon Rage";
+			let attacks[11] = "Cross Chop";
+			let attacks[12] = "Seismic Toss";
+			let attacks[13] = "Fury Swipes";
+			let attacks[14] = "Screech";
+			let attacks[15] = "Fury Cutter";
+			let attacks[16] = "Swords Dance";
+			let attacks[17] = "Double Team";
+			let attacks[18] = "Solar Beam";
+			let attacks[19] = "Sleep Powder";
+			let attacks[20] = "Synthesis";
+			let attacks[21] = "Growth";
+			let cutter = 1;
+		}
+		
+		if (Constants.strCompare(name, attacks[0])) {return Attack.Recover(user);}
+		if (Constants.strCompare(name, attacks[1])) {return Attack.Psychic(user,other);}
+		if (Constants.strCompare(name, attacks[2])) {return Attack.Reflect(user);}
+		if (Constants.strCompare(name, attacks[3])) {return Attack.HydroPump(user,other);}
+		if (Constants.strCompare(name, attacks[4])) {return Attack.SkullBash(user,other);}
+		if (Constants.strCompare(name, attacks[5])) {return Attack.Withdraw(user);}
+		if (Constants.strCompare(name, attacks[6])) {return Attack.Blizzard(user,other);}
+		if (Constants.strCompare(name, attacks[7])) {return Attack.FireBlast(user,other);}
+		if (Constants.strCompare(name, attacks[8])) {return Attack.Slash(user,other);}
+		if (Constants.strCompare(name, attacks[9])) {return Attack.WingAttack(user,other);}
+		if (Constants.strCompare(name, attacks[10])) {return Attack.DragonRage(user,other);}
+		if (Constants.strCompare(name, attacks[11])) {return Attack.CrossChop(user,other);}
+		if (Constants.strCompare(name, attacks[12])) {return Attack.SeismicToss(user,other);}
+		if (Constants.strCompare(name, attacks[13])) {return Attack.FurySwipes(user,other);}
+		if (Constants.strCompare(name, attacks[14])) {return Attack.Screech(other);}
+		if (Constants.strCompare(name, attacks[15])) {return Attack.FuryCutter(user,other);}
+		if (Constants.strCompare(name, attacks[16])) {return Attack.SwordsDance(user);}
+		if (Constants.strCompare(name, attacks[17])) {return Attack.DoubleTeam(user);}
+		if (Constants.strCompare(name, attacks[18])) {return Attack.SolarBeam(user,other);}
+		if (Constants.strCompare(name, attacks[19])) {return Attack.SleepPowder(other);}
+		if (Constants.strCompare(name, attacks[20])) {return Attack.Synthesis(user);}
+		if (Constants.strCompare(name, attacks[21])) {return Attack.Growth(user);}
+		return false;
+	}
+
+	function int calcDamage(int power, int offensive, int defensive, int level, String moveType, String userType1, String userType2, String type1, String type2)
+	{
+		var int dmg;
+		let dmg = level/5;
+		let dmg = (dmg * 2) + 2;
+		let dmg = dmg * (offensive/10) * (power/10);
+		let dmg = dmg / ((defensive/10)+1);
+		let dmg = (dmg / 50) + 2;
+		if (Constants.strCompare(moveType, userType1))
+		{
+			let dmg = (dmg * 15) / 10;
+		}
+		if (Constants.strCompare(moveType, userType2))
+		{
+			let dmg = (dmg * 15) / 10;
+		}
+		if (Constants.strCompare(moveType, type1))
+		{
+			let dmg = dmg / 2;
+		}
+
+		if (Constants.strCompare(moveType, type2))
+		{
+			let dmg = dmg / 2;
+		}
+
+		let dmg = (dmg * (Battle.randInt(16) + 85)) / 100;
+		if (Attack.isCrit())
+		{
+			let dmg = dmg * 2;
+		}
+
+		return dmg * 10;
+	}
+
+	function bool calcHit(int accuracy)
+	{
+		if (Battle.randInt(100) > accuracy)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	function bool isCrit()
+	{
+		if (Battle.randInt(100) > 6)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	function bool Recover(Pokemon user)
+	{
+		do user.takeDmg((user.getMax()/2) * -1);
+		if (user.getHP() > user.getMax())
+		{
+			do user.setMax(user.getMax());
+		}
+		return true;
+	}
+
+	function bool Psychic(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		let dmg = Attack.calcDamage(90,user.getSAtt(),other.getSDef(),user.getLevel(),"Psychic",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+
+		if (Battle.randInt(100) < 90)
+		{
+			do other.setSDef((other.getSDef()*3)/4);
+		}
+		return true;
+	}
+
+	function bool Reflect(Pokemon user)
+	{
+		do user.setDef((user.getDef()*15)/10);
+		return true;
+	}
+
+	function bool HydroPump(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		if (~(Attack.calcHit(80))) {return false;}
+		let dmg = Attack.calcDamage(120,user.getSAtt(),other.getSDef(),user.getLevel(),"Water",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool SkullBash(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		let dmg = Attack.calcDamage(100,user.getAtt(),other.getDef(),user.getLevel(),"Normal",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool Withdraw(Pokemon user)
+	{
+		do user.setDef((user.getDef()*15)/10);
+		return true;
+	}
+
+	function bool Blizzard(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		if (~(Attack.calcHit(70))) {return false;}
+		let dmg = Attack.calcDamage(120,user.getSAtt(),other.getSDef(),user.getLevel(),"Ice",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool FireBlast(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		if (~(Attack.calcHit(85))) {return false;}
+		let dmg = Attack.calcDamage(120,user.getSAtt(),other.getSDef(),user.getLevel(),"Fire",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool Slash(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		let dmg = Attack.calcDamage(70,user.getAtt(),other.getDef(),user.getLevel(),"Normal",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		if (Battle.randInt(100) < 6)
+		{
+			let dmg = dmg * 2;
+		}
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool WingAttack(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		let dmg = Attack.calcDamage(60,user.getAtt(),other.getDef(),user.getLevel(),"Flying",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool DragonRage(Pokemon user, Pokemon other)
+	{
+		do other.takeDmg(40);
+		return true;
+	}
+
+	function bool CrossChop(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		if (~(Attack.calcHit(80))) {return false;}
+		let dmg = Attack.calcDamage(100,user.getAtt(),other.getDef(),user.getLevel(),"Fighting",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		if (Battle.randInt(100) < 6)
+		{
+			let dmg = dmg * 2;
+		}
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool SeismicToss(Pokemon user, Pokemon other)
+	{
+		do other.takeDmg(user.getLevel());
+		return true;
+	}
+
+	function bool FurySwipes(Pokemon user, Pokemon other)
+	{
+		var int i, dmg;
+		let i = 0;
+		while ((i < 5) & Attack.calcHit(80))
+		{
+			let dmg = Attack.calcDamage(18,user.getAtt(),other.getDef(),user.getLevel(),"Normal",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+			let i = i + 1;
+			do other.takeDmg(dmg);
+		}
+		return true;
+	}
+
+	function bool Screech(Pokemon other)
+	{
+		do other.setDef(other.getDef()/2);
+		return true;
+	}
+
+	function bool FuryCutter(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		if (~(Attack.calcHit(95))) {let cutter = 1; return false;}
+		let dmg = Attack.calcDamage(10*cutter,user.getSAtt(),other.getSDef(),user.getLevel(),"Bug",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		let cutter = cutter * 2;
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool SwordsDance(Pokemon user)
+	{
+		do user.setAtt(user.getAtt()*2);
+		return true;
+	}
+
+	function bool DoubleTeam(Pokemon user)
+	{
+		return true;
+	}
+
+	function bool SolarBeam(Pokemon user, Pokemon other)
+	{
+		var int dmg;
+		if (~(Attack.calcHit(85))) {return false;}
+		let dmg = Attack.calcDamage(120,user.getSAtt(),other.getSDef(),user.getLevel(),"Grass",user.getType1(),user.getType2(),other.getType1(),other.getType2());
+		do other.takeDmg(dmg);
+		return true;
+	}
+
+	function bool SleepPowder(Pokemon other)
+	{
+		if (~(Attack.calcHit(75))) {return false;}
+		return true;
+	}
+
+	function bool Synthesis(Pokemon user)
+	{
+		do user.takeDmg((user.getMax()/2) * -1);
+		if (user.getHP() > user.getMax())
+		{
+			do user.setMax(user.getMax());
+		}
+		return true;
+	}
+
+	function bool Growth(Pokemon user)
+	{
+		do user.setSAtt((user.getSAtt()*15)/10);
+		return true;
+	}
+
+}

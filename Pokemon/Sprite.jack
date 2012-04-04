@@ -1,0 +1,2525 @@
+class Sprite
+{
+
+	static Array Arects, Brects, Crects, Prects, Srects, Vrects;
+	static Array Orects, Grects, Lrects;
+	static Array ArectsB, BrectsB, CrectsB, PrectsB, SrectsB, VrectsB;
+	static Array PokeNames;
+
+	constructor Sprite new()
+	{
+		return this;
+	} 
+
+	function void draw (int x, int y, String name, bool owned)
+	{
+		if (PokeNames = null)
+		{
+			let PokeNames = Array.new(6);
+			let PokeNames[0] = "Alakazam";
+			let PokeNames[1] = "Blastoise";
+			let PokeNames[2] = "Charizard";
+			let PokeNames[3] = "Primeape";
+			let PokeNames[4] = "Scyther";
+			let PokeNames[5] = "Venusaur";
+		}
+		
+		if (Constants.strCompare(name, PokeNames[0]))
+		{
+			do Sprite.drawAlakazam(x, y, owned);
+		}
+		if (Constants.strCompare(name, PokeNames[1]))
+		{
+			do Sprite.drawBlastoise(x, y, owned);
+		}
+		if (Constants.strCompare(name, PokeNames[2]))
+		{
+			do Sprite.drawCharizard(x, y, owned);
+		}
+		if (Constants.strCompare(name, PokeNames[3]))
+		{
+			do Sprite.drawPrimeape(x, y, owned);
+		}
+		if (Constants.strCompare(name, PokeNames[4]))
+		{
+			do Sprite.drawScyther(x, y, owned);
+		}
+		if (Constants.strCompare(name, PokeNames[5]))
+		{
+			do Sprite.drawVenusaur(x, y, owned);
+		}
+		return;
+	}
+
+	function void drawSprite(Array tuples, int left, int top, int size, int length, int width)
+	{
+		var Tuple temp;
+		var int i;
+		var int lx, ty, rx, by;
+		
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left, top, left+width-1, top+length-1 );
+		do Screen.setColor(true);  
+
+		let i = 0;
+		while (i < size)
+		{
+			let temp = tuples[i];
+			let ty = temp.getTL() / width;
+			let lx = temp.getTL() - (ty * width);
+			let by = temp.getBR() / width;
+			let rx = temp.getBR() - (by * width);
+			do Screen.drawRectangle(left+lx,top+ty,left+rx,top+by);
+			let i = i + 1;
+		}
+		return;
+	}
+
+	function void drawSpriteFlipped(Array tuples, int left, int top, int size, int length, int width)
+	{
+		var Tuple temp;
+		var int i;
+		var int lx, ty, rx, by;
+		
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left, top, left+width-1, top+length-1 );
+		do Screen.setColor(true);  
+
+		let i = 0;
+		while (i < size)
+		{
+			let temp = tuples[i];
+			let ty = temp.getTL() / width;
+			let lx = temp.getTL() - (ty * width);
+			let by = temp.getBR() / width;
+			let rx = temp.getBR() - (by * width);
+			do Screen.drawRectangle(left+(width-1)-rx,top+ty,left+(width-1)-lx,top+by);
+			let i = i + 1;
+		}
+		return;
+	}
+
+	function void drawScreen()
+	{
+		do Screen.setColor(true);
+		do Screen.drawRectangle(0, 0, 511, 3);
+		do Screen.drawRectangle(508, 0, 511, 255);
+		do Screen.drawRectangle(0, 252, 511, 255);
+		do Screen.drawRectangle(0, 0, 3, 255);
+		return;
+	}
+
+	function void clearScreen()
+	{
+		do Screen.setColor(false);
+		do Screen.drawRectangle(0,0,511,255);
+		return;
+	}
+
+	function void drawCursor(int direction, int x, int y, bool draw)
+	{
+		do Screen.setColor(draw);
+		if (direction = 0)
+		{
+			do Screen.drawRectangle(x+1, y+3, x+1, y+4);
+			do Screen.drawRectangle(x+2, y+2, x+2, y+5);
+			do Screen.drawRectangle(x+3, y+1, x+3, y+6);
+			do Screen.drawRectangle(x+4, y, x+6, y+7);
+		}
+		if (direction = 1)
+		{
+			do Screen.drawRectangle(x+1, y, x+3, y+7);
+			do Screen.drawRectangle(x+4, y+1, x+4, y+6);
+			do Screen.drawRectangle(x+5, y+2, x+5, y+5);
+			do Screen.drawRectangle(x+6, y+3, x+6, y+4);
+		}
+		if (direction = 2)
+		{
+			do Screen.drawRectangle(x, y+1, x+7, y+3);
+			do Screen.drawRectangle(x+1, y+4, x+6, y+4);
+			do Screen.drawRectangle(x+2, y+5, x+5, y+5);
+			do Screen.drawRectangle(x+3, y+6, x+4, y+6);
+		}
+		return;
+	}
+
+	function void drawDialog(String line1, String line2)
+	{
+		var int top, left, vert, horz, size;
+		let top = 188;
+		let left = 4;
+		let size = 16;
+		let vert = 32;
+		let horz = 472;
+
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left,top,left+size+size+horz-1,top+size+size+vert-1);
+
+		do Sprite.drawULP(top, left);
+		do Sprite.drawLLP(top+size+vert, left);
+		do Sprite.drawURP(top, left+size+horz);
+		do Sprite.drawLRP(top+size+vert, left+size+horz);
+
+		do Screen.setColor(true);
+		do Screen.drawRectangle(left+size,top+4,left+size+horz-1,top+5);
+		do Screen.drawRectangle(left+size,top+8,left+size+horz-1,top+11);
+		do Screen.drawRectangle(left+6,top+size,left+7,top+size+vert-1);
+		do Screen.drawRectangle(left+10,top+size,left+11,top+size+vert-1);
+		do Screen.drawRectangle(left+size,top+size+vert+4,left+size+horz-1,top+size+vert+7);
+		do Screen.drawRectangle(left+size,top+size+vert+10,left+size+horz-1,top+size+vert+11);
+		do Screen.drawRectangle(left+size+horz+4,top+size,left+size+horz+5,top+size+vert-1);
+		do Screen.drawRectangle(left+size+horz+8,top+size,left+size+horz+9,top+size+vert-1);
+		
+		do Output.moveCursor(19,4);
+		do Output.printString(line1);
+		do Output.moveCursor(20,4);
+		do Output.printString(line2);
+
+		return;
+	}
+
+	function void drawOptions(Array choices, int opt)
+	{
+		var int top, left, vert, horz, size;
+		var int i;
+		var String temp;
+		let top = 7;
+		let left = 256;
+		let size = 16;
+		let vert = 150;
+		let horz = 220;
+
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left,top,left+size+size+horz-1,top+size+size+vert-1);
+
+		do Sprite.drawULP(top, left);
+		do Sprite.drawLLP(top+size+vert, left);
+		do Sprite.drawURP(top, left+size+horz);
+		do Sprite.drawLRP(top+size+vert, left+size+horz);
+
+		do Screen.drawRectangle(left+size,top+4,left+size+horz-1,top+5);
+		do Screen.drawRectangle(left+size,top+8,left+size+horz-1,top+11);
+		do Screen.drawRectangle(left+6,top+size,left+7,top+size+vert-1);
+		do Screen.drawRectangle(left+10,top+size,left+11,top+size+vert-1);
+		do Screen.drawRectangle(left+size,top+size+vert+4,left+size+horz-1,top+size+vert+7);
+		do Screen.drawRectangle(left+size,top+size+vert+10,left+size+horz-1,top+size+vert+11);
+		do Screen.drawRectangle(left+size+horz+4,top+size,left+size+horz+5,top+size+vert-1);
+		do Screen.drawRectangle(left+size+horz+8,top+size,left+size+horz+9,top+size+vert-1);
+		
+		let i = 0;
+		while (i < opt)
+		{
+			let temp = choices[i];
+			do Output.moveCursor(i+2,34);
+			do Output.printString(temp);
+			let i = i + 1;
+		}
+
+		return;
+	}
+
+	function void drawULP(int top, int left)
+	{
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left,top,left+15,top+15);
+		do Screen.setColor(true);
+		do Screen.drawRectangle(left+6,top+2,left+9,top+3);
+		do Screen.drawRectangle(left+4,top+4,left+5,top+5);
+		do Screen.drawRectangle(left+8,top+4,left+11,top+5);
+		do Screen.drawRectangle(left+14,top+4,left+15,top+5);
+		do Screen.drawRectangle(left+2,top+6,left+13,top+7);
+		do Screen.drawRectangle(left+2,top+8,left+3,top+9);
+		do Screen.drawRectangle(left+12,top+8,left+13,top+9);
+		do Screen.drawRectangle(left+4,top+10,left+5,top+11);
+		do Screen.drawRectangle(left+10,top+10,left+11,top+11);
+		do Screen.drawRectangle(left+14,top+10,left+15,top+11);
+		do Screen.drawRectangle(left+6,top+12,left+9,top+13);
+		do Screen.drawRectangle(left+12,top+12,left+13,top+13);
+		do Screen.drawRectangle(left+6,top+14,left+7,top+15);
+		do Screen.drawRectangle(left+10,top+14,left+11,top+15);
+		return;
+	}
+
+	function void drawURP(int top, int left)
+	{
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left,top,left+15,top+15);
+		do Screen.setColor(true);
+		do Screen.drawRectangle(left+6,top+2,left+9,top+3);
+		do Screen.drawRectangle(left+4,top+4,left+7,top+5);
+		do Screen.drawRectangle(left+10,top+4,left+11,top+5);
+		do Screen.drawRectangle(left,top+4,left+1,top+5);
+		do Screen.drawRectangle(left+2,top+6,left+13,top+7);
+		do Screen.drawRectangle(left+2,top+8,left+3,top+9);
+		do Screen.drawRectangle(left+12,top+8,left+13,top+9);
+		do Screen.drawRectangle(left+4,top+10,left+5,top+11);
+		do Screen.drawRectangle(left+10,top+10,left+11,top+11);
+		do Screen.drawRectangle(left,top+10,left+1,top+11);
+		do Screen.drawRectangle(left+6,top+12,left+9,top+13);
+		do Screen.drawRectangle(left+2,top+12,left+3,top+13);
+		do Screen.drawRectangle(left+8,top+14,left+9,top+15);
+		do Screen.drawRectangle(left+4,top+14,left+5,top+15);
+		return;
+	}
+
+	function void drawLLP(int top, int left)
+	{
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left,top,left+15,top+15);
+		do Screen.setColor(true);
+		do Screen.drawRectangle(left+6,top+2,left+9,top+3);
+		do Screen.drawRectangle(left+4,top+4,left+5,top+5);
+		do Screen.drawRectangle(left+8,top+4,left+11,top+5);
+		do Screen.drawRectangle(left+14,top+4,left+15,top+5);
+		do Screen.drawRectangle(left+2,top+6,left+13,top+7);
+		do Screen.drawRectangle(left+2,top+8,left+3,top+9);
+		do Screen.drawRectangle(left+12,top+8,left+13,top+9);
+		do Screen.drawRectangle(left+4,top+10,left+5,top+11);
+		do Screen.drawRectangle(left+10,top+10,left+11,top+11);
+		do Screen.drawRectangle(left+14,top+10,left+15,top+11);
+		do Screen.drawRectangle(left+6,top+12,left+9,top+13);
+		do Screen.drawRectangle(left+12,top+2,left+13,top+3);
+		do Screen.drawRectangle(left+6,top,left+7,top+1);
+		do Screen.drawRectangle(left+10,top,left+11,top+1);
+		return;
+	}
+
+	function void drawLRP(int top, int left)
+	{
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left,top,left+15,top+15);
+		do Screen.setColor(true);
+		do Screen.drawRectangle(left+6,top+2,left+9,top+3);
+		do Screen.drawRectangle(left+4,top+4,left+7,top+5);
+		do Screen.drawRectangle(left+10,top+4,left+11,top+5);
+		do Screen.drawRectangle(left,top+4,left+1,top+5);
+		do Screen.drawRectangle(left+2,top+6,left+13,top+7);
+		do Screen.drawRectangle(left+2,top+8,left+3,top+9);
+		do Screen.drawRectangle(left+12,top+8,left+13,top+9);
+		do Screen.drawRectangle(left+4,top+10,left+5,top+11);
+		do Screen.drawRectangle(left+10,top+10,left+11,top+11);
+		do Screen.drawRectangle(left,top+10,left+1,top+11);
+		do Screen.drawRectangle(left+6,top+12,left+9,top+13);
+		do Screen.drawRectangle(left+2,top+2,left+3,top+3);
+		do Screen.drawRectangle(left+8,top,left+9,top+1);
+		do Screen.drawRectangle(left+4,top,left+5,top+1);
+		return;
+	}
+
+	function void drawHPBar(Pokemon pokemon, bool lower)
+	{
+		var int left, top;
+		var int length, width;
+		var int row, col;
+		var int i, dmg;
+		var String temp;
+		var String HP, LVL;
+
+		let HP = "HP: ";
+		let LVL = ":L ";
+
+		let length = 43;
+		let width = 254;
+		if (lower)
+		{
+			let left = 243;
+			let top = 139;
+			let row = 13;
+			let col = 30;
+		}
+		else
+		{
+			let left = 15;
+			let top = 7;
+			let row = 1;
+			let col = 2;
+		}
+
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left, top, left+width,  top+length);
+
+		do Output.moveCursor(row, col);
+		do Output.printString(pokemon.getName());
+		let temp = pokemon.getName();
+		do Output.moveCursor(row, col + temp.length() + 5);
+		do Output.printString(LVL);
+		do Output.printInt(pokemon.getLevel());
+		do Output.moveCursor(row+2, col+2);
+		do Output.printString(HP);
+
+		do Screen.setColor(true);
+		if (lower)
+		{
+			do Screen.drawRectangle(left+width-5,top+15,left+width-1,top+length-1);
+			do Screen.drawRectangle(left+8,top+length-5,left+width-1,top+length-1);
+			do Screen.setColor(false);
+			do Screen.drawRectangle(left+width-2,top+length-2,left+width-1,top+length-1);
+			do Screen.setColor(true);
+			let i = 0;
+			while (i < 8)
+			{
+				do Screen.drawLine(left+i,top+length-1,left+8,top+(length-9)+i);
+				let i = i + 1;
+			}
+						
+		}
+		else
+		{
+			do Screen.drawRectangle(left,top+15,left+4,top+length-1);
+			do Screen.drawRectangle(left,top+length-5,left+width-9,top+length-1);
+			do Screen.setColor(false);
+			do Screen.drawRectangle(left,top+length-2,left+1,top+length-1);
+			do Screen.setColor(true);
+			let i = 0;
+			while (i < 8)
+			{
+				do Screen.drawLine(left+width-9,top+(length-9)+i,left+(width-1)-i,top+length-1);
+				let i = i + 1;
+			}
+		}
+
+		do Screen.drawRectangle(left+50,top+19,left+width-19,top+20);
+		do Screen.drawRectangle(left+50,top+34,left+width-19,top+35);
+		do Screen.drawRectangle(left+50,top+19,left+51,top+34);
+		do Screen.drawRectangle(left+width-19,top+19,left+width-18,top+34);
+		do Screen.drawCircle(left+50,top+27,8);
+		do Screen.drawCircle(left+width-19,top+27,8);
+		do Screen.setColor(false);
+		do Screen.drawRectangle(left+52,top+21,left+width-20,top+33);
+
+		do Screen.setColor(true);
+		let dmg = (pokemon.getHP()*180)/pokemon.getMax();
+		if (dmg > 0)
+		{
+			do Screen.drawRectangle(left+53,top+22,left+53+dmg,top+32);
+		}
+		else
+		{
+			do Screen.setColor(false);
+			do Screen.drawRectangle(left+52,top+21,left+width-20,top+33);
+		}
+
+		do HP.dispose();
+		do LVL.dispose();
+
+		return;
+	}
+
+	function void drawCharizard(int left, int top, bool owned)
+	{
+		if (Crects = null)
+		{
+			let Crects = Array.new(226);
+
+			let Crects[0] = Tuple.new(1374,1761);
+			let Crects[1] = Tuple.new(1582,2227);
+			let Crects[2] = Tuple.new(1836,1979);
+			let Crects[3] = Tuple.new(1888,2017);
+			let Crects[4] = Tuple.new(2068,4501);
+			let Crects[5] = Tuple.new(2100,3261);
+			let Crects[6] = Tuple.new(2110,2753);
+			let Crects[7] = Tuple.new(2322,4247);
+			let Crects[8] = Tuple.new(2352,2501);
+			let Crects[9] = Tuple.new(2406,3047);
+			let Crects[10] = Tuple.new(2610,4027);
+			let Crects[11] = Tuple.new(2626,3273);
+			let Crects[12] = Tuple.new(2664,4073);
+			let Crects[13] = Tuple.new(2832,4247);
+			let Crects[14] = Tuple.new(2880,3019);
+			let Crects[15] = Tuple.new(2910,3295);
+			let Crects[16] = Tuple.new(2922,3053);
+			let Crects[17] = Tuple.new(3114,3243);
+			let Crects[18] = Tuple.new(3146,4047);
+			let Crects[19] = Tuple.new(3168,3297);
+			let Crects[20] = Tuple.new(3182,3567);
+			let Crects[21] = Tuple.new(3352,5017);
+			let Crects[22] = Tuple.new(3368,5289);
+			let Crects[23] = Tuple.new(3372,5293);
+			let Crects[24] = Tuple.new(3398,3537);
+			let Crects[25] = Tuple.new(3598,4249);
+			let Crects[26] = Tuple.new(3656,3795);
+			let Crects[27] = Tuple.new(3696,3825);
+			let Crects[28] = Tuple.new(3866,5275);
+			let Crects[29] = Tuple.new(3920,5077);
+			let Crects[30] = Tuple.new(3942,4073);
+			let Crects[31] = Tuple.new(3954,4083);
+			let Crects[32] = Tuple.new(4132,4265);
+			let Crects[33] = Tuple.new(4142,4281);
+			let Crects[34] = Tuple.new(4172,4311);
+			let Crects[35] = Tuple.new(4198,4327);
+			let Crects[36] = Tuple.new(4212,4853);
+			let Crects[37] = Tuple.new(4366,7313);
+			let Crects[38] = Tuple.new(4374,4763);
+			let Crects[39] = Tuple.new(4384,4515);
+			let Crects[40] = Tuple.new(4402,4537);
+			let Crects[41] = Tuple.new(4430,4825);
+			let Crects[42] = Tuple.new(4452,4581);
+			let Crects[43] = Tuple.new(4620,7313);
+			let Crects[44] = Tuple.new(4636,5281);
+			let Crects[45] = Tuple.new(4660,4791);
+			let Crects[46] = Tuple.new(4698,7643);
+			let Crects[47] = Tuple.new(4706,8931);
+			let Crects[48] = Tuple.new(4882,6035);
+			let Crects[49] = Tuple.new(4898,5033);
+			let Crects[50] = Tuple.new(4918,5047);
+			let Crects[51] = Tuple.new(4950,6621);
+			let Crects[52] = Tuple.new(4982,6903);
+			let Crects[53] = Tuple.new(5140,5525);
+			let Crects[54] = Tuple.new(5166,5295);
+			let Crects[55] = Tuple.new(5176,5305);
+			let Crects[56] = Tuple.new(5202,5343);
+			let Crects[57] = Tuple.new(5398,7063);
+			let Crects[58] = Tuple.new(5404,5535);
+			let Crects[59] = Tuple.new(5424,5553);
+			let Crects[60] = Tuple.new(5434,5563);
+			let Crects[61] = Tuple.new(5460,5855);
+			let Crects[62] = Tuple.new(5486,8687);
+			let Crects[63] = Tuple.new(5656,6041);
+			let Crects[64] = Tuple.new(5662,5791);
+			let Crects[65] = Tuple.new(5682,5811);
+			let Crects[66] = Tuple.new(5692,5821);
+			let Crects[67] = Tuple.new(5728,8931);
+			let Crects[68] = Tuple.new(5914,6299);
+			let Crects[69] = Tuple.new(5940,8629);
+			let Crects[70] = Tuple.new(5950,6079);
+			let Crects[71] = Tuple.new(5982,8931);
+			let Crects[72] = Tuple.new(6194,6325);
+			let Crects[73] = Tuple.new(6208,6339);
+			let Crects[74] = Tuple.new(6244,6375);
+			let Crects[75] = Tuple.new(6252,6639);
+			let Crects[76] = Tuple.new(6448,6577);
+			let Crects[77] = Tuple.new(6468,6599);
+			let Crects[78] = Tuple.new(6502,6887);
+			let Crects[79] = Tuple.new(6702,7599);
+			let Crects[80] = Tuple.new(6728,6857);
+			let Crects[81] = Tuple.new(6744,7141);
+			let Crects[82] = Tuple.new(6762,6891);
+			let Crects[83] = Tuple.new(6922,10383);
+			let Crects[84] = Tuple.new(6956,7345);
+			let Crects[85] = Tuple.new(6978,7363);
+			let Crects[86] = Tuple.new(6986,7115);
+			let Crects[87] = Tuple.new(7016,7401);
+			let Crects[88] = Tuple.new(7028,7413);
+			let Crects[89] = Tuple.new(7192,7833);
+			let Crects[90] = Tuple.new(7204,7845);
+			let Crects[91] = Tuple.new(7244,7373);
+			let Crects[92] = Tuple.new(7260,8677);
+			let Crects[93] = Tuple.new(7450,7581);
+			let Crects[94] = Tuple.new(7472,7605);
+			let Crects[95] = Tuple.new(7492,7877);
+			let Crects[96] = Tuple.new(7502,7631);
+			let Crects[97] = Tuple.new(7526,8423);
+			let Crects[98] = Tuple.new(7536,7667);
+			let Crects[99] = Tuple.new(7710,8097);
+			let Crects[100] = Tuple.new(7760,7889);
+			let Crects[101] = Tuple.new(7962,8091);
+			let Crects[102] = Tuple.new(7970,8099);
+			let Crects[103] = Tuple.new(7974,8103);
+			let Crects[104] = Tuple.new(8006,8647);
+			let Crects[105] = Tuple.new(8018,8659);
+			let Crects[106] = Tuple.new(8220,8349);
+			let Crects[107] = Tuple.new(8224,8353);
+			let Crects[108] = Tuple.new(8478,8607);
+			let Crects[109] = Tuple.new(8736,8865);
+			let Crects[110] = Tuple.new(8758,9399);
+			let Crects[111] = Tuple.new(8772,9157);
+			let Crects[112] = Tuple.new(8788,9941);
+			let Crects[113] = Tuple.new(8794,9439);
+			let Crects[114] = Tuple.new(8812,9453);
+			let Crects[115] = Tuple.new(8982,9879);
+			let Crects[116] = Tuple.new(8994,10147);
+			let Crects[117] = Tuple.new(9046,9691);
+			let Crects[118] = Tuple.new(9056,9185);
+			let Crects[119] = Tuple.new(9256,9385);
+			let Crects[120] = Tuple.new(9264,9393);
+			let Crects[121] = Tuple.new(9282,9411);
+			let Crects[122] = Tuple.new(9504,9891);
+			let Crects[123] = Tuple.new(9514,9643);
+			let Crects[124] = Tuple.new(9524,9653);
+			let Crects[125] = Tuple.new(9534,9665);
+			let Crects[126] = Tuple.new(9578,10219);
+			let Crects[127] = Tuple.new(9764,10661);
+			let Crects[128] = Tuple.new(9776,9907);
+			let Crects[129] = Tuple.new(9786,9917);
+			let Crects[130] = Tuple.new(9810,9945);
+			let Crects[131] = Tuple.new(10008,10393);
+			let Crects[132] = Tuple.new(10014,10399);
+			let Crects[133] = Tuple.new(10022,10665);
+			let Crects[134] = Tuple.new(10026,10159);
+			let Crects[135] = Tuple.new(10040,10681);
+			let Crects[136] = Tuple.new(10062,10193);
+			let Crects[137] = Tuple.new(10070,10201);
+			let Crects[138] = Tuple.new(10088,10219);
+			let Crects[139] = Tuple.new(10302,10431);
+			let Crects[140] = Tuple.new(10314,10445);
+			let Crects[141] = Tuple.new(10330,10461);
+			let Crects[142] = Tuple.new(10340,10985);
+			let Crects[143] = Tuple.new(10508,11151);
+			let Crects[144] = Tuple.new(10522,10653);
+			let Crects[145] = Tuple.new(10556,11197);
+			let Crects[146] = Tuple.new(10564,10693);
+			let Crects[147] = Tuple.new(10568,11209);
+			let Crects[148] = Tuple.new(10588,10729);
+			let Crects[149] = Tuple.new(10768,11665);
+			let Crects[150] = Tuple.new(10774,10907);
+			let Crects[151] = Tuple.new(10790,12199);
+			let Crects[152] = Tuple.new(10810,10941);
+			let Crects[153] = Tuple.new(10818,11203);
+			let Crects[154] = Tuple.new(10846,11239);
+			let Crects[155] = Tuple.new(11028,11157);
+			let Crects[156] = Tuple.new(11032,11161);
+			let Crects[157] = Tuple.new(11278,11411);
+			let Crects[158] = Tuple.new(11286,12183);
+			let Crects[159] = Tuple.new(11290,12443);
+			let Crects[160] = Tuple.new(11300,11943);
+			let Crects[161] = Tuple.new(11326,11457);
+			let Crects[162] = Tuple.new(11332,11463);
+			let Crects[163] = Tuple.new(11360,11749);
+			let Crects[164] = Tuple.new(11538,11923);
+			let Crects[165] = Tuple.new(11548,11677);
+			let Crects[166] = Tuple.new(11554,11943);
+			let Crects[167] = Tuple.new(11590,11719);
+			let Crects[168] = Tuple.new(11796,11927);
+			let Crects[169] = Tuple.new(11806,11943);
+			let Crects[170] = Tuple.new(11844,12741);
+			let Crects[171] = Tuple.new(11872,12003);
+			let Crects[172] = Tuple.new(12056,12187);
+			let Crects[173] = Tuple.new(12064,12193);
+			let Crects[174] = Tuple.new(12072,12457);
+			let Crects[175] = Tuple.new(12130,13539);
+			let Crects[176] = Tuple.new(12316,12447);
+			let Crects[177] = Tuple.new(12572,13213);
+			let Crects[178] = Tuple.new(12586,12715);
+			let Crects[179] = Tuple.new(12844,12973);
+			let Crects[180] = Tuple.new(12870,12999);
+			let Crects[181] = Tuple.new(13102,13231);
+			let Crects[182] = Tuple.new(13128,13769);
+			let Crects[183] = Tuple.new(13152,13539);
+			let Crects[184] = Tuple.new(13342,13471);
+			let Crects[185] = Tuple.new(13360,13489);
+			let Crects[186] = Tuple.new(13386,13515);
+			let Crects[187] = Tuple.new(13396,13781);
+			let Crects[188] = Tuple.new(13406,13539);
+			let Crects[189] = Tuple.new(13600,13729);
+			let Crects[190] = Tuple.new(13618,14005);
+			let Crects[191] = Tuple.new(13638,13769);
+			let Crects[192] = Tuple.new(13644,13775);
+			let Crects[193] = Tuple.new(13650,13781);
+			let Crects[194] = Tuple.new(13668,13797);
+			let Crects[195] = Tuple.new(13858,14243);
+			let Crects[196] = Tuple.new(13878,14267);
+			let Crects[197] = Tuple.new(13884,14021);
+			let Crects[198] = Tuple.new(13904,14035);
+			let Crects[199] = Tuple.new(13926,14311);
+			let Crects[200] = Tuple.new(14108,14495);
+			let Crects[201] = Tuple.new(14112,14249);
+			let Crects[202] = Tuple.new(14132,14267);
+			let Crects[203] = Tuple.new(14162,14291);
+			let Crects[204] = Tuple.new(14184,14315);
+			let Crects[205] = Tuple.new(14362,14495);
+			let Crects[206] = Tuple.new(14390,14521);
+			let Crects[207] = Tuple.new(14420,14551);
+			let Crects[208] = Tuple.new(14432,14565);
+			let Crects[209] = Tuple.new(14444,14573);
+			let Crects[210] = Tuple.new(14616,15001);
+			let Crects[211] = Tuple.new(14622,14757);
+			let Crects[212] = Tuple.new(14640,15027);
+			let Crects[213] = Tuple.new(14644,14775);
+			let Crects[214] = Tuple.new(14674,15059);
+			let Crects[215] = Tuple.new(14682,14813);
+			let Crects[216] = Tuple.new(14692,15333);
+			let Crects[217] = Tuple.new(14702,15087);
+			let Crects[218] = Tuple.new(14876,15261);
+			let Crects[219] = Tuple.new(14886,15271);
+			let Crects[220] = Tuple.new(14940,15069);
+			let Crects[221] = Tuple.new(14950,15079);
+			let Crects[222] = Tuple.new(15130,15281);
+			let Crects[223] = Tuple.new(15188,15323);
+			let Crects[224] = Tuple.new(15198,15333);
+			let Crects[225] = Tuple.new(15208,15341);
+		}		
+
+		if (owned)
+		{
+			do Sprite.drawSpriteFlipped(Crects, left, top, 226, 128, 128);
+		}
+		else
+		{
+			do Sprite.drawSprite(Crects, left, top, 226, 128, 128);
+		}
+		
+		return;
+	}
+
+	function void drawAlakazam(int left, int top, bool owned)
+	{
+		if (Arects = null)
+		{
+			let Arects = Array.new(292);
+			let Arects[0] = Tuple.new(1090,1227);
+			let Arects[1] = Tuple.new(1110,1241);
+			let Arects[2] = Tuple.new(1322,1457);
+			let Arects[3] = Tuple.new(1342,1473);
+			let Arects[4] = Tuple.new(1356,1487);
+			let Arects[5] = Tuple.new(1364,1493);
+			let Arects[6] = Tuple.new(1370,2523);
+			let Arects[7] = Tuple.new(1566,1697);
+			let Arects[8] = Tuple.new(1576,1705);
+			let Arects[9] = Tuple.new(1586,1715);
+			let Arects[10] = Tuple.new(1596,1725);
+			let Arects[11] = Tuple.new(1608,1739);
+			let Arects[12] = Tuple.new(1616,1747);
+			let Arects[13] = Tuple.new(1816,1949);
+			let Arects[14] = Tuple.new(1826,2211);
+			let Arects[15] = Tuple.new(1830,1959);
+			let Arects[16] = Tuple.new(1844,2485);
+			let Arects[17] = Tuple.new(1850,2491);
+			let Arects[18] = Tuple.new(1862,2247);
+			let Arects[19] = Tuple.new(1868,2255);
+			let Arects[20] = Tuple.new(1874,2515);
+			let Arects[21] = Tuple.new(1886,2019);
+			let Arects[22] = Tuple.new(2070,3479);
+			let Arects[23] = Tuple.new(2078,3487);
+			let Arects[24] = Tuple.new(2084,2213);
+			let Arects[25] = Tuple.new(2122,2259);
+			let Arects[26] = Tuple.new(2140,3293);
+			let Arects[27] = Tuple.new(2148,3813);
+			let Arects[28] = Tuple.new(2336,2465);
+			let Arects[29] = Tuple.new(2372,2757);
+			let Arects[30] = Tuple.new(2376,2761);
+			let Arects[31] = Tuple.new(2384,2515);
+			let Arects[32] = Tuple.new(2576,2711);
+			let Arects[33] = Tuple.new(2594,2983);
+			let Arects[34] = Tuple.new(2608,2739);
+			let Arects[35] = Tuple.new(2620,2749);
+			let Arects[36] = Tuple.new(2644,2777);
+			let Arects[37] = Tuple.new(2662,2793);
+			let Arects[38] = Tuple.new(2830,3471);
+			let Arects[39] = Tuple.new(2836,3223);
+			let Arects[40] = Tuple.new(2848,2991);
+			let Arects[41] = Tuple.new(2878,3011);
+			let Arects[42] = Tuple.new(2890,3023);
+			let Arects[43] = Tuple.new(2906,3037);
+			let Arects[44] = Tuple.new(2922,3051);
+			let Arects[45] = Tuple.new(3104,3233);
+			let Arects[46] = Tuple.new(3112,3245);
+			let Arects[47] = Tuple.new(3150,3281);
+			let Arects[48] = Tuple.new(3174,3305);
+			let Arects[49] = Tuple.new(3338,3471);
+			let Arects[50] = Tuple.new(3352,3737);
+			let Arects[51] = Tuple.new(3370,3499);
+			let Arects[52] = Tuple.new(3374,3503);
+			let Arects[53] = Tuple.new(3404,3533);
+			let Arects[54] = Tuple.new(3410,3545);
+			let Arects[55] = Tuple.new(3422,4067);
+			let Arects[56] = Tuple.new(3430,3559);
+			let Arects[57] = Tuple.new(3592,3721);
+			let Arects[58] = Tuple.new(3600,3985);
+			let Arects[59] = Tuple.new(3610,4509);
+			let Arects[60] = Tuple.new(3618,3753);
+			let Arects[61] = Tuple.new(3632,3763);
+			let Arects[62] = Tuple.new(3656,3787);
+			let Arects[63] = Tuple.new(3672,3813);
+			let Arects[64] = Tuple.new(3688,4073);
+			let Arects[65] = Tuple.new(3850,3991);
+			let Arects[66] = Tuple.new(3870,4257);
+			let Arects[67] = Tuple.new(3874,4003);
+			let Arects[68] = Tuple.new(3892,4279);
+			let Arects[69] = Tuple.new(3906,4039);
+			let Arects[70] = Tuple.new(3930,4571);
+			let Arects[71] = Tuple.new(4114,4257);
+			let Arects[72] = Tuple.new(4132,4517);
+			let Arects[73] = Tuple.new(4152,4289);
+			let Arects[74] = Tuple.new(4184,4571);
+			let Arects[75] = Tuple.new(4202,4331);
+			let Arects[76] = Tuple.new(4370,4499);
+			let Arects[77] = Tuple.new(4374,4509);
+			let Arects[78] = Tuple.new(4384,5025);
+			let Arects[79] = Tuple.new(4402,4531);
+			let Arects[80] = Tuple.new(4438,4573);
+			let Arects[81] = Tuple.new(4460,4589);
+			let Arects[82] = Tuple.new(4624,4753);
+			let Arects[83] = Tuple.new(4646,5031);
+			let Arects[84] = Tuple.new(4656,5041);
+			let Arects[85] = Tuple.new(4692,4821);
+			let Arects[86] = Tuple.new(4700,4829);
+			let Arects[87] = Tuple.new(4718,4847);
+			let Arects[88] = Tuple.new(4878,5263);
+			let Arects[89] = Tuple.new(4894,5031);
+			let Arects[90] = Tuple.new(4910,5041);
+			let Arects[91] = Tuple.new(4946,5075);
+			let Arects[92] = Tuple.new(4958,5087);
+			let Arects[93] = Tuple.new(4976,5361);
+			let Arects[94] = Tuple.new(5148,5279);
+			let Arects[95] = Tuple.new(5160,5545);
+			let Arects[96] = Tuple.new(5166,5295);
+			let Arects[97] = Tuple.new(5200,6097);
+			let Arects[98] = Tuple.new(5206,5341);
+			let Arects[99] = Tuple.new(5216,5857);
+			let Arects[100] = Tuple.new(5388,5773);
+			let Arects[101] = Tuple.new(5404,6045);
+			let Arects[102] = Tuple.new(5458,5589);
+			let Arects[103] = Tuple.new(5470,5607);
+			let Arects[104] = Tuple.new(5486,6127);
+			let Arects[105] = Tuple.new(5658,5789);
+			let Arects[106] = Tuple.new(5674,6059);
+			let Arects[107] = Tuple.new(5706,6347);
+			let Arects[108] = Tuple.new(5730,5859);
+			let Arects[109] = Tuple.new(5734,5865);
+			let Arects[110] = Tuple.new(5740,5871);
+			let Arects[111] = Tuple.new(5902,6031);
+			let Arects[112] = Tuple.new(5912,6041);
+			let Arects[113] = Tuple.new(5932,6573);
+			let Arects[114] = Tuple.new(5960,6347);
+			let Arects[115] = Tuple.new(5982,7135);
+			let Arects[116] = Tuple.new(5992,6123);
+			let Arects[117] = Tuple.new(6160,6295);
+			let Arects[118] = Tuple.new(6174,6303);
+			let Arects[119] = Tuple.new(6184,6825);
+			let Arects[120] = Tuple.new(6190,7087);
+			let Arects[121] = Tuple.new(6214,6601);
+			let Arects[122] = Tuple.new(6226,6611);
+			let Arects[123] = Tuple.new(6250,6381);
+			let Arects[124] = Tuple.new(6422,6555);
+			let Arects[125] = Tuple.new(6432,6561);
+			let Arects[126] = Tuple.new(6438,6569);
+			let Arects[127] = Tuple.new(6492,6879);
+			let Arects[128] = Tuple.new(6500,6633);
+			let Arects[129] = Tuple.new(6684,6815);
+			let Arects[130] = Tuple.new(6690,6821);
+			let Arects[131] = Tuple.new(6704,7345);
+			let Arects[132] = Tuple.new(6724,7111);
+			let Arects[133] = Tuple.new(6740,7381);
+			let Arects[134] = Tuple.new(6752,6883);
+			let Arects[135] = Tuple.new(6944,7075);
+			let Arects[136] = Tuple.new(6950,7079);
+			let Arects[137] = Tuple.new(6978,7111);
+			let Arects[138] = Tuple.new(7204,7333);
+			let Arects[139] = Tuple.new(7212,7853);
+			let Arects[140] = Tuple.new(7218,7605);
+			let Arects[141] = Tuple.new(7230,7617);
+			let Arects[142] = Tuple.new(7234,7363);
+			let Arects[143] = Tuple.new(7238,7623);
+			let Arects[144] = Tuple.new(7254,7643);
+			let Arects[145] = Tuple.new(7260,7389);
+			let Arects[146] = Tuple.new(7458,7843);
+			let Arects[147] = Tuple.new(7478,8631);
+			let Arects[148] = Tuple.new(7484,7617);
+			let Arects[149] = Tuple.new(7506,7635);
+			let Arects[150] = Tuple.new(7730,7859);
+			let Arects[151] = Tuple.new(7740,8637);
+			let Arects[152] = Tuple.new(7744,7873);
+			let Arects[153] = Tuple.new(7760,8145);
+			let Arects[154] = Tuple.new(7764,8409);
+			let Arects[155] = Tuple.new(7972,8103);
+			let Arects[156] = Tuple.new(7982,8113);
+			let Arects[157] = Tuple.new(8014,8153);
+			let Arects[158] = Tuple.new(8232,8365);
+			let Arects[159] = Tuple.new(8244,8375);
+			let Arects[160] = Tuple.new(8254,8383);
+			let Arects[161] = Tuple.new(8266,8397);
+			let Arects[162] = Tuple.new(8490,8623);
+			let Arects[163] = Tuple.new(8518,9417);
+			let Arects[164] = Tuple.new(8534,8919);
+			let Arects[165] = Tuple.new(8746,9387);
+			let Arects[166] = Tuple.new(8752,9393);
+			let Arects[167] = Tuple.new(8772,9417);
+			let Arects[168] = Tuple.new(8780,9167);
+			let Arects[169] = Tuple.new(8994,9131);
+			let Arects[170] = Tuple.new(9034,9173);
+			let Arects[171] = Tuple.new(9246,9377);
+			let Arects[172] = Tuple.new(9260,9395);
+			let Arects[173] = Tuple.new(9282,9669);
+			let Arects[174] = Tuple.new(9302,9433);
+			let Arects[175] = Tuple.new(9486,9871);
+			let Arects[176] = Tuple.new(9498,9629);
+			let Arects[177] = Tuple.new(9522,10419);
+			let Arects[178] = Tuple.new(9562,9691);
+			let Arects[179] = Tuple.new(9576,9707);
+			let Arects[180] = Tuple.new(9752,10137);
+			let Arects[181] = Tuple.new(9794,10435);
+			let Arects[182] = Tuple.new(9820,9949);
+			let Arects[183] = Tuple.new(9832,10217);
+			let Arects[184] = Tuple.new(9836,10221);
+			let Arects[185] = Tuple.new(9996,10637);
+			let Arects[186] = Tuple.new(10000,10129);
+			let Arects[187] = Tuple.new(10028,10163);
+			let Arects[188] = Tuple.new(10038,10423);
+			let Arects[189] = Tuple.new(10042,10427);
+			let Arects[190] = Tuple.new(10048,10435);
+			let Arects[191] = Tuple.new(10052,10189);
+			let Arects[192] = Tuple.new(10078,10209);
+			let Arects[193] = Tuple.new(10094,10223);
+			let Arects[194] = Tuple.new(10258,10391);
+			let Arects[195] = Tuple.new(10280,10411);
+			let Arects[196] = Tuple.new(10312,10449);
+			let Arects[197] = Tuple.new(10338,10471);
+			let Arects[198] = Tuple.new(10352,10481);
+			let Arects[199] = Tuple.new(10532,10663);
+			let Arects[200] = Tuple.new(10548,10677);
+			let Arects[201] = Tuple.new(10558,10689);
+			let Arects[202] = Tuple.new(10570,10701);
+			let Arects[203] = Tuple.new(10578,10963);
+			let Arects[204] = Tuple.new(10610,10739);
+			let Arects[205] = Tuple.new(10766,10895);
+			let Arects[206] = Tuple.new(10786,11171);
+			let Arects[207] = Tuple.new(10806,10943);
+			let Arects[208] = Tuple.new(10824,10955);
+			let Arects[209] = Tuple.new(10864,11249);
+			let Arects[210] = Tuple.new(11024,11155);
+			let Arects[211] = Tuple.new(11058,11191);
+			let Arects[212] = Tuple.new(11066,11197);
+			let Arects[213] = Tuple.new(11076,11207);
+			let Arects[214] = Tuple.new(11084,11213);
+			let Arects[215] = Tuple.new(11092,11221);
+			let Arects[216] = Tuple.new(11118,11249);
+			let Arects[217] = Tuple.new(11278,11407);
+			let Arects[218] = Tuple.new(11294,11425);
+			let Arects[219] = Tuple.new(11310,11443);
+			let Arects[220] = Tuple.new(11318,11703);
+			let Arects[221] = Tuple.new(11324,11461);
+			let Arects[222] = Tuple.new(11342,11475);
+			let Arects[223] = Tuple.new(11350,11735);
+			let Arects[224] = Tuple.new(11378,11507);
+			let Arects[225] = Tuple.new(11536,11667);
+			let Arects[226] = Tuple.new(11546,11677);
+			let Arects[227] = Tuple.new(11554,11693);
+			let Arects[228] = Tuple.new(11596,11727);
+			let Arects[229] = Tuple.new(11604,11737);
+			let Arects[230] = Tuple.new(11632,11761);
+			let Arects[231] = Tuple.new(11796,11929);
+			let Arects[232] = Tuple.new(11806,11937);
+			let Arects[233] = Tuple.new(11814,11945);
+			let Arects[234] = Tuple.new(11832,12217);
+			let Arects[235] = Tuple.new(11850,12237);
+			let Arects[236] = Tuple.new(11866,12253);
+			let Arects[237] = Tuple.new(11880,12015);
+			let Arects[238] = Tuple.new(12060,12957);
+			let Arects[239] = Tuple.new(12074,12971);
+			let Arects[240] = Tuple.new(12082,12217);
+			let Arects[241] = Tuple.new(12104,12241);
+			let Arects[242] = Tuple.new(12120,12263);
+			let Arects[243] = Tuple.new(12334,12465);
+			let Arects[244] = Tuple.new(12346,12475);
+			let Arects[245] = Tuple.new(12360,12489);
+			let Arects[246] = Tuple.new(12370,12503);
+			let Arects[247] = Tuple.new(12382,12511);
+			let Arects[248] = Tuple.new(12574,12703);
+			let Arects[249] = Tuple.new(12582,12717);
+			let Arects[250] = Tuple.new(12604,12733);
+			let Arects[251] = Tuple.new(12614,12999);
+			let Arects[252] = Tuple.new(12628,13013);
+			let Arects[253] = Tuple.new(12640,13025);
+			let Arects[254] = Tuple.new(12832,12965);
+			let Arects[255] = Tuple.new(12862,12991);
+			let Arects[256] = Tuple.new(12886,13015);
+			let Arects[257] = Tuple.new(12894,13027);
+			let Arects[258] = Tuple.new(13082,13467);
+			let Arects[259] = Tuple.new(13100,14253);
+			let Arects[260] = Tuple.new(13120,13253);
+			let Arects[261] = Tuple.new(13138,14035);
+			let Arects[262] = Tuple.new(13144,13277);
+			let Arects[263] = Tuple.new(13154,13539);
+			let Arects[264] = Tuple.new(13592,13977);
+			let Arects[265] = Tuple.new(13614,13743);
+			let Arects[266] = Tuple.new(13668,14309);
+			let Arects[267] = Tuple.new(13846,13977);
+			let Arects[268] = Tuple.new(13854,13985);
+			let Arects[269] = Tuple.new(13872,14001);
+			let Arects[270] = Tuple.new(14100,14229);
+			let Arects[271] = Tuple.new(14106,14237);
+			let Arects[272] = Tuple.new(14114,14755);
+			let Arects[273] = Tuple.new(14126,14255);
+			let Arects[274] = Tuple.new(14160,14545);
+			let Arects[275] = Tuple.new(14354,14739);
+			let Arects[276] = Tuple.new(14362,14747);
+			let Arects[277] = Tuple.new(14376,14507);
+			let Arects[278] = Tuple.new(14422,14553);
+			let Arects[279] = Tuple.new(14434,14563);
+			let Arects[280] = Tuple.new(14438,14567);
+			let Arects[281] = Tuple.new(14614,14747);
+			let Arects[282] = Tuple.new(14624,14759);
+			let Arects[283] = Tuple.new(14674,14805);
+			let Arects[284] = Tuple.new(14682,14817);
+			let Arects[285] = Tuple.new(14696,15081);
+			let Arects[286] = Tuple.new(14868,14997);
+			let Arects[287] = Tuple.new(14876,15007);
+			let Arects[288] = Tuple.new(14932,15061);
+			let Arects[289] = Tuple.new(14938,15067);
+			let Arects[290] = Tuple.new(14946,15081);
+			let Arects[291] = Tuple.new(15190,15321);
+		}
+
+		if (owned)
+		{
+			do Sprite.drawSpriteFlipped(Arects, left, top, 292, 128, 128);
+		}
+		else
+		{
+			do Sprite.drawSprite(Arects, left, top, 292, 128, 128);
+		}
+
+		return;
+	}
+
+	function void drawBlastoise(int left, int top, bool owned)
+	{
+		if (Brects = null)
+		{
+			let Brects = Array.new(249);
+
+			let Brects[0] = Tuple.new(1575,1706);
+			let Brects[1] = Tuple.new(1829,2982);
+			let Brects[2] = Tuple.new(1835,2220);
+			let Brects[3] = Tuple.new(1839,1983);
+			let Brects[4] = Tuple.new(1870,2003);
+			let Brects[5] = Tuple.new(2087,3496);
+			let Brects[6] = Tuple.new(2093,2222);
+			let Brects[7] = Tuple.new(2112,2499);
+			let Brects[8] = Tuple.new(2122,2253);
+			let Brects[9] = Tuple.new(2132,3285);
+			let Brects[10] = Tuple.new(2345,2474);
+			let Brects[11] = Tuple.new(2363,2501);
+			let Brects[12] = Tuple.new(2376,2505);
+			let Brects[13] = Tuple.new(2386,2775);
+			let Brects[14] = Tuple.new(2609,2994);
+			let Brects[15] = Tuple.new(2615,2746);
+			let Brects[16] = Tuple.new(2623,2753);
+			let Brects[17] = Tuple.new(2628,2759);
+			let Brects[18] = Tuple.new(2638,3285);
+			let Brects[19] = Tuple.new(2869,3000);
+			let Brects[20] = Tuple.new(2880,3265);
+			let Brects[21] = Tuple.new(2892,3537);
+			let Brects[22] = Tuple.new(3107,3748);
+			let Brects[23] = Tuple.new(3113,3242);
+			let Brects[24] = Tuple.new(3123,3254);
+			let Brects[25] = Tuple.new(3129,3516);
+			let Brects[26] = Tuple.new(3158,3287);
+			let Brects[27] = Tuple.new(3164,3296);
+			let Brects[28] = Tuple.new(3365,3496);
+			let Brects[29] = Tuple.new(3381,3519);
+			let Brects[30] = Tuple.new(3402,3537);
+			let Brects[31] = Tuple.new(3416,3547);
+			let Brects[32] = Tuple.new(3425,3556);
+			let Brects[33] = Tuple.new(3610,4382);
+			let Brects[34] = Tuple.new(3617,3748);
+			let Brects[35] = Tuple.new(3631,3762);
+			let Brects[36] = Tuple.new(3660,3791);
+			let Brects[37] = Tuple.new(3672,3801);
+			let Brects[38] = Tuple.new(3678,4194);
+			let Brects[39] = Tuple.new(3685,3814);
+			let Brects[40] = Tuple.new(3862,4000);
+			let Brects[41] = Tuple.new(3877,4006);
+			let Brects[42] = Tuple.new(3918,6223);
+			let Brects[43] = Tuple.new(3926,4183);
+			let Brects[44] = Tuple.new(3932,4068);
+			let Brects[45] = Tuple.new(3943,5224);
+			let Brects[46] = Tuple.new(4116,4885);
+			let Brects[47] = Tuple.new(4120,4382);
+			let Brects[48] = Tuple.new(4176,5201);
+			let Brects[49] = Tuple.new(4195,4196);
+			let Brects[50] = Tuple.new(4294,4423);
+			let Brects[51] = Tuple.new(4306,4437);
+			let Brects[52] = Tuple.new(4320,4450);
+			let Brects[53] = Tuple.new(4506,4635);
+			let Brects[54] = Tuple.new(4510,4894);
+			let Brects[55] = Tuple.new(4521,4660);
+			let Brects[56] = Tuple.new(4552,4937);
+			let Brects[57] = Tuple.new(4562,4947);
+			let Brects[58] = Tuple.new(4585,4970);
+			let Brects[59] = Tuple.new(4775,4904);
+			let Brects[60] = Tuple.new(4789,4922);
+			let Brects[61] = Tuple.new(4837,5224);
+			let Brects[62] = Tuple.new(4843,4972);
+			let Brects[63] = Tuple.new(5014,5143);
+			let Brects[64] = Tuple.new(5023,5152);
+			let Brects[65] = Tuple.new(5029,5158);
+			let Brects[66] = Tuple.new(5051,5183);
+			let Brects[67] = Tuple.new(5062,5191);
+			let Brects[68] = Tuple.new(5068,5201);
+			let Brects[69] = Tuple.new(5091,5478);
+			let Brects[70] = Tuple.new(5101,5486);
+			let Brects[71] = Tuple.new(5272,5913);
+			let Brects[72] = Tuple.new(5281,5412);
+			let Brects[73] = Tuple.new(5312,5445);
+			let Brects[74] = Tuple.new(5322,5451);
+			let Brects[75] = Tuple.new(5330,5459);
+			let Brects[76] = Tuple.new(5345,5732);
+			let Brects[77] = Tuple.new(5530,5659);
+			let Brects[78] = Tuple.new(5539,5670);
+			let Brects[79] = Tuple.new(5576,6217);
+			let Brects[80] = Tuple.new(5588,5717);
+			let Brects[81] = Tuple.new(5600,6242);
+			let Brects[82] = Tuple.new(5615,6256);
+			let Brects[83] = Tuple.new(5788,5917);
+			let Brects[84] = Tuple.new(5797,6438);
+			let Brects[85] = Tuple.new(5830,6217);
+			let Brects[86] = Tuple.new(5846,5979);
+			let Brects[87] = Tuple.new(5854,6242);
+			let Brects[88] = Tuple.new(6038,6679);
+			let Brects[89] = Tuple.new(6046,6174);
+			let Brects[90] = Tuple.new(6051,6440);
+			let Brects[91] = Tuple.new(6082,6727);
+			let Brects[92] = Tuple.new(6096,6481);
+			let Brects[93] = Tuple.new(6106,6752);
+			let Brects[94] = Tuple.new(6303,6444);
+			let Brects[95] = Tuple.new(6335,6981);
+			let Brects[96] = Tuple.new(6354,6739);
+			let Brects[97] = Tuple.new(6360,7263);
+			let Brects[98] = Tuple.new(6385,8050);
+			let Brects[99] = Tuple.new(6558,6688);
+			let Brects[100] = Tuple.new(6569,6727);
+			let Brects[101] = Tuple.new(6612,7007);
+			let Brects[102] = Tuple.new(6804,7701);
+			let Brects[103] = Tuple.new(6812,6941);
+			let Brects[104] = Tuple.new(6831,6981);
+			let Brects[105] = Tuple.new(7066,7195);
+			let Brects[106] = Tuple.new(7103,7235);
+			let Brects[107] = Tuple.new(7320,7449);
+			let Brects[108] = Tuple.new(7360,7745);
+			let Brects[109] = Tuple.new(7376,7517);
+			let Brects[110] = Tuple.new(7574,8087);
+			let Brects[111] = Tuple.new(7626,7759);
+			let Brects[112] = Tuple.new(7640,7773);
+			let Brects[113] = Tuple.new(7826,7955);
+			let Brects[114] = Tuple.new(7832,7961);
+			let Brects[115] = Tuple.new(7871,8639);
+			let Brects[116] = Tuple.new(7880,8011);
+			let Brects[117] = Tuple.new(7886,8015);
+			let Brects[118] = Tuple.new(7898,8925);
+			let Brects[119] = Tuple.new(8080,8081);
+			let Brects[120] = Tuple.new(8084,8341);
+			let Brects[121] = Tuple.new(8090,8093);
+			let Brects[122] = Tuple.new(8125,8127);
+			let Brects[123] = Tuple.new(8134,8391);
+			let Brects[124] = Tuple.new(8136,8137);
+			let Brects[125] = Tuple.new(8144,8145);
+			let Brects[126] = Tuple.new(8175,8432);
+			let Brects[127] = Tuple.new(8206,8335);
+			let Brects[128] = Tuple.new(8222,8352);
+			let Brects[129] = Tuple.new(8245,8380);
+			let Brects[130] = Tuple.new(8260,8391);
+			let Brects[131] = Tuple.new(8274,8659);
+			let Brects[132] = Tuple.new(8301,8432);
+			let Brects[133] = Tuple.new(8460,9357);
+			let Brects[134] = Tuple.new(8466,10899);
+			let Brects[135] = Tuple.new(8481,8628);
+			let Brects[136] = Tuple.new(8514,8901);
+			let Brects[137] = Tuple.new(8532,8671);
+			let Brects[138] = Tuple.new(8555,8686);
+			let Brects[139] = Tuple.new(8561,9970);
+			let Brects[140] = Tuple.new(8768,8901);
+			let Brects[141] = Tuple.new(8784,8913);
+			let Brects[142] = Tuple.new(8792,8928);
+			let Brects[143] = Tuple.new(8807,9194);
+			let Brects[144] = Tuple.new(8811,8940);
+			let Brects[145] = Tuple.new(9026,10691);
+			let Brects[146] = Tuple.new(9038,9167);
+			let Brects[147] = Tuple.new(9052,9194);
+			let Brects[148] = Tuple.new(9226,9357);
+			let Brects[149] = Tuple.new(9232,9365);
+			let Brects[150] = Tuple.new(9292,13389);
+			let Brects[151] = Tuple.new(9310,9700);
+			let Brects[152] = Tuple.new(9317,9448);
+			let Brects[153] = Tuple.new(9482,9867);
+			let Brects[154] = Tuple.new(9494,9623);
+			let Brects[155] = Tuple.new(9536,10437);
+			let Brects[156] = Tuple.new(9752,9883);
+			let Brects[157] = Tuple.new(9787,9927);
+			let Brects[158] = Tuple.new(9822,10207);
+			let Brects[159] = Tuple.new(9829,10214);
+			let Brects[160] = Tuple.new(9996,10893);
+			let Brects[161] = Tuple.new(10012,10142);
+			let Brects[162] = Tuple.new(10037,10168);
+			let Brects[163] = Tuple.new(10054,12233);
+			let Brects[164] = Tuple.new(10080,10208);
+			let Brects[165] = Tuple.new(10095,10480);
+			let Brects[166] = Tuple.new(10254,10383);
+			let Brects[167] = Tuple.new(10271,10410);
+			let Brects[168] = Tuple.new(10289,10420);
+			let Brects[169] = Tuple.new(10303,10445);
+			let Brects[170] = Tuple.new(10332,11229);
+			let Brects[171] = Tuple.new(10337,10468);
+			let Brects[172] = Tuple.new(10516,11669);
+			let Brects[173] = Tuple.new(10539,10672);
+			let Brects[174] = Tuple.new(10555,10686);
+			let Brects[175] = Tuple.new(10564,11727);
+			let Brects[176] = Tuple.new(10584,10717);
+			let Brects[177] = Tuple.new(10593,10722);
+			let Brects[178] = Tuple.new(10605,10734);
+			let Brects[179] = Tuple.new(10768,10901);
+			let Brects[180] = Tuple.new(10809,10938);
+			let Brects[181] = Tuple.new(10832,13399);
+			let Brects[182] = Tuple.new(10846,10976);
+			let Brects[183] = Tuple.new(10859,11500);
+			let Brects[184] = Tuple.new(11022,11153);
+			let Brects[185] = Tuple.new(11030,11927);
+			let Brects[186] = Tuple.new(11063,11192);
+			let Brects[187] = Tuple.new(11113,11244);
+			let Brects[188] = Tuple.new(11282,11671);
+			let Brects[189] = Tuple.new(11317,11702);
+			let Brects[190] = Tuple.new(11352,13915);
+			let Brects[191] = Tuple.new(11365,11496);
+			let Brects[192] = Tuple.new(11544,11929);
+			let Brects[193] = Tuple.new(11617,12004);
+			let Brects[194] = Tuple.new(11625,12010);
+			let Brects[195] = Tuple.new(11794,11923);
+			let Brects[196] = Tuple.new(11802,12187);
+			let Brects[197] = Tuple.new(11827,13108);
+			let Brects[198] = Tuple.new(11850,12639);
+			let Brects[199] = Tuple.new(11872,12258);
+			let Brects[200] = Tuple.new(12052,12309);
+			let Brects[201] = Tuple.new(12060,12189);
+			let Brects[202] = Tuple.new(12135,12264);
+			let Brects[203] = Tuple.new(12318,12320);
+			let Brects[204] = Tuple.new(12360,12384);
+			let Brects[205] = Tuple.new(12389,12390);
+			let Brects[206] = Tuple.new(12438,12823);
+			let Brects[207] = Tuple.new(12447,12580);
+			let Brects[208] = Tuple.new(12463,13108);
+			let Brects[209] = Tuple.new(12515,12644);
+			let Brects[210] = Tuple.new(12709,12854);
+			let Brects[211] = Tuple.new(12750,13403);
+			let Brects[212] = Tuple.new(12764,13149);
+			let Brects[213] = Tuple.new(12768,12898);
+			let Brects[214] = Tuple.new(12948,13077);
+			let Brects[215] = Tuple.new(12952,13593);
+			let Brects[216] = Tuple.new(12967,13610);
+			let Brects[217] = Tuple.new(12971,13112);
+			let Brects[218] = Tuple.new(13002,13403);
+			let Brects[219] = Tuple.new(13022,13151);
+			let Brects[220] = Tuple.new(13202,13331);
+			let Brects[221] = Tuple.new(13210,13339);
+			let Brects[222] = Tuple.new(13215,13354);
+			let Brects[223] = Tuple.new(13241,13372);
+			let Brects[224] = Tuple.new(13256,13403);
+			let Brects[225] = Tuple.new(13456,13585);
+			let Brects[226] = Tuple.new(13468,13598);
+			let Brects[227] = Tuple.new(13477,13864);
+			let Brects[228] = Tuple.new(13501,13641);
+			let Brects[229] = Tuple.new(13522,13659);
+			let Brects[230] = Tuple.new(13714,13847);
+			let Brects[231] = Tuple.new(13726,14110);
+			let Brects[232] = Tuple.new(13757,13886);
+			let Brects[233] = Tuple.new(13762,13891);
+			let Brects[234] = Tuple.new(13768,13903);
+			let Brects[235] = Tuple.new(13780,13917);
+			let Brects[236] = Tuple.new(13974,14112);
+			let Brects[237] = Tuple.new(13989,14118);
+			let Brects[238] = Tuple.new(14011,14140);
+			let Brects[239] = Tuple.new(14020,14151);
+			let Brects[240] = Tuple.new(14032,14165);
+			let Brects[241] = Tuple.new(14046,14431);
+			let Brects[242] = Tuple.new(14241,14372);
+			let Brects[243] = Tuple.new(14269,14405);
+			let Brects[244] = Tuple.new(14290,14421);
+			let Brects[245] = Tuple.new(14534,14663);
+			let Brects[246] = Tuple.new(14544,14673);
+			let Brects[247] = Tuple.new(14550,14685);
+			let Brects[248] = Tuple.new(14792,14927);
+	}
+
+		if (owned)
+		{
+			do Sprite.drawSpriteFlipped(Brects, left, top, 249, 128, 128);
+		}
+		else
+		{
+			do Sprite.drawSprite(Brects, left, top, 249, 128, 128);
+		}
+
+		return;
+	}
+
+
+	function void drawPrimeape(int left, int top, bool owned)
+	{
+		if (Prects = null)
+		{
+			let Prects = Array.new(198);
+
+			let Prects[0] = Tuple.new(1052,1187);
+			let Prects[1] = Tuple.new(1120,1253);
+			let Prects[2] = Tuple.new(1304,1435);
+			let Prects[3] = Tuple.new(1316,1447);
+			let Prects[4] = Tuple.new(1374,1503);
+			let Prects[5] = Tuple.new(1380,1513);
+			let Prects[6] = Tuple.new(1558,1687);
+			let Prects[7] = Tuple.new(1576,1705);
+			let Prects[8] = Tuple.new(1628,1757);
+			let Prects[9] = Tuple.new(1642,1771);
+			let Prects[10] = Tuple.new(1812,1941);
+			let Prects[11] = Tuple.new(1834,4011);
+			let Prects[12] = Tuple.new(1882,3035);
+			let Prects[13] = Tuple.new(1900,2029);
+			let Prects[14] = Tuple.new(2066,2451);
+			let Prects[15] = Tuple.new(2158,2799);
+			let Prects[16] = Tuple.new(2344,3245);
+			let Prects[17] = Tuple.new(2396,4317);
+			let Prects[18] = Tuple.new(2580,2709);
+			let Prects[19] = Tuple.new(2590,2733);
+			let Prects[20] = Tuple.new(2838,2973);
+			let Prects[21] = Tuple.new(2850,3491);
+			let Prects[22] = Tuple.new(2854,3245);
+			let Prects[23] = Tuple.new(2910,4577);
+			let Prects[24] = Tuple.new(2924,3053);
+			let Prects[25] = Tuple.new(3170,3557);
+			let Prects[26] = Tuple.new(3174,3307);
+			let Prects[27] = Tuple.new(3364,3493);
+			let Prects[28] = Tuple.new(3400,4041);
+			let Prects[29] = Tuple.new(3616,4513);
+			let Prects[30] = Tuple.new(3654,4043);
+			let Prects[31] = Tuple.new(3684,5605);
+			let Prects[32] = Tuple.new(3884,5549);
+			let Prects[33] = Tuple.new(3908,4043);
+			let Prects[34] = Tuple.new(4136,4521);
+			let Prects[35] = Tuple.new(4142,5295);
+			let Prects[36] = Tuple.new(4150,4279);
+			let Prects[37] = Tuple.new(4162,4293);
+			let Prects[38] = Tuple.new(4170,4301);
+			let Prects[39] = Tuple.new(4194,4839);
+			let Prects[40] = Tuple.new(4404,4533);
+			let Prects[41] = Tuple.new(4408,4793);
+			let Prects[42] = Tuple.new(4418,4803);
+			let Prects[43] = Tuple.new(4428,4813);
+			let Prects[44] = Tuple.new(4442,4827);
+			let Prects[45] = Tuple.new(4638,5535);
+			let Prects[46] = Tuple.new(4646,5031);
+			let Prects[47] = Tuple.new(4656,4787);
+			let Prects[48] = Tuple.new(4668,4803);
+			let Prects[49] = Tuple.new(4686,5071);
+			let Prects[50] = Tuple.new(4704,5605);
+			let Prects[51] = Tuple.new(4912,5041);
+			let Prects[52] = Tuple.new(4922,5307);
+			let Prects[53] = Tuple.new(4926,5057);
+			let Prects[54] = Tuple.new(4936,5321);
+			let Prects[55] = Tuple.new(4944,5329);
+			let Prects[56] = Tuple.new(4952,5081);
+			let Prects[57] = Tuple.new(5156,5541);
+			let Prects[58] = Tuple.new(5182,5311);
+			let Prects[59] = Tuple.new(5188,5317);
+			let Prects[60] = Tuple.new(5202,5335);
+			let Prects[61] = Tuple.new(5418,5549);
+			let Prects[62] = Tuple.new(5446,5831);
+			let Prects[63] = Tuple.new(5450,5835);
+			let Prects[64] = Tuple.new(5654,5789);
+			let Prects[65] = Tuple.new(5708,5841);
+			let Prects[66] = Tuple.new(5726,6115);
+			let Prects[67] = Tuple.new(5904,6037);
+			let Prects[68] = Tuple.new(5916,6813);
+			let Prects[69] = Tuple.new(5952,6085);
+			let Prects[70] = Tuple.new(6162,6291);
+			let Prects[71] = Tuple.new(6216,6857);
+			let Prects[72] = Tuple.new(6220,6353);
+			let Prects[73] = Tuple.new(6236,7137);
+			let Prects[74] = Tuple.new(6420,6805);
+			let Prects[75] = Tuple.new(6466,6601);
+			let Prects[76] = Tuple.new(6476,6605);
+			let Prects[77] = Tuple.new(6490,6881);
+			let Prects[78] = Tuple.new(6734,6863);
+			let Prects[79] = Tuple.new(6754,7139);
+			let Prects[80] = Tuple.new(6934,7063);
+			let Prects[81] = Tuple.new(6948,7079);
+			let Prects[82] = Tuple.new(6968,7353);
+			let Prects[83] = Tuple.new(6986,7117);
+			let Prects[84] = Tuple.new(7012,7401);
+			let Prects[85] = Tuple.new(7192,7321);
+			let Prects[86] = Tuple.new(7206,7339);
+			let Prects[87] = Tuple.new(7236,7369);
+			let Prects[88] = Tuple.new(7244,7629);
+			let Prects[89] = Tuple.new(7274,7405);
+			let Prects[90] = Tuple.new(7446,7575);
+			let Prects[91] = Tuple.new(7462,7591);
+			let Prects[92] = Tuple.new(7466,7597);
+			let Prects[93] = Tuple.new(7482,7611);
+			let Prects[94] = Tuple.new(7488,7621);
+			let Prects[95] = Tuple.new(7526,7657);
+			let Prects[96] = Tuple.new(7700,7829);
+			let Prects[97] = Tuple.new(7720,8105);
+			let Prects[98] = Tuple.new(7724,7855);
+			let Prects[99] = Tuple.new(7740,7871);
+			let Prects[100] = Tuple.new(7746,8389);
+			let Prects[101] = Tuple.new(7754,7883);
+			let Prects[102] = Tuple.new(7776,7909);
+			let Prects[103] = Tuple.new(7954,8339);
+			let Prects[104] = Tuple.new(7960,8089);
+			let Prects[105] = Tuple.new(7980,8365);
+			let Prects[106] = Tuple.new(7984,8625);
+			let Prects[107] = Tuple.new(7998,8127);
+			let Prects[108] = Tuple.new(8008,8137);
+			let Prects[109] = Tuple.new(8028,8159);
+			let Prects[110] = Tuple.new(8208,8343);
+			let Prects[111] = Tuple.new(8234,8365);
+			let Prects[112] = Tuple.new(8242,8379);
+			let Prects[113] = Tuple.new(8256,8391);
+			let Prects[114] = Tuple.new(8288,8417);
+			let Prects[115] = Tuple.new(8470,8855);
+			let Prects[116] = Tuple.new(8508,8641);
+			let Prects[117] = Tuple.new(8546,8675);
+			let Prects[118] = Tuple.new(8722,8859);
+			let Prects[119] = Tuple.new(8750,9135);
+			let Prects[120] = Tuple.new(8754,9139);
+			let Prects[121] = Tuple.new(8760,9145);
+			let Prects[122] = Tuple.new(8768,9153);
+			let Prects[123] = Tuple.new(8790,8919);
+			let Prects[124] = Tuple.new(8804,8933);
+			let Prects[125] = Tuple.new(8976,9107);
+			let Prects[126] = Tuple.new(8988,9119);
+			let Prects[127] = Tuple.new(9048,9177);
+			let Prects[128] = Tuple.new(9062,9703);
+			let Prects[129] = Tuple.new(9230,9361);
+			let Prects[130] = Tuple.new(9248,9377);
+			let Prects[131] = Tuple.new(9264,9393);
+			let Prects[132] = Tuple.new(9278,9407);
+			let Prects[133] = Tuple.new(9306,9437);
+			let Prects[134] = Tuple.new(9312,9705);
+			let Prects[135] = Tuple.new(9486,10639);
+			let Prects[136] = Tuple.new(9506,9891);
+			let Prects[137] = Tuple.new(9522,9661);
+			let Prects[138] = Tuple.new(9564,9951);
+			let Prects[139] = Tuple.new(9578,9707);
+			let Prects[140] = Tuple.new(10020,10661);
+			let Prects[141] = Tuple.new(10078,10721);
+			let Prects[142] = Tuple.new(10314,10443);
+			let Prects[143] = Tuple.new(10338,10723);
+			let Prects[144] = Tuple.new(10572,10701);
+			let Prects[145] = Tuple.new(10582,10969);
+			let Prects[146] = Tuple.new(10586,10725);
+			let Prects[147] = Tuple.new(10768,11153);
+			let Prects[148] = Tuple.new(10790,11177);
+			let Prects[149] = Tuple.new(10794,10923);
+			let Prects[150] = Tuple.new(10830,11217);
+			let Prects[151] = Tuple.new(11090,12757);
+			let Prects[152] = Tuple.new(11096,11739);
+			let Prects[153] = Tuple.new(11282,11413);
+			let Prects[154] = Tuple.new(11302,11431);
+			let Prects[155] = Tuple.new(11322,12219);
+			let Prects[156] = Tuple.new(11344,12757);
+			let Prects[157] = Tuple.new(11350,11739);
+			let Prects[158] = Tuple.new(11540,11671);
+			let Prects[159] = Tuple.new(11560,11945);
+			let Prects[160] = Tuple.new(11576,12219);
+			let Prects[161] = Tuple.new(11798,11929);
+			let Prects[162] = Tuple.new(11818,12205);
+			let Prects[163] = Tuple.new(11836,11965);
+			let Prects[164] = Tuple.new(11844,12231);
+			let Prects[165] = Tuple.new(11868,11997);
+			let Prects[166] = Tuple.new(12058,12187);
+			let Prects[167] = Tuple.new(12078,12207);
+			let Prects[168] = Tuple.new(12086,12473);
+			let Prects[169] = Tuple.new(12094,12223);
+			let Prects[170] = Tuple.new(12104,12233);
+			let Prects[171] = Tuple.new(12110,12759);
+			let Prects[172] = Tuple.new(12316,12445);
+			let Prects[173] = Tuple.new(12328,12459);
+			let Prects[174] = Tuple.new(12336,12465);
+			let Prects[175] = Tuple.new(12340,12727);
+			let Prects[176] = Tuple.new(12352,12485);
+			let Prects[177] = Tuple.new(12362,12511);
+			let Prects[178] = Tuple.new(12574,12705);
+			let Prects[179] = Tuple.new(12582,12713);
+			let Prects[180] = Tuple.new(12594,12727);
+			let Prects[181] = Tuple.new(12610,12739);
+			let Prects[182] = Tuple.new(12632,13533);
+			let Prects[183] = Tuple.new(12638,12771);
+			let Prects[184] = Tuple.new(12832,12967);
+			let Prects[185] = Tuple.new(12852,12981);
+			let Prects[186] = Tuple.new(12880,13267);
+			let Prects[187] = Tuple.new(12886,13533);
+			let Prects[188] = Tuple.new(12900,13285);
+			let Prects[189] = Tuple.new(13140,13533);
+			let Prects[190] = Tuple.new(13394,13533);
+			let Prects[191] = Tuple.new(13414,13799);
+			let Prects[192] = Tuple.new(13654,14043);
+			let Prects[193] = Tuple.new(13928,14825);
+			let Prects[194] = Tuple.new(14168,14297);
+			let Prects[195] = Tuple.new(14426,15067);
+			let Prects[196] = Tuple.new(14950,15079);
+			let Prects[197] = Tuple.new(15196,15333);
+		}
+
+		if (owned)
+		{
+			do Sprite.drawSpriteFlipped(Prects, left, top, 198, 128, 128);
+		}
+		else
+		{
+			do Sprite.drawSprite(Prects, left, top, 198, 128, 128);
+		}
+
+		return;
+	}
+
+	function void drawScyther(int left, int top, bool owned)
+	{
+		if(Srects = null)
+		{
+			let Srects = Array.new(296);
+
+			let Srects[0] = Tuple.new(580,1223);
+			let Srects[1] = Tuple.new(802,1445);
+			let Srects[2] = Tuple.new(816,947);
+			let Srects[3] = Tuple.new(834,1225);
+			let Srects[4] = Tuple.new(848,979);
+			let Srects[5] = Tuple.new(1056,1445);
+			let Srects[6] = Tuple.new(1062,1191);
+			let Srects[7] = Tuple.new(1070,1199);
+			let Srects[8] = Tuple.new(1076,1205);
+			let Srects[9] = Tuple.new(1088,1733);
+			let Srects[10] = Tuple.new(1102,1231);
+			let Srects[11] = Tuple.new(1108,1493);
+			let Srects[12] = Tuple.new(1320,1449);
+			let Srects[13] = Tuple.new(1324,1453);
+			let Srects[14] = Tuple.new(1334,2743);
+			let Srects[15] = Tuple.new(1352,1737);
+			let Srects[16] = Tuple.new(1356,1485);
+			let Srects[17] = Tuple.new(1566,1955);
+			let Srects[18] = Tuple.new(1578,2731);
+			let Srects[19] = Tuple.new(1598,2243);
+			let Srects[20] = Tuple.new(1610,3275);
+			let Srects[21] = Tuple.new(1618,2259);
+			let Srects[22] = Tuple.new(1820,2209);
+			let Srects[23] = Tuple.new(2074,2463);
+			let Srects[24] = Tuple.new(2098,2231);
+			let Srects[25] = Tuple.new(2108,3009);
+			let Srects[26] = Tuple.new(2156,2805);
+			let Srects[27] = Tuple.new(2326,2971);
+			let Srects[28] = Tuple.new(2344,2731);
+			let Srects[29] = Tuple.new(2352,2993);
+			let Srects[30] = Tuple.new(2384,2769);
+			let Srects[31] = Tuple.new(2404,3051);
+			let Srects[32] = Tuple.new(2578,3223);
+			let Srects[33] = Tuple.new(2588,2717);
+			let Srects[34] = Tuple.new(2598,2737);
+			let Srects[35] = Tuple.new(2612,2743);
+			let Srects[36] = Tuple.new(2618,3775);
+			let Srects[37] = Tuple.new(2656,3051);
+			let Srects[38] = Tuple.new(2832,3477);
+			let Srects[39] = Tuple.new(2852,2981);
+			let Srects[40] = Tuple.new(2856,2985);
+			let Srects[41] = Tuple.new(2866,4019);
+			let Srects[42] = Tuple.new(2872,3775);
+			let Srects[43] = Tuple.new(2894,3279);
+			let Srects[44] = Tuple.new(2908,3299);
+			let Srects[45] = Tuple.new(2930,3315);
+			let Srects[46] = Tuple.new(3106,3235);
+			let Srects[47] = Tuple.new(3114,3755);
+			let Srects[48] = Tuple.new(3160,3551);
+			let Srects[49] = Tuple.new(3342,3731);
+			let Srects[50] = Tuple.new(3358,3489);
+			let Srects[51] = Tuple.new(3382,3519);
+			let Srects[52] = Tuple.new(3400,4041);
+			let Srects[53] = Tuple.new(3404,3533);
+			let Srects[54] = Tuple.new(3414,3803);
+			let Srects[55] = Tuple.new(3440,3825);
+			let Srects[56] = Tuple.new(3612,3741);
+			let Srects[57] = Tuple.new(3636,3765);
+			let Srects[58] = Tuple.new(3658,4043);
+			let Srects[59] = Tuple.new(3666,4057);
+			let Srects[60] = Tuple.new(3852,4241);
+			let Srects[61] = Tuple.new(3864,3995);
+			let Srects[62] = Tuple.new(3878,4009);
+			let Srects[63] = Tuple.new(3888,4019);
+			let Srects[64] = Tuple.new(3896,5821);
+			let Srects[65] = Tuple.new(3910,4057);
+			let Srects[66] = Tuple.new(3950,4079);
+			let Srects[67] = Tuple.new(4118,4247);
+			let Srects[68] = Tuple.new(4130,4261);
+			let Srects[69] = Tuple.new(4144,4529);
+			let Srects[70] = Tuple.new(4148,4789);
+			let Srects[71] = Tuple.new(4164,4295);
+			let Srects[72] = Tuple.new(4174,4563);
+			let Srects[73] = Tuple.new(4180,4309);
+			let Srects[74] = Tuple.new(4204,4333);
+			let Srects[75] = Tuple.new(4208,4593);
+			let Srects[76] = Tuple.new(4362,5007);
+			let Srects[77] = Tuple.new(4372,4757);
+			let Srects[78] = Tuple.new(4382,4513);
+			let Srects[79] = Tuple.new(4392,4521);
+			let Srects[80] = Tuple.new(4418,4549);
+			let Srects[81] = Tuple.new(4428,5073);
+			let Srects[82] = Tuple.new(4458,4587);
+			let Srects[83] = Tuple.new(4636,4765);
+			let Srects[84] = Tuple.new(4646,6055);
+			let Srects[85] = Tuple.new(4650,5035);
+			let Srects[86] = Tuple.new(4654,5039);
+			let Srects[87] = Tuple.new(4674,4803);
+			let Srects[88] = Tuple.new(4682,5073);
+			let Srects[89] = Tuple.new(4710,4841);
+			let Srects[90] = Tuple.new(4718,5103);
+			let Srects[91] = Tuple.new(4882,5267);
+			let Srects[92] = Tuple.new(4890,5019);
+			let Srects[93] = Tuple.new(4918,5565);
+			let Srects[94] = Tuple.new(4928,5825);
+			let Srects[95] = Tuple.new(4936,5581);
+			let Srects[96] = Tuple.new(4962,5093);
+			let Srects[97] = Tuple.new(5128,5773);
+			let Srects[98] = Tuple.new(5144,5273);
+			let Srects[99] = Tuple.new(5164,5549);
+			let Srects[100] = Tuple.new(5182,5829);
+			let Srects[101] = Tuple.new(5190,5581);
+			let Srects[102] = Tuple.new(5212,5345);
+			let Srects[103] = Tuple.new(5228,5357);
+			let Srects[104] = Tuple.new(5392,6033);
+			let Srects[105] = Tuple.new(5398,5527);
+			let Srects[106] = Tuple.new(5462,5595);
+			let Srects[107] = Tuple.new(5482,5611);
+			let Srects[108] = Tuple.new(5652,6037);
+			let Srects[109] = Tuple.new(5672,5803);
+			let Srects[110] = Tuple.new(5708,6349);
+			let Srects[111] = Tuple.new(5712,5845);
+			let Srects[112] = Tuple.new(5734,5865);
+			let Srects[113] = Tuple.new(5740,6639);
+			let Srects[114] = Tuple.new(5894,7819);
+			let Srects[115] = Tuple.new(5930,6059);
+			let Srects[116] = Tuple.new(5946,6079);
+			let Srects[117] = Tuple.new(5962,6095);
+			let Srects[118] = Tuple.new(5982,6117);
+			let Srects[119] = Tuple.new(5994,6129);
+			let Srects[120] = Tuple.new(6158,6799);
+			let Srects[121] = Tuple.new(6162,6547);
+			let Srects[122] = Tuple.new(6178,6309);
+			let Srects[123] = Tuple.new(6184,6313);
+			let Srects[124] = Tuple.new(6216,6345);
+			let Srects[125] = Tuple.new(6232,6365);
+			let Srects[126] = Tuple.new(6248,6377);
+			let Srects[127] = Tuple.new(6256,8435);
+			let Srects[128] = Tuple.new(6430,6561);
+			let Srects[129] = Tuple.new(6436,6567);
+			let Srects[130] = Tuple.new(6468,6599);
+			let Srects[131] = Tuple.new(6478,6615);
+			let Srects[132] = Tuple.new(6494,6883);
+			let Srects[133] = Tuple.new(6500,6631);
+			let Srects[134] = Tuple.new(6672,7057);
+			let Srects[135] = Tuple.new(6684,6815);
+			let Srects[136] = Tuple.new(6690,7075);
+			let Srects[137] = Tuple.new(6694,7079);
+			let Srects[138] = Tuple.new(6720,6853);
+			let Srects[139] = Tuple.new(6738,6871);
+			let Srects[140] = Tuple.new(6758,6887);
+			let Srects[141] = Tuple.new(6766,7669);
+			let Srects[142] = Tuple.new(6924,8333);
+			let Srects[143] = Tuple.new(6938,7323);
+			let Srects[144] = Tuple.new(6942,7327);
+			let Srects[145] = Tuple.new(6972,7103);
+			let Srects[146] = Tuple.new(6980,7877);
+			let Srects[147] = Tuple.new(6990,7121);
+			let Srects[148] = Tuple.new(7000,7131);
+			let Srects[149] = Tuple.new(7006,7135);
+			let Srects[150] = Tuple.new(7012,7653);
+			let Srects[151] = Tuple.new(7182,7567);
+			let Srects[152] = Tuple.new(7200,8609);
+			let Srects[153] = Tuple.new(7204,7589);
+			let Srects[154] = Tuple.new(7224,7355);
+			let Srects[155] = Tuple.new(7234,7621);
+			let Srects[156] = Tuple.new(7244,7629);
+			let Srects[157] = Tuple.new(7260,8157);
+			let Srects[158] = Tuple.new(7448,8345);
+			let Srects[159] = Tuple.new(7476,7607);
+			let Srects[160] = Tuple.new(7494,7879);
+			let Srects[161] = Tuple.new(7514,7645);
+			let Srects[162] = Tuple.new(7714,8355);
+			let Srects[163] = Tuple.new(7728,8117);
+			let Srects[164] = Tuple.new(7736,8377);
+			let Srects[165] = Tuple.new(7744,8385);
+			let Srects[166] = Tuple.new(7752,8651);
+			let Srects[167] = Tuple.new(7768,7897);
+			let Srects[168] = Tuple.new(7778,8163);
+			let Srects[169] = Tuple.new(7782,8679);
+			let Srects[170] = Tuple.new(7788,8435);
+			let Srects[171] = Tuple.new(7944,8333);
+			let Srects[172] = Tuple.new(8022,8407);
+			let Srects[173] = Tuple.new(8214,8345);
+			let Srects[174] = Tuple.new(8238,8879);
+			let Srects[175] = Tuple.new(8244,8373);
+			let Srects[176] = Tuple.new(8254,8385);
+			let Srects[177] = Tuple.new(8262,8651);
+			let Srects[178] = Tuple.new(8286,8673);
+			let Srects[179] = Tuple.new(8458,8587);
+			let Srects[180] = Tuple.new(8470,8599);
+			let Srects[181] = Tuple.new(8474,8859);
+			let Srects[182] = Tuple.new(8478,8609);
+			let Srects[183] = Tuple.new(8502,8631);
+			let Srects[184] = Tuple.new(8510,8639);
+			let Srects[185] = Tuple.new(8516,8903);
+			let Srects[186] = Tuple.new(8536,8921);
+			let Srects[187] = Tuple.new(8554,9713);
+			let Srects[188] = Tuple.new(8724,9109);
+			let Srects[189] = Tuple.new(8732,8863);
+			let Srects[190] = Tuple.new(8748,8885);
+			let Srects[191] = Tuple.new(8764,9661);
+			let Srects[192] = Tuple.new(8770,8903);
+			let Srects[193] = Tuple.new(8780,9933);
+			let Srects[194] = Tuple.new(8794,9693);
+			let Srects[195] = Tuple.new(8798,8927);
+			let Srects[196] = Tuple.new(8804,9957);
+			let Srects[197] = Tuple.new(8982,9113);
+			let Srects[198] = Tuple.new(8988,9629);
+			let Srects[199] = Tuple.new(9002,9131);
+			let Srects[200] = Tuple.new(9018,9661);
+			let Srects[201] = Tuple.new(9024,9155);
+			let Srects[202] = Tuple.new(9242,9373);
+			let Srects[203] = Tuple.new(9256,9385);
+			let Srects[204] = Tuple.new(9272,9661);
+			let Srects[205] = Tuple.new(9280,9665);
+			let Srects[206] = Tuple.new(9290,9935);
+			let Srects[207] = Tuple.new(9296,9681);
+			let Srects[208] = Tuple.new(9304,9693);
+			let Srects[209] = Tuple.new(9508,9639);
+			let Srects[210] = Tuple.new(9522,10427);
+			let Srects[211] = Tuple.new(9542,10187);
+			let Srects[212] = Tuple.new(9554,9693);
+			let Srects[213] = Tuple.new(9758,9887);
+			let Srects[214] = Tuple.new(9770,9915);
+			let Srects[215] = Tuple.new(9790,10431);
+			let Srects[216] = Tuple.new(9794,9935);
+			let Srects[217] = Tuple.new(9816,10203);
+			let Srects[218] = Tuple.new(9836,11505);
+			let Srects[219] = Tuple.new(10016,10147);
+			let Srects[220] = Tuple.new(10024,10155);
+			let Srects[221] = Tuple.new(10032,11189);
+			let Srects[222] = Tuple.new(10050,10435);
+			let Srects[223] = Tuple.new(10076,10207);
+			let Srects[224] = Tuple.new(10086,10983);
+			let Srects[225] = Tuple.new(10098,10739);
+			let Srects[226] = Tuple.new(10276,10407);
+			let Srects[227] = Tuple.new(10282,10427);
+			let Srects[228] = Tuple.new(10334,12255);
+			let Srects[229] = Tuple.new(10538,10667);
+			let Srects[230] = Tuple.new(10542,10677);
+			let Srects[231] = Tuple.new(10552,10937);
+			let Srects[232] = Tuple.new(10556,10941);
+			let Srects[233] = Tuple.new(10560,11201);
+			let Srects[234] = Tuple.new(10588,10719);
+			let Srects[235] = Tuple.new(10796,11181);
+			let Srects[236] = Tuple.new(10806,10937);
+			let Srects[237] = Tuple.new(10842,10971);
+			let Srects[238] = Tuple.new(10858,11505);
+			let Srects[239] = Tuple.new(11066,11195);
+			let Srects[240] = Tuple.new(11096,11481);
+			let Srects[241] = Tuple.new(11108,12005);
+			let Srects[242] = Tuple.new(11310,11441);
+			let Srects[243] = Tuple.new(11320,11449);
+			let Srects[244] = Tuple.new(11330,11971);
+			let Srects[245] = Tuple.new(11570,11703);
+			let Srects[246] = Tuple.new(11606,11735);
+			let Srects[247] = Tuple.new(11626,12015);
+			let Srects[248] = Tuple.new(11844,11973);
+			let Srects[249] = Tuple.new(11860,11989);
+			let Srects[250] = Tuple.new(11880,12525);
+			let Srects[251] = Tuple.new(12096,12225);
+			let Srects[252] = Tuple.new(12102,12231);
+			let Srects[253] = Tuple.new(12112,12243);
+			let Srects[254] = Tuple.new(12130,12771);
+			let Srects[255] = Tuple.new(12346,12479);
+			let Srects[256] = Tuple.new(12360,12495);
+			let Srects[257] = Tuple.new(12380,13277);
+			let Srects[258] = Tuple.new(12600,12729);
+			let Srects[259] = Tuple.new(12608,12737);
+			let Srects[260] = Tuple.new(12616,12745);
+			let Srects[261] = Tuple.new(12646,13035);
+			let Srects[262] = Tuple.new(12850,12983);
+			let Srects[263] = Tuple.new(12866,12999);
+			let Srects[264] = Tuple.new(12896,13281);
+			let Srects[265] = Tuple.new(13104,13233);
+			let Srects[266] = Tuple.new(13126,13257);
+			let Srects[267] = Tuple.new(13156,13543);
+			let Srects[268] = Tuple.new(13160,13289);
+			let Srects[269] = Tuple.new(13356,13487);
+			let Srects[270] = Tuple.new(13384,14025);
+			let Srects[271] = Tuple.new(13402,14811);
+			let Srects[272] = Tuple.new(13406,13791);
+			let Srects[273] = Tuple.new(13410,13797);
+			let Srects[274] = Tuple.new(13610,14251);
+			let Srects[275] = Tuple.new(13614,13743);
+			let Srects[276] = Tuple.new(13626,13757);
+			let Srects[277] = Tuple.new(13638,13769);
+			let Srects[278] = Tuple.new(13872,14003);
+			let Srects[279] = Tuple.new(13880,14009);
+			let Srects[280] = Tuple.new(13886,14275);
+			let Srects[281] = Tuple.new(13892,14021);
+			let Srects[282] = Tuple.new(13916,14045);
+			let Srects[283] = Tuple.new(13920,14051);
+			let Srects[284] = Tuple.new(14124,14255);
+			let Srects[285] = Tuple.new(14132,14263);
+			let Srects[286] = Tuple.new(14154,14539);
+			let Srects[287] = Tuple.new(14168,14811);
+			let Srects[288] = Tuple.new(14174,14305);
+			let Srects[289] = Tuple.new(14390,14519);
+			let Srects[290] = Tuple.new(14396,14525);
+			let Srects[291] = Tuple.new(14404,14789);
+			let Srects[292] = Tuple.new(14408,14539);
+			let Srects[293] = Tuple.new(14428,14559);
+			let Srects[294] = Tuple.new(14648,14779);
+			let Srects[295] = Tuple.new(14662,14791);
+		}
+
+		if (owned)
+		{
+			do Sprite.drawSpriteFlipped(Srects, left, top, 296, 128, 128);
+		}
+		else
+		{
+			do Sprite.drawSprite(Srects, left, top, 296, 128, 128);
+		}
+
+		return;
+	}
+
+	function void drawVenusaur(int left, int top, bool owned)
+	{
+		if (Vrects = null)
+		{
+			let Vrects = Array.new(309);
+			let Vrects[0] = Tuple.new(938,1207);
+			let Vrects[1] = Tuple.new(971,1240);
+			let Vrects[2] = Tuple.new(1318,1449);
+			let Vrects[3] = Tuple.new(1336,1468);
+			let Vrects[4] = Tuple.new(1350,1482);
+			let Vrects[5] = Tuple.new(1369,1501);
+			let Vrects[6] = Tuple.new(1571,1701);
+			let Vrects[7] = Tuple.new(1585,2101);
+			let Vrects[8] = Tuple.new(1597,1726);
+			let Vrects[9] = Tuple.new(1604,1733);
+			let Vrects[10] = Tuple.new(1630,1759);
+			let Vrects[11] = Tuple.new(1823,2338);
+			let Vrects[12] = Tuple.new(1839,2101);
+			let Vrects[13] = Tuple.new(1855,3267);
+			let Vrects[14] = Tuple.new(1869,2129);
+			let Vrects[15] = Tuple.new(1888,2404);
+			let Vrects[16] = Tuple.new(2197,2348);
+			let Vrects[17] = Tuple.new(2235,3516);
+			let Vrects[18] = Tuple.new(2246,3528);
+			let Vrects[19] = Tuple.new(2263,2413);
+			let Vrects[20] = Tuple.new(2446,2580);
+			let Vrects[21] = Tuple.new(2474,2608);
+			let Vrects[22] = Tuple.new(2486,2615);
+			let Vrects[23] = Tuple.new(2507,2636);
+			let Vrects[24] = Tuple.new(2514,2648);
+			let Vrects[25] = Tuple.new(2542,2676);
+			let Vrects[26] = Tuple.new(2698,2957);
+			let Vrects[27] = Tuple.new(2714,3232);
+			let Vrects[28] = Tuple.new(2737,2997);
+			let Vrects[29] = Tuple.new(2744,3274);
+			let Vrects[30] = Tuple.new(2765,3025);
+			let Vrects[31] = Tuple.new(2786,3304);
+			let Vrects[32] = Tuple.new(2805,3065);
+			let Vrects[33] = Tuple.new(3079,3209);
+			let Vrects[34] = Tuple.new(3124,3253);
+			let Vrects[35] = Tuple.new(3149,3279);
+			let Vrects[36] = Tuple.new(3194,3323);
+			let Vrects[37] = Tuple.new(3333,4102);
+			let Vrects[38] = Tuple.new(3342,4112);
+			let Vrects[39] = Tuple.new(3377,3891);
+			let Vrects[40] = Tuple.new(3408,3921);
+			let Vrects[41] = Tuple.new(3443,4212);
+			let Vrects[42] = Tuple.new(3452,3965);
+			let Vrects[43] = Tuple.new(3596,4114);
+			let Vrects[44] = Tuple.new(3622,3891);
+			let Vrects[45] = Tuple.new(3666,3933);
+			let Vrects[46] = Tuple.new(3696,4214);
+			let Vrects[47] = Tuple.new(3999,4133);
+			let Vrects[48] = Tuple.new(4020,4151);
+			let Vrects[49] = Tuple.new(4043,4175);
+			let Vrects[50] = Tuple.new(4062,4196);
+			let Vrects[51] = Tuple.new(4090,4859);
+			let Vrects[52] = Tuple.new(4231,4745);
+			let Vrects[53] = Tuple.new(4250,4382);
+			let Vrects[54] = Tuple.new(4280,4412);
+			let Vrects[55] = Tuple.new(4294,4426);
+			let Vrects[56] = Tuple.new(4325,4456);
+			let Vrects[57] = Tuple.new(4499,4761);
+			let Vrects[58] = Tuple.new(4520,5036);
+			let Vrects[59] = Tuple.new(4541,5317);
+			let Vrects[60] = Tuple.new(4567,5082);
+			let Vrects[61] = Tuple.new(4585,4847);
+			let Vrects[62] = Tuple.new(4874,5010);
+			let Vrects[63] = Tuple.new(4885,5015);
+			let Vrects[64] = Tuple.new(4902,5038);
+			let Vrects[65] = Tuple.new(4918,5068);
+			let Vrects[66] = Tuple.new(4948,5085);
+			let Vrects[67] = Tuple.new(4972,5101);
+			let Vrects[68] = Tuple.new(4976,5113);
+			let Vrects[69] = Tuple.new(5139,5268);
+			let Vrects[70] = Tuple.new(5148,5278);
+			let Vrects[71] = Tuple.new(5169,5301);
+			let Vrects[72] = Tuple.new(5176,5306);
+			let Vrects[73] = Tuple.new(5193,5322);
+			let Vrects[74] = Tuple.new(5197,5329);
+			let Vrects[75] = Tuple.new(5221,5350);
+			let Vrects[76] = Tuple.new(5230,5359);
+			let Vrects[77] = Tuple.new(5393,5650);
+			let Vrects[78] = Tuple.new(5421,5680);
+			let Vrects[79] = Tuple.new(5430,6199);
+			let Vrects[80] = Tuple.new(5451,6220);
+			let Vrects[81] = Tuple.new(5458,5715);
+			let Vrects[82] = Tuple.new(5488,5746);
+			let Vrects[83] = Tuple.new(5779,5908);
+			let Vrects[84] = Tuple.new(5786,7451);
+			let Vrects[85] = Tuple.new(5805,5934);
+			let Vrects[86] = Tuple.new(5844,5974);
+			let Vrects[87] = Tuple.new(5863,6248);
+			let Vrects[88] = Tuple.new(5870,5999);
+			let Vrects[89] = Tuple.new(6037,6171);
+			let Vrects[90] = Tuple.new(6058,6572);
+			let Vrects[91] = Tuple.new(6068,6204);
+			let Vrects[92] = Tuple.new(6079,6209);
+			let Vrects[93] = Tuple.new(6086,6216);
+			let Vrects[94] = Tuple.new(6093,7119);
+			let Vrects[95] = Tuple.new(6103,6616);
+			let Vrects[96] = Tuple.new(6121,6253);
+			let Vrects[97] = Tuple.new(6300,6816);
+			let Vrects[98] = Tuple.new(6317,6581);
+			let Vrects[99] = Tuple.new(6333,6590);
+			let Vrects[100] = Tuple.new(6338,6597);
+			let Vrects[101] = Tuple.new(6345,6602);
+			let Vrects[102] = Tuple.new(6370,6630);
+			let Vrects[103] = Tuple.new(6675,6804);
+			let Vrects[104] = Tuple.new(6689,6818);
+			let Vrects[105] = Tuple.new(6694,6825);
+			let Vrects[106] = Tuple.new(6703,6835);
+			let Vrects[107] = Tuple.new(6710,6842);
+			let Vrects[108] = Tuple.new(6738,8406);
+			let Vrects[109] = Tuple.new(6745,6881);
+			let Vrects[110] = Tuple.new(6929,7058);
+			let Vrects[111] = Tuple.new(6933,7067);
+			let Vrects[112] = Tuple.new(6947,7077);
+			let Vrects[113] = Tuple.new(6954,7086);
+			let Vrects[114] = Tuple.new(6964,7095);
+			let Vrects[115] = Tuple.new(6971,7102);
+			let Vrects[116] = Tuple.new(6987,7130);
+			let Vrects[117] = Tuple.new(7180,7440);
+			let Vrects[118] = Tuple.new(7192,7456);
+			let Vrects[119] = Tuple.new(7208,7465);
+			let Vrects[120] = Tuple.new(7224,7482);
+			let Vrects[121] = Tuple.new(7231,8387);
+			let Vrects[122] = Tuple.new(7236,7498);
+			let Vrects[123] = Tuple.new(7248,8406);
+			let Vrects[124] = Tuple.new(7255,7770);
+			let Vrects[125] = Tuple.new(7559,7691);
+			let Vrects[126] = Tuple.new(7569,7959);
+			let Vrects[127] = Tuple.new(7576,7705);
+			let Vrects[128] = Tuple.new(7599,7731);
+			let Vrects[129] = Tuple.new(7611,8003);
+			let Vrects[130] = Tuple.new(7643,7775);
+			let Vrects[131] = Tuple.new(7650,7782);
+			let Vrects[132] = Tuple.new(7813,7942);
+			let Vrects[133] = Tuple.new(7818,7947);
+			let Vrects[134] = Tuple.new(7822,7959);
+			let Vrects[135] = Tuple.new(7839,7970);
+			let Vrects[136] = Tuple.new(7860,7989);
+			let Vrects[137] = Tuple.new(7876,9541);
+			let Vrects[138] = Tuple.new(7881,8010);
+			let Vrects[139] = Tuple.new(7885,8406);
+			let Vrects[140] = Tuple.new(7904,8033);
+			let Vrects[141] = Tuple.new(7911,8045);
+			let Vrects[142] = Tuple.new(8067,8580);
+			let Vrects[143] = Tuple.new(8076,9485);
+			let Vrects[144] = Tuple.new(8083,8352);
+			let Vrects[145] = Tuple.new(8104,8620);
+			let Vrects[146] = Tuple.new(8118,8380);
+			let Vrects[147] = Tuple.new(8134,8904);
+			let Vrects[148] = Tuple.new(8139,8413);
+			let Vrects[149] = Tuple.new(8165,8678);
+			let Vrects[150] = Tuple.new(8174,8434);
+			let Vrects[151] = Tuple.new(8469,8606);
+			let Vrects[152] = Tuple.new(8486,8873);
+			let Vrects[153] = Tuple.new(8493,8622);
+			let Vrects[154] = Tuple.new(8500,8629);
+			let Vrects[155] = Tuple.new(8514,8904);
+			let Vrects[156] = Tuple.new(8521,8650);
+			let Vrects[157] = Tuple.new(8542,8678);
+			let Vrects[158] = Tuple.new(8558,8687);
+			let Vrects[159] = Tuple.new(8563,8694);
+			let Vrects[160] = Tuple.new(8709,8841);
+			let Vrects[161] = Tuple.new(8718,9232);
+			let Vrects[162] = Tuple.new(8721,8850);
+			let Vrects[163] = Tuple.new(8732,8864);
+			let Vrects[164] = Tuple.new(8739,9253);
+			let Vrects[165] = Tuple.new(8751,8883);
+			let Vrects[166] = Tuple.new(8763,9278);
+			let Vrects[167] = Tuple.new(8788,8918);
+			let Vrects[168] = Tuple.new(8807,8939);
+			let Vrects[169] = Tuple.new(8823,9337);
+			let Vrects[170] = Tuple.new(8970,9232);
+			let Vrects[171] = Tuple.new(8993,9253);
+			let Vrects[172] = Tuple.new(9023,9281);
+			let Vrects[173] = Tuple.new(9042,9811);
+			let Vrects[174] = Tuple.new(9049,10202);
+			let Vrects[175] = Tuple.new(9058,9572);
+			let Vrects[176] = Tuple.new(9068,9327);
+			let Vrects[177] = Tuple.new(9075,9337);
+			let Vrects[178] = Tuple.new(9414,9802);
+			let Vrects[179] = Tuple.new(9419,9555);
+			let Vrects[180] = Tuple.new(9456,9586);
+			let Vrects[181] = Tuple.new(9466,10747);
+			let Vrects[182] = Tuple.new(9610,9739);
+			let Vrects[183] = Tuple.new(9628,10144);
+			let Vrects[184] = Tuple.new(9633,9762);
+			let Vrects[185] = Tuple.new(9680,9818);
+			let Vrects[186] = Tuple.new(9696,10721);
+			let Vrects[187] = Tuple.new(9703,11368);
+			let Vrects[188] = Tuple.new(9715,9844);
+			let Vrects[189] = Tuple.new(9719,9851);
+			let Vrects[190] = Tuple.new(9863,10121);
+			let Vrects[191] = Tuple.new(9868,10125);
+			let Vrects[192] = Tuple.new(9882,10144);
+			let Vrects[193] = Tuple.new(9901,10163);
+			let Vrects[194] = Tuple.new(9926,10184);
+			let Vrects[195] = Tuple.new(9943,10209);
+			let Vrects[196] = Tuple.new(9966,10735);
+			let Vrects[197] = Tuple.new(10245,10630);
+			let Vrects[198] = Tuple.new(10250,11019);
+			let Vrects[199] = Tuple.new(10254,11024);
+			let Vrects[200] = Tuple.new(10282,11052);
+			let Vrects[201] = Tuple.new(10292,11061);
+			let Vrects[202] = Tuple.new(10313,10442);
+			let Vrects[203] = Tuple.new(10331,10468);
+			let Vrects[204] = Tuple.new(10513,11026);
+			let Vrects[205] = Tuple.new(10536,11054);
+			let Vrects[206] = Tuple.new(10557,10691);
+			let Vrects[207] = Tuple.new(10571,10700);
+			let Vrects[208] = Tuple.new(10590,10728);
+			let Vrects[209] = Tuple.new(10613,10742);
+			let Vrects[210] = Tuple.new(10755,11524);
+			let Vrects[211] = Tuple.new(10764,11026);
+			let Vrects[212] = Tuple.new(10790,11061);
+			let Vrects[213] = Tuple.new(10815,11075);
+			let Vrects[214] = Tuple.new(10829,11599);
+			let Vrects[215] = Tuple.new(10834,11094);
+			let Vrects[216] = Tuple.new(10853,11117);
+			let Vrects[217] = Tuple.new(10864,11124);
+			let Vrects[218] = Tuple.new(10871,11129);
+			let Vrects[219] = Tuple.new(11157,11287);
+			let Vrects[220] = Tuple.new(11164,11294);
+			let Vrects[221] = Tuple.new(11220,11352);
+			let Vrects[222] = Tuple.new(11497,12011);
+			let Vrects[223] = Tuple.new(11653,11910);
+			let Vrects[224] = Tuple.new(11658,11917);
+			let Vrects[225] = Tuple.new(11667,12448);
+			let Vrects[226] = Tuple.new(11688,11950);
+			let Vrects[227] = Tuple.new(11723,12236);
+			let Vrects[228] = Tuple.new(11746,12006);
+			let Vrects[229] = Tuple.new(12039,12171);
+			let Vrects[230] = Tuple.new(12046,12448);
+			let Vrects[231] = Tuple.new(12065,12201);
+			let Vrects[232] = Tuple.new(12077,12213);
+			let Vrects[233] = Tuple.new(12095,12227);
+			let Vrects[234] = Tuple.new(12112,12499);
+			let Vrects[235] = Tuple.new(12133,12264);
+			let Vrects[236] = Tuple.new(12140,12525);
+			let Vrects[237] = Tuple.new(12298,12448);
+			let Vrects[238] = Tuple.new(12328,12457);
+			let Vrects[239] = Tuple.new(12333,12462);
+			let Vrects[240] = Tuple.new(12342,12478);
+			let Vrects[241] = Tuple.new(12358,12490);
+			let Vrects[242] = Tuple.new(12391,12520);
+			let Vrects[243] = Tuple.new(12551,13705);
+			let Vrects[244] = Tuple.new(12556,13325);
+			let Vrects[245] = Tuple.new(12561,13076);
+			let Vrects[246] = Tuple.new(12565,12825);
+			let Vrects[247] = Tuple.new(12586,12844);
+			let Vrects[248] = Tuple.new(12603,12862);
+			let Vrects[249] = Tuple.new(12610,13765);
+			let Vrects[250] = Tuple.new(12654,13423);
+			let Vrects[251] = Tuple.new(12984,13370);
+			let Vrects[252] = Tuple.new(12987,13116);
+			let Vrects[253] = Tuple.new(13201,13330);
+			let Vrects[254] = Tuple.new(13208,13337);
+			let Vrects[255] = Tuple.new(13236,13370);
+			let Vrects[256] = Tuple.new(13247,13384);
+			let Vrects[257] = Tuple.new(13454,13712);
+			let Vrects[258] = Tuple.new(13459,13719);
+			let Vrects[259] = Tuple.new(13466,13979);
+			let Vrects[260] = Tuple.new(13480,13993);
+			let Vrects[261] = Tuple.new(13485,13749);
+			let Vrects[262] = Tuple.new(13501,13758);
+			let Vrects[263] = Tuple.new(13510,14024);
+			let Vrects[264] = Tuple.new(13548,14061);
+			let Vrects[265] = Tuple.new(13834,14219);
+			let Vrects[266] = Tuple.new(13841,13970);
+			let Vrects[267] = Tuple.new(13852,13998);
+			let Vrects[268] = Tuple.new(13880,14012);
+			let Vrects[269] = Tuple.new(13892,14024);
+			let Vrects[270] = Tuple.new(13908,14038);
+			let Vrects[271] = Tuple.new(14099,14231);
+			let Vrects[272] = Tuple.new(14129,14263);
+			let Vrects[273] = Tuple.new(14155,15180);
+			let Vrects[274] = Tuple.new(14160,14931);
+			let Vrects[275] = Tuple.new(14183,14315);
+			let Vrects[276] = Tuple.new(14348,14605);
+			let Vrects[277] = Tuple.new(14360,14640);
+			let Vrects[278] = Tuple.new(14388,15541);
+			let Vrects[279] = Tuple.new(14413,14936);
+			let Vrects[280] = Tuple.new(14434,14694);
+			let Vrects[281] = Tuple.new(14441,14955);
+			let Vrects[282] = Tuple.new(14734,15120);
+			let Vrects[283] = Tuple.new(14737,14868);
+			let Vrects[284] = Tuple.new(14746,14878);
+			let Vrects[285] = Tuple.new(14755,14885);
+			let Vrects[286] = Tuple.new(14760,14901);
+			let Vrects[287] = Tuple.new(14793,15180);
+			let Vrects[288] = Tuple.new(14809,14948);
+			let Vrects[289] = Tuple.new(14823,14957);
+			let Vrects[290] = Tuple.new(14997,15513);
+			let Vrects[291] = Tuple.new(15007,15138);
+			let Vrects[292] = Tuple.new(15016,15145);
+			let Vrects[293] = Tuple.new(15023,15152);
+			let Vrects[294] = Tuple.new(15030,15543);
+			let Vrects[295] = Tuple.new(15060,15190);
+			let Vrects[296] = Tuple.new(15067,15197);
+			let Vrects[297] = Tuple.new(15077,15206);
+			let Vrects[298] = Tuple.new(15084,15213);
+			let Vrects[299] = Tuple.new(15249,15518);
+			let Vrects[300] = Tuple.new(15274,15534);
+			let Vrects[301] = Tuple.new(15281,15543);
+			let Vrects[302] = Tuple.new(15295,15553);
+			let Vrects[303] = Tuple.new(15302,15560);
+			let Vrects[304] = Tuple.new(15319,15578);
+			let Vrects[305] = Tuple.new(15326,15588);
+			let Vrects[306] = Tuple.new(15335,15595);
+			let Vrects[307] = Tuple.new(15672,15806);
+			let Vrects[308] = Tuple.new(15682,15813);
+
+		}
+
+		if (owned)
+		{
+			do Sprite.drawSpriteFlipped(Vrects, left, top, 309, 128, 128);
+		}
+		else
+		{
+			do Sprite.drawSprite(Vrects, left, top, 309, 128, 128);
+		}
+		return;
+		
+	}
+
+	function void drawOak(int left, int top)
+	{
+		if (Orects = null)
+		{
+			let Orects = Array.new(142);
+
+			let Orects[0] = Tuple.new(814,945);
+			let Orects[1] = Tuple.new(824,953);
+			let Orects[2] = Tuple.new(1068,1197);
+			let Orects[3] = Tuple.new(1074,1207);
+			let Orects[4] = Tuple.new(1082,1219);
+			let Orects[5] = Tuple.new(1326,1455);
+			let Orects[6] = Tuple.new(1348,1481);
+			let Orects[7] = Tuple.new(1576,1709);
+			let Orects[8] = Tuple.new(1610,1739);
+			let Orects[9] = Tuple.new(1834,1963);
+			let Orects[10] = Tuple.new(1868,3021);
+			let Orects[11] = Tuple.new(2092,2221);
+			let Orects[12] = Tuple.new(2098,2233);
+			let Orects[13] = Tuple.new(2110,2247);
+			let Orects[14] = Tuple.new(2346,2475);
+			let Orects[15] = Tuple.new(2352,3249);
+			let Orects[16] = Tuple.new(2362,2491);
+			let Orects[17] = Tuple.new(2366,2495);
+			let Orects[18] = Tuple.new(2374,2503);
+			let Orects[19] = Tuple.new(2604,2733);
+			let Orects[20] = Tuple.new(2620,2749);
+			let Orects[21] = Tuple.new(2632,3273);
+			let Orects[22] = Tuple.new(2862,3249);
+			let Orects[23] = Tuple.new(3122,3509);
+			let Orects[24] = Tuple.new(3130,3515);
+			let Orects[25] = Tuple.new(3140,3527);
+			let Orects[26] = Tuple.new(3146,3275);
+			let Orects[27] = Tuple.new(3372,4013);
+			let Orects[28] = Tuple.new(3382,3511);
+			let Orects[29] = Tuple.new(3390,3777);
+			let Orects[30] = Tuple.new(3394,3527);
+			let Orects[31] = Tuple.new(3404,4045);
+			let Orects[32] = Tuple.new(3632,4529);
+			let Orects[33] = Tuple.new(3636,4021);
+			let Orects[34] = Tuple.new(3640,4025);
+			let Orects[35] = Tuple.new(3652,4037);
+			let Orects[36] = Tuple.new(3894,4025);
+			let Orects[37] = Tuple.new(3904,4037);
+			let Orects[38] = Tuple.new(4142,4273);
+			let Orects[39] = Tuple.new(4154,4283);
+			let Orects[40] = Tuple.new(4168,4299);
+			let Orects[41] = Tuple.new(4402,4787);
+			let Orects[42] = Tuple.new(4416,4545);
+			let Orects[43] = Tuple.new(4424,4553);
+			let Orects[44] = Tuple.new(4664,4799);
+			let Orects[45] = Tuple.new(4678,4807);
+			let Orects[46] = Tuple.new(4916,5301);
+			let Orects[47] = Tuple.new(4932,5829);
+			let Orects[48] = Tuple.new(5170,5303);
+			let Orects[49] = Tuple.new(5186,5319);
+			let Orects[50] = Tuple.new(5422,5553);
+			let Orects[51] = Tuple.new(5432,6075);
+			let Orects[52] = Tuple.new(5436,5569);
+			let Orects[53] = Tuple.new(5448,5577);
+			let Orects[54] = Tuple.new(5674,6061);
+			let Orects[55] = Tuple.new(5686,6075);
+			let Orects[56] = Tuple.new(5706,5837);
+			let Orects[57] = Tuple.new(5928,6063);
+			let Orects[58] = Tuple.new(5948,6083);
+			let Orects[59] = Tuple.new(5962,7115);
+			let Orects[60] = Tuple.new(5966,6097);
+			let Orects[61] = Tuple.new(6184,6825);
+			let Orects[62] = Tuple.new(6192,6323);
+			let Orects[63] = Tuple.new(6198,6329);
+			let Orects[64] = Tuple.new(6212,8389);
+			let Orects[65] = Tuple.new(6226,6611);
+			let Orects[66] = Tuple.new(6442,7853);
+			let Orects[67] = Tuple.new(6452,6837);
+			let Orects[68] = Tuple.new(6460,8389);
+			let Orects[69] = Tuple.new(6470,6859);
+			let Orects[70] = Tuple.new(6694,6859);
+			let Orects[71] = Tuple.new(6740,7637);
+			let Orects[72] = Tuple.new(6950,7079);
+			let Orects[73] = Tuple.new(6958,7091);
+			let Orects[74] = Tuple.new(6968,7621);
+			let Orects[75] = Tuple.new(6994,7125);
+			let Orects[76] = Tuple.new(7204,7845);
+			let Orects[77] = Tuple.new(7216,7601);
+			let Orects[78] = Tuple.new(7222,7621);
+			let Orects[79] = Tuple.new(7244,7373);
+			let Orects[80] = Tuple.new(7248,10193);
+			let Orects[81] = Tuple.new(7476,7621);
+			let Orects[82] = Tuple.new(7498,7883);
+			let Orects[83] = Tuple.new(7714,7855);
+			let Orects[84] = Tuple.new(7766,8663);
+			let Orects[85] = Tuple.new(7970,8099);
+			let Orects[86] = Tuple.new(7980,8621);
+			let Orects[87] = Tuple.new(7990,8133);
+			let Orects[88] = Tuple.new(8008,8393);
+			let Orects[89] = Tuple.new(8224,8865);
+			let Orects[90] = Tuple.new(8248,8637);
+			let Orects[91] = Tuple.new(8494,9137);
+			let Orects[92] = Tuple.new(8514,14019);
+			let Orects[93] = Tuple.new(8518,8903);
+			let Orects[94] = Tuple.new(8754,9395);
+			let Orects[95] = Tuple.new(8758,9143);
+			let Orects[96] = Tuple.new(8772,8903);
+			let Orects[97] = Tuple.new(8792,9433);
+			let Orects[98] = Tuple.new(8994,9123);
+			let Orects[99] = Tuple.new(9012,9143);
+			let Orects[100] = Tuple.new(9028,9413);
+			let Orects[101] = Tuple.new(9252,9389);
+			let Orects[102] = Tuple.new(9268,14261);
+			let Orects[103] = Tuple.new(9512,10153);
+			let Orects[104] = Tuple.new(9518,9649);
+			let Orects[105] = Tuple.new(9526,14265);
+			let Orects[106] = Tuple.new(9534,12739);
+			let Orects[107] = Tuple.new(9558,9943);
+			let Orects[108] = Tuple.new(9786,9923);
+			let Orects[109] = Tuple.new(10060,10193);
+			let Orects[110] = Tuple.new(10068,10197);
+			let Orects[111] = Tuple.new(10278,12455);
+			let Orects[112] = Tuple.new(10282,10413);
+			let Orects[113] = Tuple.new(10298,11461);
+			let Orects[114] = Tuple.new(10314,12235);
+			let Orects[115] = Tuple.new(10322,12499);
+			let Orects[116] = Tuple.new(10542,12207);
+			let Orects[117] = Tuple.new(11578,12731);
+			let Orects[118] = Tuple.new(11588,14533);
+			let Orects[119] = Tuple.new(11816,11945);
+			let Orects[120] = Tuple.new(11856,11987);
+			let Orects[121] = Tuple.new(12074,12207);
+			let Orects[122] = Tuple.new(12108,12239);
+			let Orects[123] = Tuple.new(12338,14265);
+			let Orects[124] = Tuple.new(12584,12715);
+			let Orects[125] = Tuple.new(12622,12753);
+			let Orects[126] = Tuple.new(12842,13753);
+			let Orects[127] = Tuple.new(12864,14031);
+			let Orects[128] = Tuple.new(13864,14761);
+			let Orects[129] = Tuple.new(13868,14267);
+			let Orects[130] = Tuple.new(13904,14801);
+			let Orects[131] = Tuple.new(14122,14267);
+			let Orects[132] = Tuple.new(14142,14271);
+			let Orects[133] = Tuple.new(14150,14289);
+			let Orects[134] = Tuple.new(14386,14515);
+			let Orects[135] = Tuple.new(14392,14521);
+			let Orects[136] = Tuple.new(14400,14533);
+			let Orects[137] = Tuple.new(14414,14545);
+			let Orects[138] = Tuple.new(14644,14775);
+			let Orects[139] = Tuple.new(14658,14787);
+			let Orects[140] = Tuple.new(14890,15027);
+			let Orects[141] = Tuple.new(14916,15055);
+
+		}
+
+		do Sprite.drawSprite(Orects, left, top, 142, 128, 128);
+		return;
+	}
+
+	function void drawGary(int left, int top)
+	{
+		if (Grects = null)
+		{
+			let Grects = Array.new(168);
+
+			let Grects[0] = Tuple.new(1830,2215);
+			let Grects[1] = Tuple.new(2088,2475);
+			let Grects[2] = Tuple.new(2348,5807);
+			let Grects[3] = Tuple.new(2602,2737);
+			let Grects[4] = Tuple.new(2864,4533);
+			let Grects[5] = Tuple.new(3108,4787);
+			let Grects[6] = Tuple.new(3126,4791);
+			let Grects[7] = Tuple.new(3130,5053);
+			let Grects[8] = Tuple.new(3360,4031);
+			let Grects[9] = Tuple.new(3612,4033);
+			let Grects[10] = Tuple.new(3864,4035);
+			let Grects[11] = Tuple.new(4124,4255);
+			let Grects[12] = Tuple.new(4130,5041);
+			let Grects[13] = Tuple.new(4152,5059);
+			let Grects[14] = Tuple.new(4384,5543);
+			let Grects[15] = Tuple.new(4420,8389);
+			let Grects[16] = Tuple.new(4638,5543);
+			let Grects[17] = Tuple.new(4678,6087);
+			let Grects[18] = Tuple.new(4892,5797);
+			let Grects[19] = Tuple.new(4936,5579);
+			let Grects[20] = Tuple.new(5162,5297);
+			let Grects[21] = Tuple.new(5176,5305);
+			let Grects[22] = Tuple.new(5180,5579);
+			let Grects[23] = Tuple.new(5196,5325);
+			let Grects[24] = Tuple.new(5402,5797);
+			let Grects[25] = Tuple.new(5416,5545);
+			let Grects[26] = Tuple.new(5424,5553);
+			let Grects[27] = Tuple.new(5430,5559);
+			let Grects[28] = Tuple.new(5674,5807);
+			let Grects[29] = Tuple.new(5682,5813);
+			let Grects[30] = Tuple.new(5694,6079);
+			let Grects[31] = Tuple.new(5698,6087);
+			let Grects[32] = Tuple.new(5918,6307);
+			let Grects[33] = Tuple.new(5924,6053);
+			let Grects[34] = Tuple.new(5932,6317);
+			let Grects[35] = Tuple.new(5940,6325);
+			let Grects[36] = Tuple.new(5960,6091);
+			let Grects[37] = Tuple.new(6182,6823);
+			let Grects[38] = Tuple.new(6210,8133);
+			let Grects[39] = Tuple.new(6220,7117);
+			let Grects[40] = Tuple.new(6432,6561);
+			let Grects[41] = Tuple.new(6462,7111);
+			let Grects[42] = Tuple.new(6472,6857);
+			let Grects[43] = Tuple.new(6704,6835);
+			let Grects[44] = Tuple.new(6716,6861);
+			let Grects[45] = Tuple.new(6952,7083);
+			let Grects[46] = Tuple.new(6962,7091);
+			let Grects[47] = Tuple.new(6970,7099);
+			let Grects[48] = Tuple.new(6990,7119);
+			let Grects[49] = Tuple.new(7208,7593);
+			let Grects[50] = Tuple.new(7212,8877);
+			let Grects[51] = Tuple.new(7222,7353);
+			let Grects[52] = Tuple.new(7232,8135);
+			let Grects[53] = Tuple.new(7248,7889);
+			let Grects[54] = Tuple.new(7462,7593);
+			let Grects[55] = Tuple.new(7470,7857);
+			let Grects[56] = Tuple.new(7474,7605);
+			let Grects[57] = Tuple.new(7718,7847);
+			let Grects[58] = Tuple.new(7722,8367);
+			let Grects[59] = Tuple.new(7742,7879);
+			let Grects[60] = Tuple.new(7766,7897);
+			let Grects[61] = Tuple.new(7972,8357);
+			let Grects[62] = Tuple.new(7988,8125);
+			let Grects[63] = Tuple.new(8018,8405);
+			let Grects[64] = Tuple.new(8026,8923);
+			let Grects[65] = Tuple.new(8254,8383);
+			let Grects[66] = Tuple.new(8262,9161);
+			let Grects[67] = Tuple.new(8272,8405);
+			let Grects[68] = Tuple.new(8474,8605);
+			let Grects[69] = Tuple.new(8480,8611);
+			let Grects[70] = Tuple.new(8494,9135);
+			let Grects[71] = Tuple.new(8508,8893);
+			let Grects[72] = Tuple.new(8512,8899);
+			let Grects[73] = Tuple.new(8526,8913);
+			let Grects[74] = Tuple.new(8532,8919);
+			let Grects[75] = Tuple.new(8728,8857);
+			let Grects[76] = Tuple.new(8734,9119);
+			let Grects[77] = Tuple.new(8738,9123);
+			let Grects[78] = Tuple.new(8746,8881);
+			let Grects[79] = Tuple.new(8778,9421);
+			let Grects[80] = Tuple.new(8786,9173);
+			let Grects[81] = Tuple.new(8792,8923);
+			let Grects[82] = Tuple.new(8982,9367);
+			let Grects[83] = Tuple.new(8988,9119);
+			let Grects[84] = Tuple.new(9002,9131);
+			let Grects[85] = Tuple.new(9008,9393);
+			let Grects[86] = Tuple.new(9022,9151);
+			let Grects[87] = Tuple.new(9028,9165);
+			let Grects[88] = Tuple.new(9040,9173);
+			let Grects[89] = Tuple.new(9048,9433);
+			let Grects[90] = Tuple.new(9052,9183);
+			let Grects[91] = Tuple.new(9242,9371);
+			let Grects[92] = Tuple.new(9248,9889);
+			let Grects[93] = Tuple.new(9256,9385);
+			let Grects[94] = Tuple.new(9280,9411);
+			let Grects[95] = Tuple.new(9288,9421);
+			let Grects[96] = Tuple.new(9312,9697);
+			let Grects[97] = Tuple.new(9496,9881);
+			let Grects[98] = Tuple.new(9500,9633);
+			let Grects[99] = Tuple.new(9510,9895);
+			let Grects[100] = Tuple.new(9522,9907);
+			let Grects[101] = Tuple.new(9546,10187);
+			let Grects[102] = Tuple.new(9550,9679);
+			let Grects[103] = Tuple.new(9558,9687);
+			let Grects[104] = Tuple.new(9562,9947);
+			let Grects[105] = Tuple.new(9808,9941);
+			let Grects[106] = Tuple.new(9820,9951);
+			let Grects[107] = Tuple.new(10010,10143);
+			let Grects[108] = Tuple.new(10020,10149);
+			let Grects[109] = Tuple.new(10036,10165);
+			let Grects[110] = Tuple.new(10060,10189);
+			let Grects[111] = Tuple.new(10076,10461);
+			let Grects[112] = Tuple.new(10266,10395);
+			let Grects[113] = Tuple.new(10274,10403);
+			let Grects[114] = Tuple.new(10290,12467);
+			let Grects[115] = Tuple.new(10308,10441);
+			let Grects[116] = Tuple.new(10318,10447);
+			let Grects[117] = Tuple.new(10324,10455);
+			let Grects[118] = Tuple.new(10524,10657);
+			let Grects[119] = Tuple.new(10550,10691);
+			let Grects[120] = Tuple.new(10566,10695);
+			let Grects[121] = Tuple.new(10570,10701);
+			let Grects[122] = Tuple.new(10580,10709);
+			let Grects[123] = Tuple.new(10584,10715);
+			let Grects[124] = Tuple.new(10804,12213);
+			let Grects[125] = Tuple.new(10818,12483);
+			let Grects[126] = Tuple.new(10824,13769);
+			let Grects[127] = Tuple.new(10830,10963);
+			let Grects[128] = Tuple.new(11054,11961);
+			let Grects[129] = Tuple.new(11066,11709);
+			let Grects[130] = Tuple.new(11088,11473);
+			let Grects[131] = Tuple.new(11308,12213);
+			let Grects[132] = Tuple.new(11326,11715);
+			let Grects[133] = Tuple.new(11338,13775);
+			let Grects[134] = Tuple.new(11562,12467);
+			let Grects[135] = Tuple.new(11588,13263);
+			let Grects[136] = Tuple.new(11816,12719);
+			let Grects[137] = Tuple.new(11840,11983);
+			let Grects[138] = Tuple.new(12070,13229);
+			let Grects[139] = Tuple.new(12324,13229);
+			let Grects[140] = Tuple.new(12834,13739);
+			let Grects[141] = Tuple.new(12880,14801);
+			let Grects[142] = Tuple.new(13344,13739);
+			let Grects[143] = Tuple.new(13382,13523);
+			let Grects[144] = Tuple.new(13598,13739);
+			let Grects[145] = Tuple.new(13650,13781);
+			let Grects[146] = Tuple.new(13852,14237);
+			let Grects[147] = Tuple.new(13858,13991);
+			let Grects[148] = Tuple.new(13866,14507);
+			let Grects[149] = Tuple.new(13898,14539);
+			let Grects[150] = Tuple.new(13910,15063);
+			let Grects[151] = Tuple.new(14116,14501);
+			let Grects[152] = Tuple.new(14366,14495);
+			let Grects[153] = Tuple.new(14418,15063);
+			let Grects[154] = Tuple.new(14620,14749);
+			let Grects[155] = Tuple.new(14624,14755);
+			let Grects[156] = Tuple.new(14630,14761);
+			let Grects[157] = Tuple.new(14668,14809);
+			let Grects[158] = Tuple.new(14874,15259);
+			let Grects[159] = Tuple.new(14888,15017);
+			let Grects[160] = Tuple.new(14926,15055);
+			let Grects[161] = Tuple.new(14936,15067);
+			let Grects[162] = Tuple.new(15140,15271);
+			let Grects[163] = Tuple.new(15184,15313);
+			let Grects[164] = Tuple.new(15194,15579);
+			let Grects[165] = Tuple.new(15388,15523);
+			let Grects[166] = Tuple.new(15442,15571);
+			let Grects[167] = Tuple.new(15700,15833);
+
+		}
+
+		do Sprite.drawSprite(Grects, left, top, 168, 128, 128);
+		return;
+	}
+
+	function void drawAsh(int left, int top)
+	{
+		if (Lrects = null)
+		{
+			let Lrects = Array.new(78);
+			let Lrects[0] = Tuple.new(2612,3003);
+			let Lrects[1] = Tuple.new(2620,2765);
+			let Lrects[2] = Tuple.new(2892,3025);
+			let Lrects[3] = Tuple.new(3116,3507);
+			let Lrects[4] = Tuple.new(3152,3283);
+			let Lrects[5] = Tuple.new(3410,3543);
+			let Lrects[6] = Tuple.new(3620,4011);
+			let Lrects[7] = Tuple.new(3670,4055);
+			let Lrects[8] = Tuple.new(3928,5593);
+			let Lrects[9] = Tuple.new(4128,4515);
+			let Lrects[10] = Tuple.new(4186,5595);
+			let Lrects[11] = Tuple.new(4636,6047);
+			let Lrects[12] = Tuple.new(5212,5603);
+			let Lrects[13] = Tuple.new(5732,6119);
+			let Lrects[14] = Tuple.new(6176,8097);
+			let Lrects[15] = Tuple.new(6184,6579);
+			let Lrects[16] = Tuple.new(6236,6627);
+			let Lrects[17] = Tuple.new(6690,8099);
+			let Lrects[18] = Tuple.new(6720,8647);
+			let Lrects[19] = Tuple.new(6728,7131);
+			let Lrects[20] = Tuple.new(7204,8647);
+			let Lrects[21] = Tuple.new(7244,8655);
+			let Lrects[22] = Tuple.new(7252,7643);
+			let Lrects[23] = Tuple.new(7764,8151);
+			let Lrects[24] = Tuple.new(8280,9179);
+			let Lrects[25] = Tuple.new(8744,9155);
+			let Lrects[26] = Tuple.new(8776,9163);
+			let Lrects[27] = Tuple.new(9260,9659);
+			let Lrects[28] = Tuple.new(9300,9687);
+			let Lrects[29] = Tuple.new(9756,10159);
+			let Lrects[30] = Tuple.new(9788,10179);
+			let Lrects[31] = Tuple.new(9804,10195);
+			let Lrects[32] = Tuple.new(10260,10651);
+			let Lrects[33] = Tuple.new(10288,10683);
+			let Lrects[34] = Tuple.new(10308,10699);
+			let Lrects[35] = Tuple.new(10768,11667);
+			let Lrects[36] = Tuple.new(10808,11199);
+			let Lrects[37] = Tuple.new(10820,11207);
+			let Lrects[38] = Tuple.new(10828,11219);
+			let Lrects[39] = Tuple.new(11316,11707);
+			let Lrects[40] = Tuple.new(11328,13251);
+			let Lrects[41] = Tuple.new(11348,11735);
+			let Lrects[42] = Tuple.new(11788,15247);
+			let Lrects[43] = Tuple.new(11800,12191);
+			let Lrects[44] = Tuple.new(11824,12723);
+			let Lrects[45] = Tuple.new(11856,12243);
+			let Lrects[46] = Tuple.new(11864,12251);
+			let Lrects[47] = Tuple.new(11876,12271);
+			let Lrects[48] = Tuple.new(12304,15767);
+			let Lrects[49] = Tuple.new(12320,16291);
+			let Lrects[50] = Tuple.new(12364,12751);
+			let Lrects[51] = Tuple.new(12380,12771);
+			let Lrects[52] = Tuple.new(12400,13299);
+			let Lrects[53] = Tuple.new(12808,14255);
+			let Lrects[54] = Tuple.new(12872,13771);
+			let Lrects[55] = Tuple.new(12892,13279);
+			let Lrects[56] = Tuple.new(13372,14271);
+			let Lrects[57] = Tuple.new(13408,13799);
+			let Lrects[58] = Tuple.new(13428,14839);
+			let Lrects[59] = Tuple.new(13888,14279);
+			let Lrects[60] = Tuple.new(13920,15843);
+			let Lrects[61] = Tuple.new(13928,14315);
+			let Lrects[62] = Tuple.new(14360,16303);
+			let Lrects[63] = Tuple.new(14392,15291);
+			let Lrects[64] = Tuple.new(14404,14791);
+			let Lrects[65] = Tuple.new(14444,15343);
+			let Lrects[66] = Tuple.new(14912,15299);
+			let Lrects[67] = Tuple.new(14920,15307);
+			let Lrects[68] = Tuple.new(14952,15347);
+			let Lrects[69] = Tuple.new(15408,15799);
+			let Lrects[70] = Tuple.new(15420,15807);
+			let Lrects[71] = Tuple.new(15428,15815);
+			let Lrects[72] = Tuple.new(15436,15823);
+			let Lrects[73] = Tuple.new(15452,15847);
+			let Lrects[74] = Tuple.new(15924,16311);
+			let Lrects[75] = Tuple.new(15936,16323);
+			let Lrects[76] = Tuple.new(15952,16351);
+			let Lrects[77] = Tuple.new(16176,16323);
+
+		}
+
+		do Sprite.drawSprite(Lrects, left, top, 78, 128, 128);
+		return;
+
+	}
+
+}

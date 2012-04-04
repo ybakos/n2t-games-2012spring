@@ -1,0 +1,18 @@
+class Deck {
+
+	
+
+
+	constructor Deck new()
+	{
+		return this;
+	}
+
+	function int nextCard()
+	{
+		//returns a value in the set 2-14
+		var int rand;
+		let rand = Random.between(2,15);
+		return rand;
+	}
+}

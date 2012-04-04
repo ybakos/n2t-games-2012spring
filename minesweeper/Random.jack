@@ -1,0 +1,29 @@
+class Random {
+    field int state;
+    
+    constructor Random new(int seed) {
+        let state = seed;
+        
+        return this;
+    }
+    
+    method int nextRange(int min, int max) {
+        return Random.mod(next(), (max - min)) + min;
+    }
+    
+    method int next() {
+        let state = state * 16807;
+        
+        return state;
+    }
+    
+    function int mod(int a, int b) {
+        let a = Math.abs(a);
+        
+        while(~(a < b)) {
+            let a = a - b;
+        }
+        
+        return a;
+    }
+}

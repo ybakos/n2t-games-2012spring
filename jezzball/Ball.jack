@@ -1,0 +1,84 @@
+class Ball
+{
+	field int x, y; // positions within the grid, not screen pixels
+	field int xVelocity, yVelocity;
+	field Map map;
+
+	constructor Ball new(int setX, int setY, Map setMap) {
+		let x = setX;
+		let y = setY;
+		let map = setMap;
+
+		if (Random.between(0, 100) > 50) {
+			let xVelocity = 1;
+		} else {
+			let xVelocity = -1;
+		}
+
+		if (Random.between(0, 100) > 50) {
+			let yVelocity = 1;
+		} else {
+			let yVelocity = -1;
+		}
+
+		return this;
+	}
+
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void draw() {
+		do Display.drawCircle(x, y);
+		return;
+	}
+
+	method void move() {
+		do Screen.setColor(false);
+		do draw();
+		let x = x + xVelocity;
+		let y = y + yVelocity;
+		do Screen.setColor(true);
+		do draw();
+		return;
+	}
+
+	method void handleCollisions() {
+		if (map.blockAt(x + xVelocity, y)) {
+			let xVelocity = -xVelocity;
+			if (map.blockAt(x + xVelocity, y)) {
+				let xVelocity = 0;
+			}
+		}
+
+		if (map.blockAt(x, y + yVelocity)) {
+			let yVelocity = -yVelocity;
+			if (map.blockAt(x, y + yVelocity)) {
+				let yVelocity = 0;
+			}
+		}
+
+		if (map.blockAt(x + xVelocity, y + yVelocity)) {
+			let xVelocity = -xVelocity;
+			let yVelocity = -yVelocity;
+		}
+		return;
+	}
+
+	method boolean collideWithWall(Wall wall) {
+		if (wall.vertical()) {
+			return wall.containsBlock(x + xVelocity, y);
+		} else {
+			return wall.containsBlock(x, y + yVelocity);
+		}
+	}
+
+	method int getX() {
+		return x;
+	}
+
+	method int getY() {
+		return y;
+	}
+}

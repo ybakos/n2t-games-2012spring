@@ -1,0 +1,22 @@
+6 objects (7 if include Hole)
+	Guy / half done
+	Boulder /done/done
+	Ice /done/done
+	Start /done
+	End/done
+	Ground /done/done
+	(Hole) /done
+
+classes
+	Main/part done
+	Guy	/part done
+	Boulder/done
+	Ice/done
+	Start/done
+	End/done
+	(Hole)/done
+	Board/part done
+	Ground/done
+	(Start Screen)
+	(Tutoral)
+	(Levels)

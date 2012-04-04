@@ -1,0 +1,73 @@
+/**
+ * This is the main gameplay file. It is based off of 
+ * SquareGame.jack. A simple while loop that looks for 
+ * whether cetain keys are pressed. 
+ */
+class Game {
+    // The square
+    field Plane p1;
+    constructor Game new() {
+        let p1 = Plane.new(124, 124);
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do p1.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Starts the game. */
+    method void run() {
+        var char key;
+        var boolean gameOver;
+        var int moveType;
+
+        let gameOver = false;
+		
+		do Screen.clearScreen();
+		do Output.moveCursor(0, 0);
+		do Output.printString("Arrows to move, q to quit");
+		do drawBorder();		
+        while (~gameOver) {
+            let key = Keyboard.keyPressed();
+            let moveType = 0;
+            if (key = 81) {
+                let gameOver = true;
+            }
+            if (key = 131) {	//up
+            	let moveType=1;
+            }
+            if (key = 133) {	//down
+				let moveType=2;
+            }
+            if (key = 130) {	//left
+            	let moveType=3;
+            }
+            if (key = 132) {	//right
+            	let moveType=4;
+            }
+            
+            do p1.move(moveType);
+            do drawBorder();
+            do Sys.wait(100);
+        }
+        
+        do Screen.clearScreen();
+        do Output.moveCursor(10, 20);		
+		do Output.printString("Thanks for playing DOG FIGHT");
+		do Output.moveCursor(13, 20);
+		do Output.printString("by Joshua Lamson");
+        return;
+	}
+	
+	method void drawBorder() {
+		do Screen.drawLine(16, 16, 496, 16);
+		do Screen.drawLine(16, 16, 16, 240);
+		do Screen.drawLine(496, 240, 16, 240);
+		do Screen.drawLine(496, 240, 496, 16);
+		return;
+	}
+}

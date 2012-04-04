@@ -1,0 +1,55 @@
+// a class for generating random numbers, via an LCG
+class Random {
+   static int a;
+   static int c;
+   static int seed;
+
+   // returns a random integer
+   function int rand() {
+      // actual algorithm is (a * seed + c) % m
+      let seed = a * seed + c;
+      return seed;
+   }
+
+   // returns either true or false, with a uniform distribution
+   function boolean randBoolean() {
+      var int random;
+
+      let random = Random.rand();
+      if(((random / 2) * 2) = random) {
+         // divisible by 2; 0
+         return false;
+      }
+      else {
+         // not divisible by 2; 1
+         return true;
+      }
+   }
+
+   // returns a % b
+   function int mod(int a, int b) {
+      return a - ((a / b) * b);
+   }
+
+   // returns a random integer on [a, b)
+   // this function is NOT uniform
+   // b must be greater than a
+   function int randInt(int a, int b) {
+      // get a positive (or 0) random number
+      var int rand;
+      let rand = Random.rand();
+      if(rand < 0) {
+         let rand = 0 - rand;
+      }
+
+      // put it in bounds of the range
+      return a + Random.mod(rand, b - a);
+   }
+
+   function void setSeed(int sseed) {
+      let a = 3511;
+      let c = 911;
+      let seed = sseed;
+      return;
+   }
+}

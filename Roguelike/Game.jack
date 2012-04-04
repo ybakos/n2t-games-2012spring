@@ -1,0 +1,331 @@
+class Game {
+
+	field int num_rows;
+	field int num_cols;
+	field int top_bound;
+	field int bottom_bound;
+	field int left_bound;
+	field int right_bound;
+
+	field int player_x;
+	field int player_y;
+
+	field boolean drawn;
+
+	field Guy player;
+	field McGuffin mcguffin_1;
+	field McGuffin mcguffin_2;
+	field McGuffin mcguffin_3;
+
+	constructor Game new() {
+		let num_cols = 48;
+		let num_rows = 23;
+		let player_x = 32;
+		let player_y = 12;
+
+		let top_bound = 2;
+		let bottom_bound = 20;
+		let left_bound = 8;
+		let right_bound = 55;
+
+		let drawn = false;
+		let player = Guy.new();
+
+		let mcguffin_1 = McGuffin.new(42, 18);
+		let mcguffin_2 = McGuffin.new(9, 8);
+		let mcguffin_3 = McGuffin.new(16, 12);
+
+		return this;
+	}
+
+	method void run() { 
+        var char key;
+        var boolean exit;
+        var int player_x, player_y, tx, ty;
+
+        let exit = false;
+        
+        do print_splash_screen();
+        while (~exit) {
+        	let player_x = player.get_player_x(); 
+	        let player_y = player.get_player_y();
+	        let tx = player_x;
+	        let ty = player_y;
+
+            // waits for a key to be pressed.
+            if (player.get_mcguffins() = 3) {
+            	let exit = true;
+            }
+
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+                //do moveSquare();
+            }
+
+            if (key = 81) {
+                let exit = true;
+            }
+            if (key = 131) {
+                let ty = player_y - 1;
+                if (ty > top_bound) {
+                	do player.move_up();	
+                }
+            }
+            if (key = 133) {
+                let ty = player_y + 1;
+                if (ty < bottom_bound) {
+                	do player.move_down();
+                }
+            }
+            if (key = 130) {
+	            let tx = player_x - 1;
+				if (tx > left_bound) {
+	            	do player.move_left();
+	            }
+            }
+            if (key = 132) {
+            	let tx = player_x + 1;
+            	if (tx < right_bound) {
+            		do player.move_right();
+            	}
+            }
+
+            // waits for the key to be released.
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                
+                if (~drawn) {
+					do print_map();
+		        	do print_mcguffins();
+                	let drawn = true;
+                }
+                do print_guy();
+                do check_mcguffin_gettery();
+            }
+        }
+            
+        do print_end_screen(player.get_mcguffins());
+        return;
+	}
+
+	method void print_splash_screen() {
+		do Output.printString("The Hacklike Roguelike");
+		do Output.println();
+		do Output.printString("An epic tale of McGuffin gettery in one part");
+		do Output.println();
+		do Output.printString("By Mitchell Wright and Brian Holland");
+		do Output.println();
+		do Output.println();
+		do Output.printString("Starring:");
+		do Output.println();
+		do Output.printString("'@' - you");
+		do Output.println();
+		do Output.printString("'M' - various succulent McGuffins");
+		do Output.println();
+		do Output.println();
+		do Output.printString("Use the arrow keys to move. Collide with the ");
+		do Output.println();
+		do Output.printString("McGuffins to GET them.");
+		do Output.println();
+		do Output.printString("Press the Spacebar to play.");
+		return;
+
+	}
+
+	function void draw_bounding_box() {
+		//Top
+		do Screen.drawLine(64, 32, 448, 32);
+
+		//Bottom
+		do Screen.drawLine(64, 224, 448, 224);
+
+		//Left
+		do Screen.drawLine(64, 32, 64, 224);
+
+		//Right
+		do Screen.drawLine(448, 32, 448, 224);
+		return;
+
+	}
+
+	method void print_end_screen(int player_score) {
+		do Output.moveCursor(0, 0);
+		do Screen.clearScreen();
+
+		do Output.printString("You collected ");
+		do Output.printInt( player_score );
+		do Output.printString(" McGuffins!");
+		do Output.println();
+
+		do Output.printString("Have a trophy!");
+		do Output.println();
+		do Output.println();
+		do Output.printString("   ----------");
+		do Output.println();
+		do Output.printString("   \\        /");
+		do Output.println();
+		do Output.printString("     \\    /");
+		do Output.println();
+		do Output.printString("      \\  / ");
+		do Output.println();
+		do Output.printString("       ==");
+		do Output.println();
+		do Output.printString("       ||");
+		do Output.println();
+		do Output.printString("      /  \\");
+		do Output.println();
+		do Output.printString("     ------");
+		do Output.println();
+
+		return;
+	}
+
+	method void print_map() {
+		var int i, j;
+
+		var String mapstring;
+		let mapstring = "                                                                ";
+
+		let player_x = player.get_player_x();
+		let player_y = player.get_player_y();
+
+		let i = 0;
+		let j = 0;
+
+		do Output.moveCursor(0, 0);
+
+		while (j < num_rows) {
+			if (j = 2) {
+				let mapstring = "        ||||||||||||||||||||||||||||||||||||||||||||||||        ";
+			} else {
+				if (j = 20) {
+					let mapstring = "        ||||||||||||||||||||||||||||||||||||||||||||||||        ";
+				} else {
+					if (j > 2) {
+						if (j < 20) {
+							let mapstring = "        |                                              |        ";
+						} else {
+							let mapstring = "                                                                ";
+						}
+					} else {
+						let mapstring = "                                                                ";
+					}
+				}
+			}
+
+			do Output.printString(mapstring);
+			let i = 0;
+			let j = j + 1;
+
+			do mapstring.dispose();
+		}
+		
+		return;
+	}
+
+	method void print_getted_message() {
+		do Output.moveCursor(0, 0);
+		do Output.printString("You GETTED a McGuffin! You now have ");
+		do Output.printInt( player.get_mcguffins() );
+		do Output.printString(" McGuffins.");
+		return;
+	}
+
+	method void print_guy() {
+		var int player_x, player_y;
+		var int previous_x, previous_y;
+		let player_x = player.get_player_x();
+		let player_y = player.get_player_y();
+		let previous_x = player.get_previous_x();
+		let previous_y = player.get_previous_y();
+
+		do Output.moveCursor(previous_y, previous_x);
+		do Output.moveCursor(player_y, player_x);
+		do Output.printChar(64);
+		
+		return;
+	}
+
+	method void print_mcguffins() {
+		var int x, y;
+
+		//1:
+		let x = mcguffin_1.get_x();
+		let y = mcguffin_1.get_y();
+
+		do Output.moveCursor(y, x);
+		do Output.printChar(77);
+
+		//2:
+		let x = mcguffin_2.get_x();
+		let y = mcguffin_2.get_y();
+
+		do Output.moveCursor(y, x);
+		do Output.printChar(77);
+
+		//3:
+		let x = mcguffin_3.get_x();
+		let y = mcguffin_3.get_y();
+
+		do Output.moveCursor(y, x);
+		do Output.printChar(77);
+
+		return;
+	}
+
+	method void check_mcguffin_gettery() {
+		var int player_x, player_y;
+		var int mcguffin_x, mcguffin_y;
+
+		let player_x = player.get_player_x();
+		let player_y = player.get_player_y();
+
+		//1:
+		let mcguffin_x = mcguffin_1.get_x(); 
+		let mcguffin_y = mcguffin_1.get_y();
+
+		if (mcguffin_x = player_x) {
+			if (mcguffin_y = player_y) {
+				if (~(mcguffin_1.is_getted())) {
+					do mcguffin_1.getteded();
+					do player.add_mcguffin();
+					do print_getted_message();
+				}
+			}
+		}
+
+		//2:
+		let mcguffin_x = mcguffin_2.get_x(); 
+		let mcguffin_y = mcguffin_2.get_y();
+
+		if (mcguffin_x = player_x) {
+			if (mcguffin_y = player_y) {
+				if (~(mcguffin_2.is_getted())) {
+					do mcguffin_2.getteded();
+					do player.add_mcguffin();
+					do print_getted_message();
+				}
+			}
+		}
+
+		//3:
+		let mcguffin_x = mcguffin_3.get_x(); 
+		let mcguffin_y = mcguffin_3.get_y();
+
+		if (mcguffin_x = player_x) {
+			if (mcguffin_y = player_y) {
+				if (~(mcguffin_3.is_getted())) {
+					do mcguffin_3.getteded();
+					do player.add_mcguffin();
+					do print_getted_message();
+				}
+			}
+		}
+		return;
+	}
+	
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
+	}
+}

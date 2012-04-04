@@ -1,0 +1,17 @@
+class Main {
+
+	function void main() {
+		do Texture.init();
+		do Symbol.init();
+
+		do Graphics.setupScreen();
+
+		do Game.start();
+
+		do Texture.release();
+		do Symbol.release();
+
+		return;
+	}
+	
+}

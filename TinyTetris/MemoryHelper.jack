@@ -1,0 +1,7 @@
+class MemoryHelper {
+	// Given a pixel location on the board, return the
+	// address of the word that holds the pixel
+	function int getAddressForLocation(int x, int y) {
+		return 16384 + (y * 32) + x;
+	}
+}

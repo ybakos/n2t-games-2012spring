@@ -1,0 +1,124 @@
+function Bullet.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push constant 110
+pop this 0
+push constant 35
+pop this 1
+push constant 0
+pop this 2
+push pointer 0
+return
+function Bullet.setActive 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop this 2
+push argument 1
+pop this 0
+push constant 35
+pop this 1
+push constant 0
+return
+function Bullet.getActive 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Bullet.getY 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 1
+add
+return
+function Bullet.getX 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 5
+add
+return
+function Bullet.redraw 0
+push argument 0
+pop pointer 0
+push this 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push this 0
+push this 1
+push constant 5
+add
+push this 0
+push constant 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Bullet.undraw 0
+push argument 0
+pop pointer 0
+push this 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 1
+push this 0
+push this 1
+push constant 5
+add
+push this 0
+push constant 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Bullet.move 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Bullet.undraw 1
+pop temp 0
+push this 1
+push constant 1
+add
+pop this 1
+push pointer 0
+call Bullet.redraw 1
+pop temp 0
+push this 1
+push constant 460
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Bullet.undraw 1
+pop temp 0
+push constant 0
+pop this 2
+push constant 35
+pop this 1
+label IF_FALSE0
+push constant 0
+return
+function Bullet.dispose 0
+push argument 0
+pop pointer 0
+push constant 0
+return

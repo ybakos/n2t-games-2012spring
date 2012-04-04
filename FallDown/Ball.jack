@@ -1,0 +1,170 @@
+// the game's ball
+class Ball {
+   // location of the center of the ball
+   field int x, y;
+
+   // the radius of the ball
+   field int radius;
+
+   // construct a ball at the given location and radius, drawing the ball to
+   // the screen
+   constructor Ball new(int xx, int yy, int rradius) {
+      let x = xx;
+      let y = yy;
+      let radius = rradius;
+
+      do draw(true);
+
+      return this;
+   }
+
+   // desconstruct this object
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   // draw/undraw the ball to the screen
+   method void draw(boolean draw) {
+      do Screen.setColor(draw);
+      do Screen.drawCircle(x, y, radius);
+      return;
+   }
+
+   // determines if the ball could up by 5 without encountering obstacles
+   // return true if possible, false otherwise
+   method boolean canMoveUp(Obstacles obstacles) {
+      // 5 - 0 - 1
+      if(y - radius > 4) {
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+
+   // moves the ball up by 5
+   method void moveUp() {
+      let y = y - 5;
+      return;
+   }
+
+   // determines if the ball could down by 3 without encountering obstacles
+   // return true if possible, false otherwise
+   method boolean canMoveDown(Obstacles obstacles) {
+      var Obstacle pointer;
+
+      // the new lower bound after moving
+      var int bottom_new;
+      let bottom_new = y + radius + 5;
+
+      // 255 - 5 + 1 = 251
+      if(y + radius < 251) {
+         // check for collisions
+         let pointer = obstacles.getHead();
+         while(~(pointer = null)) {
+            if(   ((x + radius) > (pointer.getX1() - 1)) &
+                  ((x - radius) < (pointer.getX2() + 1)) &
+                  (bottom_new > pointer.getY1()) &
+                  (bottom_new < pointer.getY2())) {
+               // collision
+               return false;
+            }
+            let pointer = pointer.getNext();
+         }
+
+         // no collisions
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+
+   // moves the ball down by 5
+   method void moveDown() {
+      let y = y + 5;
+      return;
+   }
+
+   // determines if the ball could left by 3 without encountering obstacles
+   // return true if possible, false otherwise
+   method boolean canMoveLeft(Obstacles obstacles) {
+      var Obstacle pointer;
+      var int withinBounds;
+
+      // 4 = 0 (left of screen) + 5 (length of movement) - 1 (because of >)
+      if(x - radius > 4) {
+         // check for collisions
+         // can only collide with the left side of the ball and the right side
+         // of the platform
+         let pointer = obstacles.getHead();
+         while(~(pointer = null)) {
+            let withinBounds = (x - radius) - pointer.getX2();
+            if(   (withinBounds < 5) &
+                  (withinBounds > 0) &
+                  (y + radius > pointer.getY1()) &
+                  (y - radius < pointer.getY2())) {
+               // collision
+               return false;
+            }
+            let pointer = pointer.getNext();
+         }
+
+         // no collisions
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+
+   // moves the ball left by 5
+   method void moveLeft() {
+      let x = x - 5;
+      return;
+   }
+
+   // determines if the ball could right by 5 without encountering obstacles
+   // return true if possible, false otherwise
+   method boolean canMoveRight(Obstacles obstacles) {
+      var Obstacle pointer;
+      var int withinBounds;
+
+      // 507 = 512 - 5
+      if(x + radius < 507) {
+         // check for collisions
+         // can only collide with the right side of the ball and the left side
+         // of the platform
+         let pointer = obstacles.getHead();
+         while(~(pointer = null)) {
+            let withinBounds = pointer.getX1() - (x + radius);
+            if(   (withinBounds < 5) &
+                  (withinBounds > 0) &
+                  (y + radius > pointer.getY1()) &
+                  (y - radius < pointer.getY2())) {
+               // collision
+               return false;
+            }
+            let pointer = pointer.getNext();
+         }
+
+         // no collisions
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+
+   // moves the ball right by 5
+   method void moveRight() {
+      let x = x + 5;
+      return;
+   }
+
+   // returns the row of the top edge of the balll
+   method int getTopEdge() {
+      return y - radius;
+   }
+}

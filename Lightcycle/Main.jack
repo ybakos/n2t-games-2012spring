@@ -1,0 +1,95 @@
+class Main {   
+  function void main() {
+    var int speed, randomSeed, startTimer;
+    var Game game;
+    
+    do Main.printIntro();
+    let speed = Main.getSpeed();
+    let randomSeed = Main.getRandomSeed();
+
+    let startTimer = 1;
+
+    while(true) {
+
+      if(startTimer = 1) {
+        do Screen.clearScreen();
+
+        let game = Game.new(speed, randomSeed);
+
+        while(game.loser() = 0) {
+          do game.advance();
+        }
+
+        do Screen.clearScreen();
+        do Main.printConclusion(game.getOutcome());
+        do Memory.deAlloc(game);
+
+        do Sys.wait(2000);
+
+        do Output.println();
+        let randomSeed = Main.getRandomSeed();
+
+        let startTimer = 5;
+
+        do Output.println();
+        do Output.println();
+        do Output.printString("                 Restarting in");
+
+
+      } else {
+        let startTimer = startTimer - 1;
+      }
+
+      do Output.printString(" ");
+      do Output.printInt(startTimer);
+      do Output.printString(".");
+
+      do Sys.wait(1000);
+    }
+    
+    return;
+  }
+
+  function void printIntro() {
+    do Output.printString("   *************** Hack > LightCycle *********************** ");
+    do Output.println();
+    do Output.printString("   ********************************************************* ");
+    do Output.println();
+    do Output.println();
+    return;
+  }
+
+  function void printConclusion(String outcome) {
+    do Output.println();
+    do Output.println();
+    do Output.println();
+    do Output.printString("   ********************************************************* ");
+    do Output.println();
+    do Output.println();
+    do Output.printString("                           ");
+    do Output.printString(outcome);
+    do Output.println();
+    do Output.println();
+    do Output.printString("   ********************************************************* ");
+    return;
+  }
+
+  function int getSpeed() {
+    var int selection;
+
+    do Output.println();
+    let selection = Keyboard.readInt("        Select a game speed (1-5): ");
+    while((selection < 1) | (selection > 5)) {
+      let selection = Keyboard.readInt("Invalid selection. Select a game speed (1-5): ");
+    }
+    return selection;
+  }
+
+  function int getRandomSeed() {
+    var int selection;
+
+    do Output.println();
+    let selection = Keyboard.readInt("        Enter a large integer: ");
+    return selection & 16383;
+  }
+}

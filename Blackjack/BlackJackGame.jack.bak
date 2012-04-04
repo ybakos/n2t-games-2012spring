@@ -1,0 +1,382 @@
+class BlackJackGame {
+		
+	field int currentBalance;
+	field int currentBet;
+	field int playerTotal;
+	field int dealerTotal;
+	field boolean win;
+	field boolean push;
+	//blackJack will equal 21 when the player gets a blackjack
+	field int blackJack;
+
+	constructor BlackJackGame new()
+	{
+		let dealerTotal = 0;
+		let playerTotal = 0;
+		let currentBalance = 1000;
+		let currentBet = 100;
+		let win = false;
+		let push = false;
+		return this;
+	}
+
+
+	//Displays a screen asking the user for a random number to use as a seed
+	method void seedPrompt()
+	{
+		var int input;
+		do Screen.clearScreen();
+		do Output.moveCursor(3, 3);
+		do Output.printString("Please enter a number to use as a seed for this game");
+		do Output.moveCursor(5, 25);
+		let input = Keyboard.readInt(" ");
+		//let input = 25;
+		do Random.seed(input);
+		return;
+	}
+
+	method void printBetScreen()
+	{
+		var char key;
+		do Screen.clearScreen();
+		do Output.moveCursor(0,20);
+		do Output.printString("Welcome to blackJACK");
+		do Output.moveCursor(2,0);
+		/////////////////////////////////////rules/////////////////////////////////////////////
+		do Output.printString("The goal of blackJack is to achieve a total greater than the");
+		do Output.println();
+		do Output.printString("dealer without the total exceeding 21. You start with two cards");
+		do Output.println();
+		do Output.printString("After the cards are dealt you are given the option to hit or");
+		do Output.println();
+		do Output.printString("stand until your card total is over 21. Selecting hit will give");
+		do Output.println();
+		do Output.printString("you another card, and selecting stand means that you are done");
+		do Output.println();
+		do Output.printString("adding cards to your hand, and the dealer's cards will be");
+		do Output.println();
+		do Output.printString("revealed. The dealer will hit up until the dealer's total is");
+		do Output.println();
+		do Output.printString("at least 17 or the dealer busts. If the dealer busts, or your");
+		do Output.println();
+		do Output.printString("card total is higher, you win. Otherwise the dealer wins.");
+		do Output.println();
+		do Output.printString("Number cards count for their numerical value, Jacks, Queens,");
+		do Output.println();
+		do Output.printString("and Kings are worth 10, and Aces are worth 1");
+		do Output.println();
+		do Output.println();
+		//Betting stuff
+		do Output.printString("Your current balance is:  ");
+		do Output.printInt(currentBalance);
+		do Output.println();
+		do Output.println();
+		do Output.printString("Use the up and down arrow keys to change your bet.");
+		do Output.println();
+		do Output.printString("Press space to accept your bet.");
+		do Output.moveCursor(19,0);
+		do Output.printString("Your bet is:  ");
+		//32 = space
+		while(~(key = 32))
+		{
+			do Output.moveCursor(19, 14);
+			do Output.printInt(currentBet);
+			let key = Keyboard.readChar();
+			if (key=131)
+			{
+				if (currentBet < currentBalance)
+				{
+					let currentBet = currentBet + 10;
+				}
+			}
+			if (key=133)
+			{
+				if (currentBet > 10)
+				{
+					let currentBet = currentBet - 10;
+				}
+			}
+		}
+		return;
+	}
+
+	method void printCard(int value)
+	{
+		if (value = 1)
+		{
+			do Output.printString("A");
+		}
+		if ((value < 11) & (value > 1))
+		{
+			do Output.printInt(value);
+		}
+		if (value = 11)
+		{
+			do Output.printString("J");
+		}
+		if (value = 12)
+		{
+			do Output.printString("Q");
+		}
+		if (value = 13)
+		{
+			do Output.printString("K");
+		}
+		return;
+	}
+
+	method int cardVal(int value)
+	{
+		if (value < 11)
+		{
+			return value;
+		}
+		else
+		{
+			return 10;
+		}
+	}
+
+	method void addToDealer(int value)
+	{
+		let dealerTotal = dealerTotal + cardVal(value);
+		return;
+	}
+	method void addToPlayer(int value)
+	{
+		let playerTotal = playerTotal + cardVal(value);
+		return;
+	}
+
+	/*
+	method void checkBlackJack(int value)
+	{
+		//Ace
+		if(value = 1)
+		{
+			let blackJack = blackJack + 11;
+		}
+		//10 or face card
+		if(value > 9)
+		{
+			let blackJack = blackJack + 10;
+		}
+		return;
+	}
+	*/
+
+	method void printGameScreen()
+	{
+		//initialization
+		var int dealtCard;
+		var int dealerCount;
+		var int playerCount;
+		var char key;
+		let dealerCount = 0;
+
+		//Displays dealers first two cards
+		do Screen.clearScreen();
+		do Output.moveCursor(0,0);
+		do Output.printString("Dealer's Cards:  ");
+		do Output.moveCursor(0, 16);
+		let dealtCard = nextCard();
+		do printCard(dealtCard);
+		do addToDealer(dealtCard);
+		let dealerCount = dealerCount + 1;
+		//player can't see second card yet, so replaced with a question mark
+		do Output.moveCursor(0, 16+(dealerCount*3));
+		do Output.printString("?");
+		/*
+		let dealtCard = nextCard();
+		do Output.moveCursor(0, 16+(dealerCount*3));
+		do printCard(dealtCard);
+		do addToDealer(dealtCard);
+		let dealerCount = dealerCount + 1;
+		*/
+
+		//Displays dealers total showing
+		do Output.moveCursor(2,0);
+		do Output.printString("Dealer's Total: ");
+		do Output.printInt(dealerTotal);
+		
+		//Displays players first two cards
+		do Output.moveCursor(4, 0);
+		do Output.printString("Player's Cards: ");
+		do Output.moveCursor(4, 16);
+		//card 1
+		let dealtCard = nextCard();
+		do printCard(dealtCard);
+		do addToPlayer(dealtCard);
+		let playerCount = playerCount + 1;
+		//do checkBlackJack();
+		//card2
+		let dealtCard = nextCard();
+		do Output.moveCursor(4, 16+(playerCount*3));
+		do printCard(dealtCard);
+		do addToPlayer(dealtCard);
+		let playerCount = playerCount + 1;
+		//do checkBlackJack();
+
+		//Displays players total
+		do Output.moveCursor(6, 0);
+		do Output.printString("Player's Total: ");
+		do Output.printInt(playerTotal);
+
+		//h = 72
+		//s = 83
+		//Prompts the user to hit or stand
+		
+		if(playerTotal < 21)
+		{
+			do Output.moveCursor(8,0);
+			do Output.printString("Press 'H' to hit or 'S' to stand");
+			//first selection
+			let key = Keyboard.readChar();
+			do Output.backSpace();
+			do Output.printString(" ");
+		}
+		//while the player selects hit
+		while((~(key = 83)) & (playerTotal < 21))
+		{
+			let dealtCard = nextCard();
+			do Output.moveCursor(4, 16+(playerCount*3));
+			do printCard(dealtCard);
+			do addToPlayer(dealtCard);
+			let playerCount = playerCount + 1;
+			//Displays the new playerTotal
+			do Output.moveCursor(6, 16);
+			do Output.printInt(playerTotal);
+			//prompts the next selection and deletes the "H" or "S" echoes
+			if(playerTotal < 22)
+			{
+				let key = Keyboard.readChar();
+				do Output.backSpace();
+				do Output.printString(" ");
+			}
+		}
+
+		//Player busts
+		if(playerTotal > 21)
+		{
+			do Output.moveCursor(10,0);
+			do Output.printString("You bust!! Press any key to continue.");
+			let key = Keyboard.readChar();
+			return;
+		}
+
+		//dealer hits until at least 17
+		while(dealerTotal < 17)
+		{
+			let dealtCard = nextCard();
+			do Output.moveCursor(0, 16+(dealerCount*3));
+			do printCard(dealtCard);
+			do addToDealer(dealtCard);
+			let dealerCount = dealerCount + 1;
+			do Output.moveCursor(2, 16);
+			do Output.printInt(dealerTotal);
+			do Sys.wait(4000);
+		}
+
+		if(dealerTotal > 21)
+		{
+			do Output.moveCursor(10,0);
+			do Output.printString("Dealer busts!! Press any key to continue.");
+			let win = true;
+			let key = Keyboard.readChar();
+			return;
+		}
+
+		if(dealerTotal = playerTotal)
+		{
+			let push = true;
+		}
+
+		do Sys.wait(12000);
+
+		if(playerTotal > dealerTotal)
+		{
+			let win = true;
+		}
+		return;
+	}
+
+	method void printWinLose()
+	{
+		do Screen.clearScreen();
+		do Output.moveCursor(8, 20);
+		if(push)
+		{
+			do Output.printString("You pushed this round!");
+			do Output.println();
+			do Output.println();
+		}
+		else
+		{
+			if(win)
+			{
+				let currentBalance = currentBalance + currentBet;
+				do Output.printString("You won $");
+				do Output.printInt(currentBet);
+				do Output.printString(" this round!");
+				do Output.println();
+				do Output.println();
+			}
+			else
+			{
+				let currentBalance = currentBalance - currentBet;
+				do Output.printString("You lost $");
+				do Output.printInt(currentBet);
+				do Output.printString(" this round");
+				do Output.println();
+				do Output.println();
+			}
+		}
+		return;
+	}
+
+	method int nextCard()
+	{
+		//returns a value in the set 1-13
+		var int rand;
+		let rand = Random.between(1,14);
+		return rand;
+	}
+
+	method void reset()
+	{
+		let playerTotal = 0;
+		let dealerTotal = 0;
+		let win = false;
+		let push = false;
+		return;
+	}
+
+	method void run()
+	{
+		var int cardInt;
+		var boolean exit;
+		var int cardInt;
+		var char again;
+		let exit = false;
+
+		do seedPrompt();
+		while(~exit)
+		{	
+			do printBetScreen();
+			do printGameScreen();
+			do printWinLose();
+			do Output.moveCursor(10, 22);
+			do Output.printString("Play again? y / n");
+			let again = Keyboard.readChar();
+			if(~(again = 89))
+			{
+				let exit = true;
+			}
+			else
+			{
+				do reset();
+			}
+		}
+		return;
+	}
+}

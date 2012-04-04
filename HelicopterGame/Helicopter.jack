@@ -1,0 +1,115 @@
+class Helicopter {
+
+  field int starting_x, starting_y;
+  field int x,y;
+  field int w00,w01,w02,w03,w04,w05,w06,w07,w08,w09,w10,w11,w12;
+  field int h00,h01,h02,h03,h04,h05,h06;
+
+  constructor Helicopter new(int X, int Y) {
+    let starting_x = X;
+    let starting_y = Y;
+    do setup_drawing_variables();
+    do reset();
+    return this;
+  }
+
+  // fly!
+  method void fly() {
+    let y = y-1;
+    do draw();
+    return;
+  }
+  // falling is faster (and easier) than flying
+  method void fall() {
+    let y = y+2;
+    do draw();
+    return;
+  }
+  
+  // draw the helicopter using the current coordinates
+  // and the pre-calculated offsets
+  method void draw() {
+    do erase();
+    do Screen.setColor(true);
+    do Screen.drawLine(x+w02,y+h00,x+w12,y+h00);  // blade
+    do Screen.drawLine(x+w07,y+h00,x+w07,y+h01);  // motor
+    do Screen.drawLine(x+w05,y+h01,x+w10,y+h01);  // roof
+    do Screen.drawLine(x+w00,y+h03,x+w03,y+h03);  // tail
+    do Screen.drawLine(x+w08,y+h03,x+w12,y+h03);  // window low
+    do Screen.drawLine(x+w08,y+h01,x+w08,y+h03);  // window side
+    do Screen.drawLine(x+w05,y+h05,x+w10,y+h05);  // floor
+    do Screen.drawLine(x+w00,y+h01,x+w00,y+h03);  // rudder up
+    do Screen.drawLine(x+w00,y+h01,x+w02,y+h03);  // rudder diag
+    do Screen.drawLine(x+w03,y+h03,x+w05,y+h01);  // back top body
+    do Screen.drawLine(x+w03,y+h03,x+w05,y+h05);  // back low body
+    do Screen.drawLine(x+w10,y+h05,x+w12,y+h03);  // front low body
+    do Screen.drawLine(x+w10,y+h01,x+w12,y+h03);  // frot top window
+    do Screen.drawLine(x+w03,y+h06,x+w12,y+h06);  // skid
+    do Screen.drawLine(x+w05,y+h05,x+w04,y+h06);  // front strut
+    do Screen.drawLine(x+w09,y+h05,x+w10,y+h06);  // back strut
+    return;
+  }
+
+  // erase the helicopter with a padding of 2px
+  // this is done using three rectangles instead of one
+  // to make collisions look better
+  method void erase() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(x+w02-2,y+h00-2,x+w12+2,y+h05+2);
+    do Screen.drawRectangle(x+w00-2,y+h01-2,x+w02+2,y+h03+2);
+    do Screen.drawRectangle(x+w03-2,y+h05-2,x+w12+2,y+h06+2);
+    return;
+  }
+
+  // let's calulate these once,
+  // instead of in each call to draw()
+  method void setup_drawing_variables() {
+    var int width,height,w,h;
+    let width = 6 * 8;
+    let w = width / 12;
+    let w00 = 0 * w;
+    let w01 = 1 * w;
+    let w02 = 2 * w;
+    let w03 = 3 * w;   
+    let w04 = 4 * w;
+    let w05 = 5 * w;
+    let w06 = 6 * w; 
+    let w07 = 7 * w;
+    let w08 = 8 * w;
+    let w09 = 9 * w;
+    let w10 = 10 * w;
+    let w11 = 11 * w;
+    let w12 = 12 * w;
+    let height = 3 * 8;
+    let h = height / 6;
+    let h00 = 0 * h;
+    let h01 = 1 * h;
+    let h02 = 2 * h;
+    let h03 = 3 * h;
+    let h04 = 4 * h;
+    let h05 = 5 * h;
+    let h06 = 6 * h;
+    return;
+  }
+
+  // move helicopter back to the starting position
+  method void reset() {
+    let x = starting_x;
+    let y = starting_y;
+    return;
+  }
+
+  method int top() {
+    return y;
+  }
+
+  method int bottom() {
+    return y + h06;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+ 
+}

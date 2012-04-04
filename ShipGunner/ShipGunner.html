@@ -1,0 +1,280 @@
+<h1>Ship Gunner</h1>
+
+<h3>Overview</h3>
+
+<p>Ship Gunner will be a Jack computer game based on the classic board game, Battleship.  The game is played on grids for each opponent.  Players arrange ships on their grids.  Turns are taken to call out grid locations.  The player's opponent announces whether the ship has been hit, missed, or sunk.  When all the squares of an ship have been hit, the ship is sunk.  The player who loses all their ship loses the game.</p>
+
+<h3>Specification</h3>
+
+<p>The ship pieces shall be defined as follows.  The size of the ship is the number of grid squares.</p>
+
+<table border="1" cellspacing="0">
+<tr><th>Ship Type</th><th>Size</th></tr>
+<tr><td>Aircraft Carrier</td><td>5</td></tr>
+<tr><td>Battleship</td><td>4</td></tr>
+<tr><td>Submarine</td><td>3</td></tr>
+<tr><td>Scout</td><td>2</td></tr>
+</table>
+
+<p>The game shall be played on a 10x10 matrix.  The ships are placed horizontally or vertically on the grid.  Ship location, hit, miss and sunk ships shall be denoted by coloring the square background.</p>
+
+<p>Gameplay shall be alternating rounds where the player selects a grid location to ping.  This shall be accomplished with side by side grid showing the player's grid, and the explored area of the opponent's grid.</p>
+
+<table border="1" cellspacing="0">
+<tr><th>Marker Type</th><th>Color</th></tr>
+<tr><td>Ship Location</td><td bgcolor="black">&nbsp;</td><tr>
+<tr><td>Hit</td><td bgcolor="yellow">&nbsp;</td><tr>
+<tr><td>Sunk Ship</td><td bgcolor="red" align="center">&nbsp;</td><tr>
+<tr><td>Miss</td><td bgcolor="grey">&nbsp;</td><tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+<tr><td colspan="9">Player's Grid</td>
+<td></td>
+<td colspan="9">Explored Opponent's Grid</td></tr>
+<tr>
+<th>&nbsp;</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+<th>H</th>
+<th></th>
+<th>&nbsp;</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+<th>H</th>
+</tr>
+<tr><td>1</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>1</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>	
+</tr>
+<tr><td>2</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>2</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>	
+</tr>
+<tr><td>3</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="yellow">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>3</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>	
+</tr>
+<tr><td>4</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="yellow">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>4</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="red">&nbsp;</td>
+	<td bgcolor="red">&nbsp;</td>
+	<td bgcolor="red">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr><td>5</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>5</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr><td>6</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>6</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr><td>7</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>7</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>	</tr>
+<tr><td>8</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td bgcolor="black">&nbsp;</td>
+	<td></td>
+	<td>8</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="yellow">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr><td>9</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>9</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>	
+</tr>
+<tr><td>10</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td></td>
+	<td>10</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td bgcolor="gray">&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+
+<h3>Implementation</h3>
+
+<p>1. Jack programming language will be used for the implementation.</p>
+
+<p>2. Grid structure shall be stored in a 10x10 grid matrix.  Four matrixes shall be required:<br>
+<br>
+Array grid_Player<br>
+Array grid_Player_Opponent<br>
+Array grid_Opponent<br>
+Array grid_Opponent_Player<br>
+</p>
+
+<p>3. Computer opponent requires exploratory search algorithm with randomization routines.  Initial pings should be broad early in the game.  Late game the routine should target likely locations for hidden ships.<br>
+<br>
+When computer opponent successfully makes a hit:<br>
+1) Routine changes to radial search until next hit is found.<br>
+2) If ship is not sunk, proceed along horizontal or vertical line.<br>
+2a) If ping is a miss but ship is not sunk, make next attack in the opposite end.<br>
+3) Continue until ship is sunk.
+</p>
+
+<p>4. End condition is reached when Player or Computer sinks all opponent's ships</p>

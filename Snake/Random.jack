@@ -1,0 +1,32 @@
+class Random{
+	field int x;
+	field int c;
+	field int a;
+	field int m;
+	
+
+	constructor Random new(){
+		let x = 234;
+		let m = 32767;
+		let a = 17;
+		let c = 7919;
+		return this;
+	}
+
+	method int next_int(int max){
+		var int retval;
+		let x = Random.mod((x*a)+c,m);
+		let retval = Random.mod(x,max);
+		return retval;
+	}
+
+	//Calculate a%b
+	function int mod(int a, int b){
+		var int tmp;
+		let tmp = a/b;
+		let tmp = tmp * b;
+		let tmp = a - tmp;
+		let tmp = tmp & 32767;	
+		return tmp;
+	}
+}
