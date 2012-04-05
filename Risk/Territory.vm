@@ -1,0 +1,158 @@
+function Territory.new 0
+push constant 11
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push constant 40
+pop this 2
+push constant 10
+pop this 3
+push constant 20
+pop this 4
+push argument 3
+pop this 7
+push argument 4
+pop this 5
+push argument 5
+pop this 6
+push argument 2
+pop this 8
+push argument 6
+pop this 9
+call Constants.numTerritories 0
+call Array.new 1
+pop this 10
+push pointer 0
+return
+function Territory.draw 2
+push argument 0
+pop pointer 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+pop local 1
+push this 8
+call Player.getNumber 1
+pop local 0
+push local 0
+push constant 2
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 2
+add
+push this 1
+push this 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 2
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+push this 2
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 2
+add
+push this 0
+push this 2
+add
+push this 1
+push this 2
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 2
+add
+push this 1
+push this 0
+push this 2
+add
+push this 1
+push this 2
+add
+call Screen.drawLine 4
+pop temp 0
+label IF_END0
+push this 5
+push this 6
+call Output.moveCursor 2
+pop temp 0
+push this 7
+call Output.printString 1
+pop temp 0
+push local 1
+call Output.printString 1
+pop temp 0
+push this 9
+call Output.printInt 1
+pop temp 0
+push local 1
+call String.dispose 1
+pop temp 0
+push constant 0
+return
+function Territory.addArmies 0
+push argument 0
+pop pointer 0
+push this 9
+push argument 1
+add
+pop this 9
+push constant 0
+return
+function Territory.setArmies 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 9
+push constant 0
+return
+function Territory.getArmies 0
+push argument 0
+pop pointer 0
+push this 9
+return
+function Territory.setPlayer 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 8
+push constant 0
+return
+function Territory.getPlayer 0
+push argument 0
+pop pointer 0
+push this 8
+return

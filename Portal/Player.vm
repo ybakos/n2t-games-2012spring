@@ -1,0 +1,847 @@
+function Player.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push argument 2
+pop this 2
+push pointer 0
+return
+function Player.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Player.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Player.draw 0
+push argument 0
+pop pointer 0
+push this 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Player.drawRight 1
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+call Player.drawLeft 1
+pop temp 0
+label IF_END0
+push constant 0
+return
+function Player.drawRight 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Tilesets.drawPlayerRight 2
+pop temp 0
+push constant 0
+return
+function Player.drawLeft 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Tilesets.drawPlayerLeft 2
+pop temp 0
+push constant 0
+return
+function Player.clearDraw 1
+push argument 0
+pop pointer 0
+push this 0
+push constant 512
+push this 1
+call Math.multiply 2
+add
+pop local 0
+push constant 16384
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push local 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Player.moveLeft 1
+push argument 0
+pop pointer 0
+call Chambers.getRoom 0
+pop local 0
+push this 0
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 32
+call Math.multiply 2
+push this 0
+add
+push constant 1
+sub
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push this 0
+push constant 1
+sub
+pop this 0
+goto IF_END1
+label IF_FALSE1
+call Portals.twoPlaced 0
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 1
+push this 0
+push constant 1
+sub
+call Portals.portalExists 2
+push constant 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push constant 2
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 2
+call Portals.getX 1
+push constant 1
+sub
+pop this 0
+push constant 2
+call Portals.getY 1
+pop this 1
+label IF_FALSE5
+push constant 2
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 2
+call Portals.getY 1
+push constant 1
+sub
+pop this 1
+push constant 2
+call Portals.getX 1
+pop this 0
+label IF_FALSE6
+push constant 2
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 2
+call Portals.getX 1
+push constant 1
+add
+pop this 0
+push constant 2
+call Portals.getY 1
+pop this 1
+label IF_FALSE7
+push constant 2
+call Portals.getDir 1
+push constant 3
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 2
+call Portals.getY 1
+push constant 1
+add
+pop this 1
+push constant 2
+call Portals.getX 1
+pop this 0
+label IF_FALSE8
+label IF_FALSE4
+goto IF_END3
+label IF_FALSE3
+push this 1
+push this 0
+push constant 1
+sub
+call Portals.portalExists 2
+push constant 2
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push constant 2
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push constant 1
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 1
+call Portals.getX 1
+push constant 1
+sub
+pop this 0
+push constant 1
+call Portals.getY 1
+pop this 1
+label IF_FALSE11
+push constant 1
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push constant 1
+call Portals.getY 1
+push constant 1
+sub
+pop this 1
+push constant 1
+call Portals.getX 1
+pop this 0
+label IF_FALSE12
+push constant 1
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 1
+call Portals.getX 1
+push constant 1
+add
+pop this 0
+push constant 1
+call Portals.getY 1
+pop this 1
+label IF_FALSE13
+push constant 1
+call Portals.getDir 1
+push constant 3
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push constant 1
+call Portals.getY 1
+push constant 1
+add
+pop this 1
+push constant 1
+call Portals.getX 1
+pop this 0
+label IF_FALSE14
+label IF_FALSE10
+label IF_FALSE9
+label IF_END3
+label IF_FALSE2
+label IF_END1
+label IF_FALSE0
+push constant 0
+pop this 2
+push constant 0
+return
+function Player.moveRight 1
+push argument 0
+pop pointer 0
+call Chambers.getRoom 0
+pop local 0
+push this 0
+push constant 31
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 32
+call Math.multiply 2
+push this 0
+add
+push constant 1
+add
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push this 0
+push constant 1
+add
+pop this 0
+goto IF_END1
+label IF_FALSE1
+call Portals.twoPlaced 0
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 1
+push this 0
+push constant 1
+add
+call Portals.portalExists 2
+push constant 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 1
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push constant 2
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 2
+call Portals.getX 1
+push constant 1
+sub
+pop this 0
+push constant 2
+call Portals.getY 1
+pop this 1
+label IF_FALSE5
+push constant 2
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 2
+call Portals.getY 1
+push constant 1
+sub
+pop this 1
+push constant 2
+call Portals.getX 1
+pop this 0
+label IF_FALSE6
+push constant 2
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 2
+call Portals.getX 1
+push constant 1
+add
+pop this 0
+push constant 2
+call Portals.getY 1
+pop this 1
+label IF_FALSE7
+push constant 2
+call Portals.getDir 1
+push constant 3
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 2
+call Portals.getY 1
+push constant 1
+add
+pop this 1
+push constant 2
+call Portals.getX 1
+pop this 0
+label IF_FALSE8
+label IF_FALSE4
+goto IF_END3
+label IF_FALSE3
+push this 1
+push this 0
+push constant 1
+add
+call Portals.portalExists 2
+push constant 2
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push constant 2
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push constant 1
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 1
+call Portals.getX 1
+push constant 1
+sub
+pop this 0
+push constant 1
+call Portals.getY 1
+pop this 1
+label IF_FALSE11
+push constant 1
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push constant 1
+call Portals.getY 1
+push constant 1
+sub
+pop this 1
+push constant 1
+call Portals.getX 1
+pop this 0
+label IF_FALSE12
+push constant 1
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 1
+call Portals.getX 1
+push constant 1
+add
+pop this 0
+push constant 1
+call Portals.getY 1
+pop this 1
+label IF_FALSE13
+push constant 1
+call Portals.getDir 1
+push constant 3
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push constant 1
+call Portals.getY 1
+push constant 1
+add
+pop this 1
+push constant 1
+call Portals.getX 1
+pop this 0
+label IF_FALSE14
+label IF_FALSE10
+label IF_FALSE9
+label IF_END3
+label IF_FALSE2
+label IF_END1
+label IF_FALSE0
+push constant 0
+not
+pop this 2
+push constant 0
+return
+function Player.moveDown 1
+push argument 0
+pop pointer 0
+call Chambers.getRoom 0
+pop local 0
+push this 1
+push constant 1
+add
+push constant 32
+call Math.multiply 2
+push this 0
+add
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push this 1
+push constant 1
+add
+pop this 1
+goto IF_END0
+label IF_FALSE0
+call Portals.twoPlaced 0
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 1
+push constant 1
+add
+push this 0
+call Portals.portalExists 2
+push constant 1
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push constant 2
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 2
+call Portals.getX 1
+push constant 1
+sub
+pop this 0
+push constant 2
+call Portals.getY 1
+pop this 1
+label IF_FALSE4
+push constant 2
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 2
+call Portals.getY 1
+push constant 1
+sub
+pop this 1
+push constant 2
+call Portals.getX 1
+pop this 0
+label IF_FALSE5
+push constant 2
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 2
+call Portals.getX 1
+push constant 1
+add
+pop this 0
+push constant 2
+call Portals.getY 1
+pop this 1
+label IF_FALSE6
+push constant 2
+call Portals.getDir 1
+push constant 3
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 2
+call Portals.getY 1
+push constant 1
+add
+pop this 1
+push constant 2
+call Portals.getX 1
+pop this 0
+label IF_FALSE7
+label IF_FALSE3
+goto IF_END2
+label IF_FALSE2
+push this 1
+push constant 1
+add
+push this 0
+call Portals.portalExists 2
+push constant 2
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 2
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push pointer 0
+call Player.clearDraw 1
+pop temp 0
+push constant 1
+call Portals.getDir 1
+push constant 0
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push constant 1
+call Portals.getX 1
+push constant 1
+sub
+pop this 0
+push constant 1
+call Portals.getY 1
+pop this 1
+label IF_FALSE10
+push constant 1
+call Portals.getDir 1
+push constant 1
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 1
+call Portals.getY 1
+push constant 1
+sub
+pop this 1
+push constant 1
+call Portals.getX 1
+pop this 0
+label IF_FALSE11
+push constant 1
+call Portals.getDir 1
+push constant 2
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push constant 1
+call Portals.getX 1
+push constant 1
+add
+pop this 0
+push constant 1
+call Portals.getY 1
+pop this 1
+label IF_FALSE12
+push constant 1
+call Portals.getDir 1
+push constant 3
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 1
+call Portals.getY 1
+push constant 1
+add
+pop this 1
+push constant 1
+call Portals.getX 1
+pop this 0
+label IF_FALSE13
+label IF_FALSE9
+label IF_FALSE8
+label IF_END2
+label IF_FALSE1
+label IF_END0
+push constant 0
+return
+function Player.onExit 1
+push argument 0
+pop pointer 0
+call Chambers.getRoom 0
+pop local 0
+push this 1
+push constant 1
+add
+push constant 32
+call Math.multiply 2
+push this 0
+add
+push local 0
+add
+pop pointer 1
+push that 0
+push constant 3
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return

@@ -1,0 +1,610 @@
+function Game.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 50
+pop static 1
+push constant 255
+push constant 254
+push constant 10
+push constant 5
+call Character.new 4
+pop this 0
+push constant 4
+pop this 3
+push constant 0
+pop this 2
+push static 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 5
+pop static 0
+label IF_FALSE0
+push this 3
+call Array.new 1
+pop this 1
+push pointer 0
+call Game.addEnemy 1
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+return
+function Game.dispose 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push this 0
+call Character.dispose 1
+pop temp 0
+label WHILE_EXP0
+push local 0
+push this 2
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Enemy.dispose 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push this 1
+call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Game.run 5
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+not
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END1
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call Game.moveEnemies 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+return
+label IF_FALSE0
+push pointer 0
+call Game.spawnEnemies 1
+pop temp 0
+push this 0
+call Character.blink 1
+pop temp 0
+push static 1
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push constant 81
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+return
+label IF_FALSE1
+push local 0
+push constant 72
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+call Enemy.changeHardMode 0
+pop temp 0
+label IF_FALSE2
+push local 0
+push constant 65
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push static 0
+push constant 1
+gt
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push static 0
+push constant 1
+sub
+pop static 0
+label IF_FALSE4
+label IF_FALSE3
+push local 0
+push constant 90
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push static 0
+push constant 20
+lt
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push static 0
+push constant 1
+add
+pop static 0
+label IF_FALSE6
+label IF_FALSE5
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 0
+call Character.moveLeft 1
+pop temp 0
+label IF_FALSE7
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 0
+call Character.moveRight 1
+pop temp 0
+label IF_FALSE8
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push constant 0
+pop local 3
+label WHILE_EXP2
+push local 3
+push constant 10
+lt
+not
+if-goto WHILE_END2
+push this 0
+call Character.moveUp 1
+pop temp 0
+push local 3
+push constant 1
+add
+pop local 3
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push this 0
+call Character.moveLeft 1
+pop temp 0
+label IF_FALSE10
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push this 0
+call Character.moveRight 1
+pop temp 0
+label IF_FALSE11
+push local 3
+push constant 2
+call Game.mod 2
+push constant 0
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push pointer 0
+call Game.moveEnemies 1
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push this 0
+return
+label IF_FALSE13
+label IF_FALSE12
+push pointer 0
+call Game.spawnEnemies 1
+pop temp 0
+push static 1
+push constant 2
+call Math.divide 2
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP2
+label WHILE_END2
+push constant 0
+push constant 3
+call Random.between 2
+push constant 1
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push constant 13
+call String.new 1
+push constant 70
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 122
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 70
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 109
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+pop local 2
+label WHILE_EXP3
+push local 2
+push constant 5
+lt
+not
+if-goto WHILE_END3
+push this 0
+push constant 5
+call Character.draw 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP3
+label WHILE_END3
+push constant 0
+pop local 2
+label WHILE_EXP4
+push local 2
+push constant 14
+lt
+not
+if-goto WHILE_END4
+call Output.backSpace 0
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP4
+label WHILE_END4
+push constant 15
+call String.new 1
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+pop local 2
+label WHILE_EXP5
+push local 2
+push constant 14
+lt
+not
+if-goto WHILE_END5
+call Output.backSpace 0
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP5
+label WHILE_END5
+label IF_FALSE14
+label WHILE_EXP6
+push local 3
+push constant 0
+gt
+not
+if-goto WHILE_END6
+push this 0
+call Character.moveDown 1
+pop temp 0
+push local 3
+push constant 1
+sub
+pop local 3
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push this 0
+call Character.moveLeft 1
+pop temp 0
+label IF_FALSE15
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push this 0
+call Character.moveRight 1
+pop temp 0
+label IF_FALSE16
+push local 3
+push constant 2
+call Game.mod 2
+push constant 0
+eq
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push pointer 0
+call Game.moveEnemies 1
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push this 0
+return
+label IF_FALSE18
+label IF_FALSE17
+push pointer 0
+call Game.spawnEnemies 1
+pop temp 0
+push static 1
+push constant 2
+call Math.divide 2
+call Sys.wait 1
+pop temp 0
+goto WHILE_EXP6
+label WHILE_END6
+label IF_FALSE9
+push static 1
+call Sys.wait 1
+pop temp 0
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call Game.moveEnemies 1
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push this 0
+return
+label IF_FALSE19
+push pointer 0
+call Game.spawnEnemies 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push this 0
+return
+function Game.moveEnemies 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 2
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Enemy.move 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Game.mod 0
+label WHILE_EXP0
+push argument 0
+push argument 1
+lt
+not
+not
+if-goto WHILE_END0
+push argument 0
+push argument 1
+sub
+pop argument 0
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
+return
+function Game.addEnemy 3
+push argument 0
+pop pointer 0
+push constant 500
+push constant 244
+push constant 10
+push constant 3
+call Enemy.getDeaths 0
+push static 0
+call Math.divide 2
+add
+push this 0
+call Enemy.new 5
+pop local 0
+push this 2
+push constant 1
+add
+pop this 2
+push this 2
+push this 3
+lt
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 3
+push constant 2
+call Math.multiply 2
+pop this 3
+push this 3
+call Array.new 1
+pop local 1
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 2
+lt
+not
+if-goto WHILE_END0
+push local 2
+push local 1
+add
+push local 2
+push this 1
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push this 1
+call Array.dispose 1
+pop temp 0
+push local 1
+pop this 1
+label IF_FALSE0
+push this 2
+push constant 1
+sub
+push this 1
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Game.spawnEnemies 0
+push argument 0
+pop pointer 0
+call Random.next 0
+push constant 12
+push static 0
+push constant 2
+call Math.divide 2
+add
+call Game.mod 2
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Game.addEnemy 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return

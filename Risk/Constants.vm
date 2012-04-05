@@ -1,0 +1,3 @@
+function Constants.numTerritories 0
+push constant 10
+return

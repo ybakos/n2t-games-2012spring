@@ -1,9 +1,0 @@
-class Main {
-	function void main()
-	{
-		var BlackJackGame game;
-		let game = BlackJackGame.new();
-		do game.run();
-		return;
-	}
-}

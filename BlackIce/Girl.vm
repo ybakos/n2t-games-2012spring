@@ -1,0 +1,487 @@
+function Girl.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push constant 16
+call Math.multiply 2
+pop this 0
+push argument 1
+push constant 16
+call Math.multiply 2
+pop this 1
+push pointer 0
+return
+function Girl.set 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 16
+call Math.multiply 2
+pop this 0
+push argument 2
+push constant 16
+call Math.multiply 2
+pop this 1
+push constant 0
+return
+function Girl.drawUp 5
+push argument 0
+pop pointer 0
+push constant 16384
+pop local 0
+push this 1
+pop local 2
+push this 0
+push constant 16
+call Math.divide 2
+pop local 1
+push local 0
+push local 1
+add
+push local 2
+push constant 32
+call Math.multiply 2
+add
+pop local 3
+push local 3
+push constant 384
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 32
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 64
+add
+push constant 3120
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 96
+add
+push constant 5160
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 128
+add
+push constant 9252
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 160
+add
+push constant 9252
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 192
+add
+push constant 9252
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 224
+add
+push constant 8772
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 256
+add
+push constant 4488
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 288
+add
+push constant 6168
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 320
+add
+push constant 12276
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 352
+add
+push constant 11316
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 384
+add
+push constant 6744
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 416
+add
+push constant 2064
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 448
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 480
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Girl.drawDown 5
+push argument 0
+pop pointer 0
+push constant 16384
+pop local 0
+push this 1
+pop local 2
+push this 0
+push constant 16
+call Math.divide 2
+pop local 1
+push local 0
+push local 1
+add
+push local 2
+push constant 32
+call Math.multiply 2
+add
+pop local 3
+push local 3
+push constant 896
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 32
+add
+push constant 1888
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 64
+add
+push constant 2192
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 96
+add
+push constant 4232
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 128
+add
+push constant 8772
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 160
+add
+push constant 9636
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 192
+add
+push constant 10260
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 224
+add
+push constant 4680
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 256
+add
+push constant 4680
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 288
+add
+push constant 6168
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 320
+add
+push constant 10212
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 352
+add
+push constant 9252
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 384
+add
+push constant 6744
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 416
+add
+push constant 2064
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 448
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 480
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Girl.drawLeft 5
+push argument 0
+pop pointer 0
+push constant 16384
+pop local 0
+push this 1
+pop local 2
+push this 0
+push constant 16
+call Math.divide 2
+pop local 1
+push local 0
+push local 1
+add
+push local 2
+push constant 32
+call Math.multiply 2
+add
+pop local 3
+push local 3
+push constant 7104
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 32
+add
+push constant 9264
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 64
+add
+push constant 18504
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 96
+add
+push constant 20612
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 128
+add
+push constant 20764
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 160
+add
+push constant 20776
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 192
+add
+push constant 20840
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 224
+add
+push constant 21416
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 256
+add
+push constant 22024
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 288
+add
+push constant 11280
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 320
+add
+push constant 1440
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 352
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 384
+add
+push constant 2656
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 416
+add
+push constant 2464
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 448
+add
+push constant 2016
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 480
+add
+push constant 1008
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Girl.drawRight 5
+push argument 0
+pop pointer 0
+push constant 16384
+pop local 0
+push this 1
+pop local 2
+push this 0
+push constant 16
+call Math.divide 2
+pop local 1
+push local 0
+push local 1
+add
+push local 2
+push constant 32
+call Math.multiply 2
+add
+pop local 3
+push local 3
+push constant 984
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 32
+add
+push constant 3108
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 64
+add
+push constant 4626
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 96
+add
+push constant 8458
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 128
+add
+push constant 14474
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 160
+add
+push constant 5258
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 192
+add
+push constant 5770
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 224
+add
+push constant 5578
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 256
+add
+push constant 4202
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 288
+add
+push constant 2100
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 320
+add
+push constant 1440
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 352
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 384
+add
+push constant 1616
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 416
+add
+push constant 1424
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 448
+add
+push constant 2016
+call Memory.poke 2
+pop temp 0
+push local 3
+push constant 480
+add
+push constant 4032
+call Memory.poke 2
+pop temp 0
+push constant 0
+return

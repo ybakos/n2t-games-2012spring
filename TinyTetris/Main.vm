@@ -1,0 +1,15 @@
+function Main.main 0
+call Texture.init 0
+pop temp 0
+call Symbol.init 0
+pop temp 0
+call Graphics.setupScreen 0
+pop temp 0
+call Game.start 0
+pop temp 0
+call Texture.release 0
+pop temp 0
+call Symbol.release 0
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,324 @@
+function Display.setOffsets 0
+push argument 0
+pop static 0
+push argument 1
+pop static 1
+push constant 0
+return
+function Display.setSize 0
+push argument 0
+pop static 2
+push argument 1
+pop static 3
+push constant 0
+return
+function Display.numColumns 0
+push static 2
+return
+function Display.numRows 0
+push static 3
+return
+function Display.numBlocks 0
+push static 2
+push static 3
+call Math.multiply 2
+return
+function Display.drawCircle 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 4
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 4
+add
+push constant 4
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function Display.drawCross 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 4
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 1
+add
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 5
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 8
+add
+call Screen.drawRectangle 4
+pop temp 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 1
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 4
+add
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 8
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 5
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Display.fillBlock 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 9
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 9
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 1
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 1
+add
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 8
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 8
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Display.fillBlocks 1
+push argument 0
+push argument 2
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+pop local 0
+push argument 2
+pop argument 0
+push local 0
+pop argument 2
+label IF_FALSE0
+push argument 1
+push argument 3
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+pop local 0
+push argument 3
+pop argument 1
+push local 0
+pop argument 3
+label IF_FALSE1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push static 0
+push argument 2
+push constant 10
+call Math.multiply 2
+add
+push constant 9
+add
+push static 1
+push argument 3
+push constant 10
+call Math.multiply 2
+add
+push constant 9
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push constant 1
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push constant 1
+add
+push static 0
+push argument 2
+push constant 10
+call Math.multiply 2
+add
+push constant 8
+add
+push static 1
+push argument 3
+push constant 10
+call Math.multiply 2
+add
+push constant 8
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Display.eraseBlocks 1
+push argument 0
+push argument 2
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+pop local 0
+push argument 2
+pop argument 0
+push local 0
+pop argument 2
+label IF_FALSE0
+push argument 1
+push argument 3
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+pop local 0
+push argument 3
+pop argument 1
+push local 0
+pop argument 3
+label IF_FALSE1
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push static 0
+push argument 0
+push constant 10
+call Math.multiply 2
+add
+push static 1
+push argument 1
+push constant 10
+call Math.multiply 2
+add
+push static 0
+push argument 2
+push constant 10
+call Math.multiply 2
+add
+push constant 9
+add
+push static 1
+push argument 3
+push constant 10
+call Math.multiply 2
+add
+push constant 9
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return

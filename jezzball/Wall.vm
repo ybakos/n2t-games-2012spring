@@ -1,0 +1,226 @@
+function Wall.new 0
+push constant 8
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push argument 2
+pop this 2
+push this 1
+pop this 3
+push this 2
+pop this 4
+push constant 0
+pop this 5
+push constant 0
+pop this 6
+push argument 3
+pop this 7
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+neg
+pop this 6
+goto IF_END0
+label IF_FALSE0
+push this 0
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop this 5
+goto IF_END1
+label IF_FALSE1
+push this 0
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+pop this 6
+goto IF_END2
+label IF_FALSE2
+push constant 1
+neg
+pop this 5
+label IF_END2
+label IF_END1
+label IF_END0
+push pointer 0
+return
+function Wall.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Wall.containsBlock 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+push this 1
+eq
+push argument 2
+push constant 2
+sub
+push this 2
+lt
+and
+push argument 2
+push constant 2
+add
+push this 4
+gt
+and
+return
+goto IF_END0
+label IF_FALSE0
+push this 0
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 2
+push this 2
+eq
+push argument 1
+push constant 2
+add
+push this 1
+gt
+and
+push argument 1
+push constant 2
+sub
+push this 3
+lt
+and
+return
+goto IF_END1
+label IF_FALSE1
+push this 0
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 1
+push this 1
+eq
+push argument 2
+push constant 2
+add
+push this 2
+gt
+and
+push argument 2
+push constant 2
+sub
+push this 4
+lt
+and
+return
+goto IF_END2
+label IF_FALSE2
+push argument 2
+push this 2
+eq
+push argument 1
+push constant 2
+sub
+push this 1
+lt
+and
+push argument 1
+push constant 2
+add
+push this 3
+gt
+and
+return
+label IF_END2
+label IF_END1
+label IF_END0
+function Wall.vertical 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+push this 0
+push constant 2
+eq
+or
+return
+function Wall.construct 0
+push argument 0
+pop pointer 0
+push this 3
+push this 5
+add
+pop this 3
+push this 4
+push this 6
+add
+pop this 4
+push this 1
+push this 2
+push this 3
+push this 4
+call Display.fillBlocks 4
+pop temp 0
+push constant 0
+return
+function Wall.complete 0
+push argument 0
+pop pointer 0
+push this 7
+push this 3
+push this 5
+add
+push this 4
+push this 6
+add
+call Map.blockAt 3
+return
+function Wall.save 0
+push argument 0
+pop pointer 0
+push this 7
+push this 1
+push this 2
+push this 3
+push this 4
+call Map.fillBlocks 5
+pop temp 0
+push constant 0
+return
+function Wall.erase 0
+push argument 0
+pop pointer 0
+push this 1
+push this 2
+push this 3
+push this 4
+call Display.eraseBlocks 4
+pop temp 0
+push constant 0
+return

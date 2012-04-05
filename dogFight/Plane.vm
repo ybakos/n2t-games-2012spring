@@ -409,17 +409,6 @@ label IF_TRUE1
 push constant 180
 pop this 3
 label IF_FALSE1
-push this 3
-call Output.printInt 1
-pop temp 0
-push constant 2
-call String.new 1
-push constant 44
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-call Output.printString 1
-pop temp 0
 push constant 0
 return
 function Plane.trig 1

@@ -1,0 +1,70 @@
+function Random.rand 0
+push static 0
+push static 2
+call Math.multiply 2
+push static 1
+add
+pop static 2
+push static 2
+return
+function Random.randBoolean 1
+call Random.rand 0
+pop local 0
+push local 0
+push constant 2
+call Math.divide 2
+push constant 2
+call Math.multiply 2
+push local 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+goto IF_END0
+label IF_FALSE0
+push constant 0
+not
+return
+label IF_END0
+function Random.mod 0
+push argument 0
+push argument 0
+push argument 1
+call Math.divide 2
+push argument 1
+call Math.multiply 2
+sub
+return
+function Random.randInt 1
+call Random.rand 0
+pop local 0
+push local 0
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+push local 0
+sub
+pop local 0
+label IF_FALSE0
+push argument 0
+push local 0
+push argument 1
+push argument 0
+sub
+call Random.mod 2
+add
+return
+function Random.setSeed 0
+push constant 3511
+pop static 0
+push constant 911
+pop static 1
+push argument 0
+pop static 2
+push constant 0
+return

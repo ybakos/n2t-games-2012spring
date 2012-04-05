@@ -1,0 +1,398 @@
+function Zombie.new 0
+push constant 6
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 20158
+pop this 0
+push constant 1
+neg
+pop this 1
+push constant 15
+pop this 5
+label IF_FALSE0
+push argument 0
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 16398
+pop this 0
+push constant 512
+pop this 1
+push constant 8
+pop this 5
+label IF_FALSE1
+push argument 0
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 20128
+pop this 0
+push constant 1
+pop this 1
+push constant 14
+pop this 5
+label IF_FALSE2
+push argument 0
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 23758
+pop this 0
+push constant 512
+neg
+pop this 1
+push constant 6
+pop this 5
+label IF_FALSE3
+push constant 0
+pop this 4
+push constant 0
+pop this 2
+push constant 0
+not
+pop this 3
+push pointer 0
+return
+function Zombie.drawZombo 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+push local 0
+push constant 32767
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16385
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 20485
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 18441
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 17425
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16929
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16385
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16385
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16385
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16385
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 17441
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 19025
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 20873
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 24581
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 16385
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 32767
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Zombie.deDrawZombo 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+pop local 0
+push local 0
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Zombie.move 0
+push argument 0
+pop pointer 0
+push this 4
+push constant 1
+add
+pop this 4
+push pointer 0
+call Zombie.deDrawZombo 1
+pop temp 0
+push this 0
+push this 1
+add
+pop this 0
+push pointer 0
+call Zombie.drawZombo 1
+pop temp 0
+push constant 0
+return
+function Zombie.activate 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop this 2
+push constant 0
+return
+function Zombie.getActive 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Zombie.death_of_a_zombie 0
+push argument 0
+pop pointer 0
+push constant 0
+pop this 3
+push pointer 0
+call Zombie.deDrawZombo 1
+pop temp 0
+push constant 0
+return
+function Zombie.draw 0
+push argument 0
+pop pointer 0
+push this 2
+push this 3
+and
+return
+function Zombie.getMovement 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Zombie.playerDeath 0
+push argument 0
+pop pointer 0
+push this 5
+push this 4
+lt
+return
+function Zombie.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

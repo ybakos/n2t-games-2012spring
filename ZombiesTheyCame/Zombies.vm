@@ -69,16 +69,6 @@ push this 3
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 1
-push this 0
-push this 1
-push this 2
-add
-push this 0
-push this 2
-add
-call Screen.drawRectangle 4
-pop temp 0
 label IF_FALSE0
 push constant 0
 return

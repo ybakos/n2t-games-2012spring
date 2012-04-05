@@ -1,0 +1,9 @@
+function MemoryHelper.getAddressForLocation 0
+push constant 16384
+push argument 1
+push constant 32
+call Math.multiply 2
+add
+push argument 0
+add
+return
