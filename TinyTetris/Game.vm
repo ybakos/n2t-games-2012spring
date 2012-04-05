@@ -1,0 +1,39 @@
+function Game.start 0
+push constant 800
+call Sys.wait 1
+pop temp 0
+call Graphics.printWaitingMessage 0
+pop temp 0
+call Game.waitForKey 0
+pop temp 0
+call Graphics.clearWaitingMessage 0
+pop temp 0
+call Game.startLoop 0
+pop temp 0
+push constant 0
+return
+function Game.waitForKey 1
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Game.startLoop 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

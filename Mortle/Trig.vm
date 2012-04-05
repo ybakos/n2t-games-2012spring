@@ -1,0 +1,298 @@
+function Trig.init 0
+push constant 19
+call Array.new 1
+pop static 0
+push constant 0
+push static 0
+add
+push constant 0
+push constant 0
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push static 0
+add
+push constant 0
+push constant 22
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push static 0
+add
+push constant 0
+push constant 44
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push static 0
+add
+push constant 0
+push constant 66
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 4
+push static 0
+add
+push constant 0
+push constant 88
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 5
+push static 0
+add
+push constant 0
+push constant 108
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 6
+push static 0
+add
+push constant 0
+push constant 128
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 7
+push static 0
+add
+push constant 0
+push constant 147
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 8
+push static 0
+add
+push constant 0
+push constant 165
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 9
+push static 0
+add
+push constant 0
+push constant 181
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 10
+push static 0
+add
+push constant 0
+push constant 196
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 11
+push static 0
+add
+push constant 0
+push constant 210
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 12
+push static 0
+add
+push constant 0
+push constant 222
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 13
+push static 0
+add
+push constant 0
+push constant 232
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 14
+push static 0
+add
+push constant 0
+push constant 241
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 15
+push static 0
+add
+push constant 0
+push constant 247
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 16
+push static 0
+add
+push constant 0
+push constant 252
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 17
+push static 0
+add
+push constant 0
+push constant 255
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push static 0
+add
+push constant 1
+push constant 0
+push constant 0
+call FixedPoint.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Trig.sin 3
+push argument 0
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 0
+push argument 0
+push constant 90
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 180
+push argument 0
+sub
+pop argument 0
+label IF_FALSE1
+goto IF_END0
+label IF_FALSE0
+push constant 1
+pop local 0
+push argument 0
+call Math.abs 1
+pop argument 0
+push argument 0
+push constant 90
+gt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 180
+push argument 0
+sub
+pop argument 0
+label IF_FALSE2
+label IF_END0
+push argument 0
+push constant 5
+call Math.divide 2
+pop local 2
+push local 2
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 0
+push constant 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 1
+call FixedPoint.negate 1
+return
+label IF_FALSE3
+push local 1
+call FixedPoint.copy 1
+return
+function Trig.cos 1
+push argument 0
+push constant 90
+add
+pop argument 0
+push argument 0
+push constant 180
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+push constant 360
+sub
+pop argument 0
+label IF_FALSE0
+push argument 0
+call Trig.sin 1
+pop local 0
+push local 0
+return

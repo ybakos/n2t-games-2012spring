@@ -1,9 +1,0 @@
-class Main {
-	function void main() {
-		var Game game;
-		do Game.drawSplash();
-		let game = Game.new();
-		do game.playGame();
-		return;
-	}
-}

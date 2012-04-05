@@ -1,0 +1,310 @@
+function Player.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push argument 2
+pop this 2
+push constant 237
+pop this 3
+push constant 140
+pop this 4
+push pointer 0
+call Player.draw 1
+pop temp 0
+push pointer 0
+return
+function Player.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 2
+add
+push this 1
+push this 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Player.shootUp 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 3
+push this 4
+push constant 8
+sub
+push this 3
+push this 4
+push constant 16
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push this 4
+push constant 8
+add
+push this 3
+push this 4
+push constant 16
+add
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+add
+push this 4
+push this 3
+push constant 16
+add
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+sub
+push this 4
+push this 3
+push constant 16
+sub
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+call Player.draw 1
+pop temp 0
+push this 3
+push this 4
+push this 3
+push this 4
+push constant 16
+sub
+call Screen.drawLine 4
+pop temp 0
+push constant 2
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function Player.shootDown 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 3
+push this 4
+push constant 8
+sub
+push this 3
+push this 4
+push constant 16
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push this 4
+push constant 8
+add
+push this 3
+push this 4
+push constant 16
+add
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+add
+push this 4
+push this 3
+push constant 16
+add
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+sub
+push this 4
+push this 3
+push constant 16
+sub
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+call Player.draw 1
+pop temp 0
+push this 3
+push this 4
+push this 3
+push this 4
+push constant 16
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 2
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function Player.shootLeft 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 3
+push this 4
+push constant 8
+sub
+push this 3
+push this 4
+push constant 16
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push this 4
+push constant 8
+add
+push this 3
+push this 4
+push constant 16
+add
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+add
+push this 4
+push this 3
+push constant 16
+add
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+sub
+push this 4
+push this 3
+push constant 16
+sub
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+call Player.draw 1
+pop temp 0
+push this 3
+push this 4
+push this 3
+push constant 16
+sub
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push constant 2
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function Player.shootRight 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 3
+push this 4
+push constant 8
+sub
+push this 3
+push this 4
+push constant 16
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push this 4
+push constant 8
+add
+push this 3
+push this 4
+push constant 16
+add
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+add
+push this 4
+push this 3
+push constant 16
+add
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push this 3
+push constant 8
+sub
+push this 4
+push this 3
+push constant 16
+sub
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+call Player.draw 1
+pop temp 0
+push this 3
+push this 4
+push this 3
+push constant 16
+add
+push this 4
+call Screen.drawLine 4
+pop temp 0
+push constant 2
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function Player.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

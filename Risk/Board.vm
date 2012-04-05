@@ -1,0 +1,315 @@
+function Board.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+call Constants.numTerritories 0
+pop this 1
+push argument 0
+pop this 2
+push argument 1
+pop this 3
+push pointer 0
+call Board.populateTerritories 1
+pop temp 0
+push pointer 0
+return
+function Board.populateTerritories 3
+push argument 0
+pop pointer 0
+push this 1
+call Array.new 1
+pop this 0
+push constant 5
+push constant 7
+push this 3
+push constant 1
+call String.new 1
+push constant 65
+call String.appendChar 2
+push constant 2
+push constant 2
+push constant 5
+call Territory.new 7
+pop local 0
+push constant 0
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 55
+push constant 7
+push this 2
+push constant 1
+call String.new 1
+push constant 66
+call String.appendChar 2
+push constant 2
+push constant 8
+push constant 2
+call Territory.new 7
+pop local 0
+push constant 1
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 105
+push constant 7
+push this 2
+push constant 1
+call String.new 1
+push constant 67
+call String.appendChar 2
+push constant 2
+push constant 14
+push constant 3
+call Territory.new 7
+pop local 0
+push constant 2
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 30
+push constant 55
+push this 3
+push constant 1
+call String.new 1
+push constant 68
+call String.appendChar 2
+push constant 6
+push constant 5
+push constant 2
+call Territory.new 7
+pop local 0
+push constant 3
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 80
+push constant 55
+push this 3
+push constant 1
+call String.new 1
+push constant 69
+call String.appendChar 2
+push constant 6
+push constant 11
+push constant 4
+call Territory.new 7
+pop local 0
+push constant 4
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 55
+push constant 103
+push this 2
+push constant 1
+call String.new 1
+push constant 70
+call String.appendChar 2
+push constant 11
+push constant 8
+push constant 6
+call Territory.new 7
+pop local 0
+push constant 5
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 215
+push constant 7
+push this 2
+push constant 1
+call String.new 1
+push constant 71
+call String.appendChar 2
+push constant 2
+push constant 28
+push constant 4
+call Territory.new 7
+pop local 0
+push constant 6
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 265
+push constant 7
+push this 3
+push constant 1
+call String.new 1
+push constant 72
+call String.appendChar 2
+push constant 2
+push constant 34
+push constant 2
+call Territory.new 7
+pop local 0
+push constant 7
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 215
+push constant 55
+push this 2
+push constant 1
+call String.new 1
+push constant 73
+call String.appendChar 2
+push constant 6
+push constant 28
+push constant 2
+call Territory.new 7
+pop local 0
+push constant 8
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 265
+push constant 55
+push this 3
+push constant 1
+call String.new 1
+push constant 74
+call String.appendChar 2
+push constant 6
+push constant 34
+push constant 4
+call Territory.new 7
+pop local 0
+push constant 9
+push this 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 1
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Territory.getPlayer 1
+pop local 1
+push local 1
+push constant 0
+push constant 0
+not
+call Player.setTerritory 3
+pop temp 0
+push local 1
+push constant 1
+call Player.addTerritories 2
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Board.drawBoard 2
+push argument 0
+pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call Territory.draw 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 145
+push constant 27
+push constant 215
+push constant 27
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Board.getTerritory 0
+push argument 0
+pop pointer 0
+push argument 1
+push this 0
+add
+pop pointer 1
+push that 0
+return
+function Board.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Array.dispose 1
+pop temp 0
+push this 2
+call Player.dispose 1
+pop temp 0
+push this 3
+call Player.dispose 1
+pop temp 0
+push constant 0
+return

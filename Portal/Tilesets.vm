@@ -1,0 +1,1354 @@
+function Tilesets.drawPlayerRight 1
+push argument 0
+push constant 512
+push argument 1
+call Math.multiply 2
+add
+pop local 0
+push constant 16384
+push local 0
+add
+push constant 1984
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push local 0
+add
+push constant 4064
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push local 0
+add
+push constant 3568
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push local 0
+add
+push constant 1992
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push local 0
+add
+push constant 4064
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push local 0
+add
+push constant 16376
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push local 0
+add
+push constant 4
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push local 0
+add
+push constant 18434
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push local 0
+add
+push constant 18410
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push local 0
+add
+push constant 4068
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push local 0
+add
+push constant 4032
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push local 0
+add
+push constant 8160
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push local 0
+add
+push constant 15600
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push local 0
+add
+push constant 14448
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push local 0
+add
+push constant 7280
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push local 0
+add
+push constant 3120
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawPlayerLeft 1
+push argument 0
+push constant 512
+push argument 1
+call Math.multiply 2
+add
+pop local 0
+push constant 16384
+push local 0
+add
+push constant 992
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push local 0
+add
+push constant 2032
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push local 0
+add
+push constant 4016
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push local 0
+add
+push constant 5088
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push local 0
+add
+push constant 2032
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push local 0
+add
+push constant 8188
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push local 0
+add
+push constant 16383
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push local 0
+add
+push constant 32749
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push local 0
+add
+push constant 22498
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push local 0
+add
+push constant 10224
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push local 0
+add
+push constant 1008
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push local 0
+add
+push constant 2040
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push local 0
+add
+push constant 3900
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push local 0
+add
+push constant 3612
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push local 0
+add
+push constant 3640
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push local 0
+add
+push constant 3120
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawChamberBlock 2
+call Chambers.getRoom 0
+pop local 0
+push argument 1
+push local 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 16384
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+label IF_FALSE0
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 16384
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 21846
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 21845
+call Memory.poke 2
+pop temp 0
+label IF_FALSE1
+push local 1
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 16384
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+label IF_FALSE2
+push local 1
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 16384
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 32766
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 16380
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 8184
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 2016
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 960
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 384
+call Memory.poke 2
+pop temp 0
+label IF_FALSE3
+push constant 0
+return
+function Tilesets.drawCursorValid 1
+push argument 0
+push constant 512
+push argument 1
+call Math.multiply 2
+add
+pop local 0
+push constant 16384
+push local 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push local 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawInvalidCursor 1
+push argument 0
+push constant 512
+push argument 1
+call Math.multiply 2
+add
+pop local 0
+push constant 16384
+push local 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push local 0
+add
+push constant 24571
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push local 0
+add
+push constant 28663
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push local 0
+add
+push constant 30703
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push local 0
+add
+push constant 31711
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push local 0
+add
+push constant 32191
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push local 0
+add
+push constant 32639
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push local 0
+add
+push constant 32511
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push local 0
+add
+push constant 32191
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push local 0
+add
+push constant 31711
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push local 0
+add
+push constant 30703
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push local 0
+add
+push constant 28663
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push local 0
+add
+push constant 24571
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push local 0
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push local 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawPortalLeft 0
+push constant 16384
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 4096
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawPortalUp 0
+push constant 16384
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawPortalRight 0
+push constant 16384
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Tilesets.drawPortalDown 0
+push constant 16384
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16416
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16448
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16480
+push argument 0
+add
+push constant 1
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16512
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16544
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16576
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16608
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16640
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16672
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16704
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16736
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16768
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16800
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16832
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 16864
+push argument 0
+add
+push constant 4081
+neg
+call Memory.poke 2
+pop temp 0
+push constant 0
+return

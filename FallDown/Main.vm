@@ -1,0 +1,41 @@
+function Main.main 3
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+call FallDownIntro.new 0
+pop local 0
+push local 0
+call FallDownIntro.run 1
+pop local 2
+push local 0
+call FallDownIntro.dispose 1
+pop temp 0
+push local 2
+call Random.setSeed 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+call FallDownGame.new 0
+pop local 1
+push local 1
+call FallDownGame.run 1
+pop temp 0
+push local 1
+call FallDownGame.dispose 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

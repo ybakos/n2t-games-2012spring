@@ -1,38 +1,51 @@
 function Gameplay.new 0
-push constant 11
+push constant 13
 call Memory.alloc 1
 pop pointer 0
 push constant 5
-pop this 4
-push constant 5
 pop this 5
-push this 4
+push constant 5
+pop this 6
+push constant 1
+pop this 12
 push this 5
+push this 6
 call Guy.new 2
 pop this 1
+push this 5
+push this 6
+call Girl.new 2
+pop this 2
 push constant 0
 push constant 0
 call Ice.new 2
-pop this 3
+pop this 4
 call Board.new 0
 pop this 0
 push constant 0
 push constant 0
 call Rock.new 2
-pop this 2
+pop this 3
 push constant 0
 push constant 0
 call Ground.new 2
-pop this 6
-push constant 0
-push constant 0
-call End.new 2
 pop this 7
 push constant 0
 push constant 0
-call Hole.new 2
+call End.new 2
 pop this 8
+push constant 0
+push constant 0
+call Hole.new 2
+pop this 9
 push pointer 0
+return
+function Gameplay.setGuyGirl 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 12
+push constant 0
 return
 function Gameplay.clearBoard 0
 push argument 0
@@ -62,18 +75,36 @@ push pointer 0
 call Gameplay.drawBoard 1
 pop temp 0
 push this 1
-push this 9
 push this 10
+push this 11
 call Guy.set 3
 pop temp 0
-push this 9
-pop this 4
+push this 2
+push this 10
+push this 11
+call Girl.set 3
+pop temp 0
 push this 10
 pop this 5
+push this 11
+pop this 6
+push this 12
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 push constant 4
 call Gameplay.drawGuy 2
 pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+push constant 4
+call Gameplay.drawGirl 2
+pop temp 0
+label IF_END0
 push constant 0
 return
 function Gameplay.drawGuy 0
@@ -114,6 +145,50 @@ goto IF_END2
 label IF_FALSE2
 push this 1
 call Guy.drawDown 1
+pop temp 0
+label IF_END2
+label IF_END1
+label IF_END0
+push constant 0
+return
+function Gameplay.drawGirl 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 2
+call Girl.drawUp 1
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 2
+call Girl.drawLeft 1
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+call Girl.drawRight 1
+pop temp 0
+goto IF_END2
+label IF_FALSE2
+push this 2
+call Girl.drawDown 1
 pop temp 0
 label IF_END2
 label IF_END1
@@ -172,12 +247,12 @@ eq
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 2
+push this 3
 push argument 1
 push argument 2
 call Rock.set 3
 pop temp 0
-push this 2
+push this 3
 call Rock.draw 1
 pop temp 0
 label IF_FALSE0
@@ -187,12 +262,12 @@ eq
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 3
+push this 4
 push argument 1
 push argument 2
 call Ice.set 3
 pop temp 0
-push this 3
+push this 4
 call Ice.draw 1
 pop temp 0
 label IF_FALSE1
@@ -202,12 +277,12 @@ eq
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
-push this 6
+push this 7
 push argument 1
 push argument 2
 call Ground.set 3
 pop temp 0
-push this 6
+push this 7
 call Ground.draw 1
 pop temp 0
 label IF_FALSE2
@@ -217,18 +292,18 @@ eq
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
-push this 6
+push this 7
 push argument 1
 push argument 2
 call Ground.set 3
 pop temp 0
-push this 6
+push this 7
 call Ground.draw 1
 pop temp 0
 push argument 2
-pop this 9
-push argument 1
 pop this 10
+push argument 1
+pop this 11
 label IF_FALSE3
 push local 0
 push constant 5
@@ -236,12 +311,12 @@ eq
 if-goto IF_TRUE4
 goto IF_FALSE4
 label IF_TRUE4
-push this 7
+push this 8
 push argument 1
 push argument 2
 call End.set 3
 pop temp 0
-push this 7
+push this 8
 call End.draw 1
 pop temp 0
 label IF_FALSE4
@@ -251,12 +326,12 @@ eq
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
-push this 8
+push this 9
 push argument 1
 push argument 2
 call Hole.set 3
 pop temp 0
-push this 8
+push this 9
 call Hole.draw 1
 pop temp 0
 label IF_FALSE5
@@ -295,8 +370,8 @@ call Gameplay.moveGuyUp 1
 pop temp 0
 label WHILE_EXP2
 push this 0
-push this 4
 push this 5
+push this 6
 call Board.getSpot 3
 push constant 2
 eq
@@ -330,8 +405,8 @@ call Gameplay.moveGuyDown 1
 pop temp 0
 label WHILE_EXP3
 push this 0
-push this 4
 push this 5
+push this 6
 call Board.getSpot 3
 push constant 2
 eq
@@ -365,8 +440,8 @@ call Gameplay.moveGuyLeft 1
 pop temp 0
 label WHILE_EXP4
 push this 0
-push this 4
 push this 5
+push this 6
 call Board.getSpot 3
 push constant 2
 eq
@@ -400,8 +475,8 @@ call Gameplay.moveGuyRight 1
 pop temp 0
 label WHILE_EXP5
 push this 0
-push this 4
 push this 5
+push this 6
 call Board.getSpot 3
 push constant 2
 eq
@@ -430,8 +505,8 @@ push constant 0
 return
 label IF_FALSE4
 push this 0
-push this 4
 push this 5
+push this 6
 call Board.getSpot 3
 push constant 5
 eq
@@ -464,8 +539,8 @@ call Output.printString 1
 pop temp 0
 label IF_FALSE5
 push this 0
-push this 4
 push this 5
+push this 6
 call Board.getSpot 3
 push constant 4
 eq
@@ -497,10 +572,10 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push this 0
-push this 4
+push this 5
 push constant 1
 sub
-push this 5
+push this 6
 call Board.getSpot 3
 pop local 0
 label IF_FALSE0
@@ -511,8 +586,8 @@ if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
 push this 0
-push this 4
 push this 5
+push this 6
 push constant 1
 sub
 call Board.getSpot 3
@@ -525,10 +600,10 @@ if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push this 0
-push this 4
+push this 5
 push constant 1
 add
-push this 5
+push this 6
 call Board.getSpot 3
 pop local 0
 label IF_FALSE2
@@ -539,8 +614,8 @@ if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
 push this 0
-push this 4
 push this 5
+push this 6
 push constant 1
 add
 call Board.getSpot 3
@@ -566,18 +641,18 @@ pop pointer 0
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push this 4
-push constant 16
-call Math.multiply 2
 push this 5
 push constant 16
 call Math.multiply 2
-push this 4
+push this 6
+push constant 16
+call Math.multiply 2
+push this 5
 push constant 16
 call Math.multiply 2
 push constant 15
 add
-push this 5
+push this 6
 push constant 16
 call Math.multiply 2
 push constant 15
@@ -585,23 +660,41 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push pointer 0
+push this 6
 push this 5
-push this 4
 call Gameplay.drawObject 3
 pop temp 0
 push this 1
-push this 9
 push this 10
+push this 11
 call Guy.set 3
 pop temp 0
-push this 9
-pop this 4
+push this 2
+push this 10
+push this 11
+call Girl.set 3
+pop temp 0
 push this 10
 pop this 5
+push this 11
+pop this 6
+push this 12
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 push constant 4
 call Gameplay.drawGuy 2
 pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+push constant 4
+call Gameplay.drawGirl 2
+pop temp 0
+label IF_END0
 push constant 0
 return
 function Gameplay.moveGuyUp 0
@@ -610,42 +703,60 @@ pop pointer 0
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push this 4
-push constant 16
-call Math.multiply 2
 push this 5
 push constant 16
 call Math.multiply 2
-push this 4
+push this 6
+push constant 16
+call Math.multiply 2
+push this 5
 push constant 16
 call Math.multiply 2
 push constant 15
 add
-push this 5
+push this 6
 push constant 16
 call Math.multiply 2
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
-push this 5
+push this 6
 push constant 1
 sub
-pop this 5
+pop this 6
 push this 1
-push this 4
 push this 5
+push this 6
 call Guy.set 3
 pop temp 0
+push this 2
+push this 5
+push this 6
+call Girl.set 3
+pop temp 0
+push this 12
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 push constant 2
 call Gameplay.drawGuy 2
 pop temp 0
+goto IF_END0
+label IF_FALSE0
 push pointer 0
-push this 5
+push constant 2
+call Gameplay.drawGirl 2
+pop temp 0
+label IF_END0
+push pointer 0
+push this 6
 push constant 1
 add
-push this 4
+push this 5
 call Gameplay.drawObject 3
 pop temp 0
 push constant 0
@@ -656,42 +767,60 @@ pop pointer 0
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push this 4
-push constant 16
-call Math.multiply 2
 push this 5
 push constant 16
 call Math.multiply 2
-push this 4
+push this 6
+push constant 16
+call Math.multiply 2
+push this 5
 push constant 16
 call Math.multiply 2
 push constant 15
 add
-push this 5
+push this 6
 push constant 16
 call Math.multiply 2
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
-push this 5
+push this 6
 push constant 1
 add
-pop this 5
+pop this 6
 push this 1
-push this 4
 push this 5
+push this 6
 call Guy.set 3
 pop temp 0
+push this 2
+push this 5
+push this 6
+call Girl.set 3
+pop temp 0
+push this 12
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 push constant 4
 call Gameplay.drawGuy 2
 pop temp 0
+goto IF_END0
+label IF_FALSE0
 push pointer 0
-push this 5
+push constant 4
+call Gameplay.drawGirl 2
+pop temp 0
+label IF_END0
+push pointer 0
+push this 6
 push constant 1
 sub
-push this 4
+push this 5
 call Gameplay.drawObject 3
 pop temp 0
 push constant 0
@@ -702,40 +831,58 @@ pop pointer 0
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push this 4
-push constant 16
-call Math.multiply 2
 push this 5
 push constant 16
 call Math.multiply 2
-push this 4
+push this 6
+push constant 16
+call Math.multiply 2
+push this 5
 push constant 16
 call Math.multiply 2
 push constant 15
 add
-push this 5
+push this 6
 push constant 16
 call Math.multiply 2
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
-push this 4
+push this 5
 push constant 1
 sub
-pop this 4
+pop this 5
 push this 1
-push this 4
 push this 5
+push this 6
 call Guy.set 3
 pop temp 0
+push this 2
+push this 5
+push this 6
+call Girl.set 3
+pop temp 0
+push this 12
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 push constant 1
 call Gameplay.drawGuy 2
 pop temp 0
+goto IF_END0
+label IF_FALSE0
 push pointer 0
+push constant 1
+call Gameplay.drawGirl 2
+pop temp 0
+label IF_END0
+push pointer 0
+push this 6
 push this 5
-push this 4
 push constant 1
 add
 call Gameplay.drawObject 3
@@ -748,40 +895,58 @@ pop pointer 0
 push constant 0
 call Screen.setColor 1
 pop temp 0
-push this 4
-push constant 16
-call Math.multiply 2
 push this 5
 push constant 16
 call Math.multiply 2
-push this 4
+push this 6
+push constant 16
+call Math.multiply 2
+push this 5
 push constant 16
 call Math.multiply 2
 push constant 15
 add
-push this 5
+push this 6
 push constant 16
 call Math.multiply 2
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
-push this 4
+push this 5
 push constant 1
 add
-pop this 4
+pop this 5
 push this 1
-push this 4
 push this 5
+push this 6
 call Guy.set 3
 pop temp 0
+push this 2
+push this 5
+push this 6
+call Girl.set 3
+pop temp 0
+push this 12
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push pointer 0
 push constant 3
 call Gameplay.drawGuy 2
 pop temp 0
+goto IF_END0
+label IF_FALSE0
 push pointer 0
+push constant 3
+call Gameplay.drawGirl 2
+pop temp 0
+label IF_END0
+push pointer 0
+push this 6
 push this 5
-push this 4
 push constant 1
 sub
 call Gameplay.drawObject 3

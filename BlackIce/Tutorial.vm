@@ -8,6 +8,15 @@ push constant 0
 pop this 1
 push pointer 0
 return
+function Tutorial.setGuyGirl 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Gameplay.setGuyGirl 2
+pop temp 0
+push constant 0
+return
 function Tutorial.run 0
 push argument 0
 pop pointer 0
